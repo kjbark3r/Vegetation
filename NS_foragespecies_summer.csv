@@ -1,0 +1,99 @@
+SpeciesName,Class,count,mean,rank,cumave
+Poa sp ,graminoid,20,13.19,1,13.19
+Agropyron sp ,graminoid,20,10.495,2,23.685
+Lupinus sp ,forb,20,5.24,3,28.925
+Bromus tectorum,graminoid,20,5.18,4,34.105
+Carex sp ,graminoid,20,5,5,39.105
+Verbascum sp ,forb,20,4.675,6,43.78
+Poa pratensis,graminoid,20,3.19,7,46.97
+Medicago sativa,forb,20,3.14,8,50.11
+Stipa comata,graminoid,20,2.895,9,53.005
+Balsamorhiza sagittata,forb,20,2.835,10,55.84
+Elymus glaucus,graminoid,20,2.705,11,58.545
+Festuca altaica campestris,graminoid,20,2.445,12,60.99
+Salix sp  stem,shrub,20,2.31,13,63.3
+Bromus inermis,graminoid,20,2.09,14,65.39
+Shepherdia sp  leaf,shrub,20,1.84,15,67.23
+Pseudoroegneria spicata,graminoid,20,1.835,16,69.065
+Other Grass,graminoid,20,1.825,17,70.89
+Physocarpus sp  leaf,shrub,20,1.775,18,72.665
+Calamagrostis rubescens,graminoid,20,1.64,19,74.305
+Centaurea sp ,forb,20,1.56,20,75.865
+Festuca idahoensis,graminoid,20,1.435,21,77.3
+Composite hair,comphair,20,1.325,22,78.625
+Phleum pratense,graminoid,20,1.205,23,79.83
+Other Forb,forb,20,1.17,24,81
+Trifolium sp ,forb,20,1.07,25,82.07
+Alopecurus sp ,graminoid,20,0.895,26,82.965
+Astragalus sp ,forb,20,0.835,27,83.8
+Achillea millefolium,forb,20,0.82,28,84.62
+Ranunculus sp ,forb,20,0.81,29,85.43
+Galium sp ,forb,20,0.75,30,86.18
+Koeleria macrantha,graminoid,20,0.7,31,86.88
+Cirsium sp ,forb,20,0.695,32,87.575
+Vaccinium sp  stem,shrub,20,0.685,33,88.26
+Agropyron cristatum,graminoid,10,0.64,34,88.9
+Taraxacum sp ,forb,20,0.61,35,89.51
+Equisetum sp ,forb,20,0.6,36,90.11
+Dactylis glomerata,graminoid,10,0.555,37,90.665
+Other Shrub leaf,shrub,20,0.505,38,91.17
+Populus sp  stem,tree,10,0.5,39,91.67
+Pinus sp ,tree,20,0.485,40,92.155
+Other Shrub stem,shrub,20,0.47,41,92.625
+Zea mays,graminoid,10,0.435,42,93.06
+Symphoricarpos albus leaf,shrub,20,0.365,43,93.425
+Solidago sp ,forb,20,0.355,44,93.78
+Aristida purpurea,graminoid,10,0.325,45,94.105
+Triticum aestivum,graminoid,10,0.305,46,94.41
+Potentilla sp  leaf,forb,10,0.305,47,94.715
+Salix sp  leaf,shrub,20,0.275,48,94.99
+Potentilla sp ,forb,10,0.26,49,95.25
+Chamerion angustifolium,forb,20,0.25,50,95.5
+Flower,unk,10,0.25,51,95.75
+Thinopyrum intermedium,graminoid,20,0.225,52,95.975
+Seed Nut,seed,10,0.215,53,96.19
+Amelanchier sp  stem,shrub,10,0.195,54,96.385
+Pseudotsuga menziesii,tree,20,0.195,55,96.58
+Hieracium sp ,forb,20,0.19,56,96.77
+Senecio sp ,forb,20,0.19,57,96.96
+Erigeron sp ,forb,20,0.185,58,97.145
+Moss,moss,20,0.185,59,97.33
+Rosa sp  stem,shrub,10,0.16,60,97.49
+Berberis repens leaf,shrub,10,0.145,61,97.635
+Amelanchier sp  leaf,shrub,10,0.14,62,97.775
+Castilleja sp ,forb,20,0.14,63,97.915
+Prunus sp  stem,shrub,20,0.135,64,98.05
+Juncus sp ,graminoid,20,0.115,65,98.165
+Rosa sp  leaf,shrub,20,0.115,66,98.28
+Lithophragma sp ,forb,10,0.11,67,98.39
+Phacelia sp ,forb,20,0.11,68,98.5
+Vaccinium sp  leaf,shrub,10,0.11,69,98.61
+Acer sp  stem,shrub,10,0.105,70,98.715
+Geum sp ,forb,20,0.105,71,98.82
+Cornus sp  leaf,forb,10,0.1,72,98.92
+Mustard,forb,20,0.095,73,99.015
+Phlox sp ,forb,20,0.08,74,99.095
+Purshia tridentata leaf,shrub,10,0.08,75,99.175
+Prunus sp  leaf,shrub,20,0.08,76,99.255
+Arctostaphylos uva-ursi stem,shrub,10,0.075,77,99.33
+Potentilla sp  stem,forb,10,0.075,78,99.405
+Fragaria sp ,forb,20,0.06,79,99.465
+Physocarpus sp  stem,shrub,10,0.055,80,99.52
+Sambucus sp  leaf,shrub,10,0.055,81,99.575
+Solanum sp ,forb,10,0.055,82,99.63
+Cryptantha sp ,forb,10,0.05,83,99.68
+Plantago sp ,forb,20,0.05,84,99.73
+Typha sp ,forb,10,0.045,85,99.775
+Arnica sp ,forb,10,0.04,86,99.815
+Heracleum sp ,forb,10,0.03,87,99.845
+Artemisia tridentata leaf,shrub,10,0.025,88,99.87
+Berberis repens stem,shrub,10,0.025,89,99.895
+Montia sp ,forb,10,0.02,90,99.915
+Cynoglossum sp ,forb,10,0.015,91,99.93
+Lichen,lichen,10,0.015,92,99.945
+Penstemon sp ,forb,10,0.015,93,99.96
+Purshia tridentata stem,shrub,10,0.015,94,99.975
+Stellaria sp ,forb,10,0.015,95,99.99
+Lithospermum sp ,forb,10,0.01,96,100
+Berry,berry,10,0,97,100
+Populus sp  leaf,tree,10,0,98,100

@@ -1,0 +1,658 @@
+"PlotID","Date","Collector","Latitude","Longitude","Site Description","Ecosystem Class","Additional Class","Aspect","Elevation _m","Comments","Densio10","Densio20","Densio30","Densio40","Percent_Canopy_Cover","Prism_Hits","Dominant_Tree","Second_Tree","Tree_Size_Class"
+5.00,7/17/2014 0:00:00,"RAD",46.45,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"181",1941.00,"0",18.00,8.00,23.00,24.00,"60.7",11.00,"PINCON",,
+7.00,7/17/2014 0:00:00,"RD",46.45,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"35",1928.00,"0",24.00,16.00,23.00,21.00,"69.9",11.00,"PINCON",,
+8.00,8/29/2014 0:00:00,"MB TA",46.57,-113.82,"Forest","Rocky Mountain Lodgepole Pine Forest",,"328",1984.00,"GAP completed at this plot. Model species could not be collected in bag. not enough bags. initial measurements were taken for this plant.",7.00,9.00,5.00,7.00,"23.3",3.00,"PINCON",,
+10.00,8/29/2014 0:00:00,"TA",46.57,-113.82,"Forest","Rocky Mountain Lodgepole Pine Forest",,"194",1962.00,"VACMEM was collected as a model species in bags. VACSCO model species was not collected in bags but initial measurements were taken of this plant. not enough bags to collect.",23.00,24.00,19.00,22.00,"73.2",6.00,"PINCON",,
+11.00,8/29/2014 0:00:00,"MB TA",46.57,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"164",1989.00,"Model Species could not be collected in bag and brought back to lab. not enough bags. initial measurements were taken for this species.",19.00,20.00,18.00,17.00,"61.6",14.00,"PINCON",,
+12.00,8/29/2014 0:00:00,"TA",46.57,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"218",1966.00,"0",2.00,8.00,13.00,20.00,"35.8",0.00,"PINCON",,
+16.00,7/23/2015 0:00:00,"LS",46.46,-113.84,"0","MFLP","0","30",1990.24,"0",5.00,4.00,10.00,8.00,"6.75",9.00,"PINCON","ABILAS","2"
+17.00,7/23/2015 0:00:00,"JM",46.46,-113.84,"0","MFLP","0","354",2017.45,"0",12.00,11.00,15.00,12.00,"12.5",10.00,"PINCON","ABILAS","2"
+18.00,7/23/2015 0:00:00,"LS,KB",46.46,-113.84,"0","MFLP","0","24",2012.89,"0",8.00,9.00,8.00,7.00,"8",14.00,"PINCON","ABILAS","1"
+19.00,7/23/2015 0:00:00,"JM",46.46,-113.84,"0","MFLP","0","26",2036.69,"0",18.00,15.00,13.00,12.00,"14.5",5.00,"PINCON","ABILAS","2"
+20.00,7/21/2015 0:00:00,"EF",46.75,-113.88,"0","FMC","0","180",1910.49,"0",17.00,15.00,21.00,18.00,"17.75",13.00,"PSEMEN","PINCON","3"
+21.00,7/21/2015 0:00:00,"JM",46.74,-113.88,"0","FMC","0","215",1802.97,"0",9.00,1.00,23.00,14.00,"11.75",4.00,"PSEMEN","0","3"
+22.00,7/21/2015 0:00:00,"JM",46.75,-113.88,"0","FMC","0","162",1947.74,"0",0.00,3.00,17.00,4.00,"6",8.00,"PSEMEN","PINCON","3"
+24.00,7/21/2015 0:00:00,"EF",46.74,-113.88,"0","MFDSF","0","60",1820.38,"0",8.00,11.00,14.00,2.00,"8.75",11.00,"PSEMEN","ABILAS","2"
+25.00,8/28/2014 0:00:00,"JM",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"120",1670.00,"0",21.00,24.00,22.00,23.00,"74.9",6.00,"ABILAS",,
+26.00,8/28/2014 0:00:00,"JM",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"120",1729.00,"Labeled as decid forest",18.00,12.00,17.00,17.00,"53.2",6.00,"PSEMEN",,
+27.00,8/28/2014 0:00:00,"EF JM",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"135",1728.00,"Habitat changed from deciduous forest.",24.00,17.00,5.00,14.00,"49.9",6.00,"PSEMEN",,
+28.00,8/28/2014 0:00:00,"EF",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"90",1802.00,"Habitat changed from deciduous forest.",3.00,4.00,2.00,22.00,"25.8",3.00,"ABILAS",,
+29.00,8/28/2014 0:00:00,"EF",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"150",1756.00,"Habitat changed from deciduous forest. Plot moved off road.",9.00,10.00,9.00,14.00,"34.9",11.00,"PSEMEN",,
+35.00,8/20/2015 0:00:00,"LS",46.75,-113.89,"0","FMC","0","136",2080.83,"0",12.00,13.00,5.00,11.00,"10.25",7.00,"PSEMEN","0","3"
+36.00,8/20/2015 0:00:00,"MD",46.75,-113.89,"0","FMC","0","171",2052.17,"0",6.00,14.00,21.00,12.00,"13.25",17.00,"PSEMEN","0","3"
+37.00,8/20/2015 0:00:00,"LS",46.75,-113.88,"0","FMC","0","192",2116.28,"0",5.00,7.00,15.00,20.00,"11.75",6.00,"PSEMEN","0","4"
+39.00,8/20/2015 0:00:00,"MD",46.75,-113.88,"0","FMC","0","122",1958.00,"0",11.00,6.00,19.00,12.00,"12",6.00,"PSEMEN","0","2"
+40.00,8/19/2015 0:00:00,"MD",46.32,-113.89,"0","MFDSF","0","160",2340.22,"plot moved down and out of burn",21.00,24.00,18.00,24.00,"21.75",13.00,"ABILAS","PINCON","2"
+41.00,8/19/2015 0:00:00,"JM",46.31,-113.89,"0","MFDSF","0","142",2320.09,"0",24.00,5.00,11.00,17.00,"14.25",6.00,"ABILAS","PINCON","3"
+42.00,8/19/2015 0:00:00,"EF",46.31,-113.89,"0","MFDSF","0","125",2235.34,"0",8.00,14.00,21.00,15.00,"14.5",13.00,"ABILAS","PINCON","2"
+43.00,8/19/2015 0:00:00,"LS",46.31,-113.90,"0","MFDSF","0","154",2256.79,"0",16.00,14.00,24.00,8.00,"15.5",10.00,"ABILAS","PINCON","4"
+66.00,8/19/2014 0:00:00,"MB",46.72,-113.80,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"88",1692.00,"GAP completed at this plot",14.00,17.00,23.00,22.00,"63.2",12.00,"PSEMEN",,
+68.00,8/22/2014 0:00:00,"RD",46.72,-113.80,"forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"168",1679.00,"EVIDENCE OF OLD BURN",13.00,23.00,10.00,21.00,"55.7",5.00,"LAROCC",,
+69.00,8/19/2014 0:00:00,"MB",46.73,-113.79,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"214",1750.00,"0",6.00,0.00,4.00,1.00,"9.2",6.00,"PINPON",,
+70.00,8/19/2014 0:00:00,"MB",46.73,-113.80,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"226",1708.00,"0",15.00,24.00,13.00,7.00,"49.1",10.00,"PSEMEN",,
+71.00,7/18/2014 0:00:00,"EF",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"85",1749.00,"Habitat changed from deciduous forest.",16.00,15.00,13.00,19.00,"52.4",12.00,"PSEMEN",,
+72.00,7/16/2014 0:00:00,"EF",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"215",1724.00,"Habitat change from deciduous forest",9.00,4.00,17.00,22.00,"43.3",3.00,"PSEMEN",,
+73.00,7/15/2014 0:00:00,"MB",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"188",1717.00,"0",15.00,8.00,18.00,20.00,"50.8",5.00,"PSEMEN",,
+74.00,7/16/2014 0:00:00,"JM",46.46,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"67",1664.00,"Labeled  as Decid forest.",18.00,14.00,5.00,16.00,"44.1",6.00,"PSEMEN",,
+75.00,7/18/2014 0:00:00,"EF",46.47,-113.89,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"78",1734.00,"Habitat changed from deciduous forest.",24.00,22.00,19.00,13.00,"64.9",22.00,"PSEMEN",,
+91.00,7/20/2015 0:00:00,"JM",46.75,-114.00,"0","FMC","0","323",1416.41,"0",22.00,20.00,7.00,19.00,"17",8.00,"PSEMEN","PINPON","3"
+92.00,7/20/2015 0:00:00,"JM",46.76,-114.01,"0","FMC","0","343",1382.67,"0",9.00,5.00,10.00,21.00,"11.25",5.00,"PSEMEN","PINPON","3"
+93.00,7/20/2015 0:00:00,"LS",46.75,-114.00,"0","FMC","0","250",1412.52,"0",7.00,11.00,13.00,15.00,"11.5",14.00,"PSEMEN","PINPON","1"
+94.00,7/20/2015 0:00:00,"EF",46.75,-114.00,"0","FMC","0","300",1450.72,"0",24.00,22.00,14.00,23.00,"20.75",14.00,"PSEMEN","0","2"
+95.00,7/20/2015 0:00:00,"EF",46.76,-114.00,"0","FMC","0","290",1458.50,"0",9.00,4.00,7.00,16.00,"9",4.00,"PSEMEN","0","2"
+106.00,8/22/2014 0:00:00,"MB",46.69,-113.75,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"66",1660.00,"GAP completed at this plot. plants were wet when collected.No 20m clip plot.",21.00,21.00,20.00,17.00,"65.7",7.00,"PSEMEN",,
+108.00,8/22/2014 0:00:00,"TA",46.69,-113.75,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"304",1633.00,"plants were wet when collected",13.00,11.00,14.00,18.00,"46.6",6.00,"PSEMEN",,
+109.00,8/22/2014 0:00:00,"MB",46.69,-113.75,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"268",1586.00,"Plants were wet when collected.",8.00,13.00,22.00,14.00,"47.4",9.00,"PSEMEN",,
+122.00,7/22/2015 0:00:00,"LS",46.71,-113.89,"0","FMC","0","40",1416.18,"0",11.00,10.00,9.00,9.00,"9.75",13.00,"PINCON","PSEMEN","1"
+123.00,7/22/2015 0:00:00,"EF",46.70,-113.89,"0","FMC","0","308",1457.05,"0",22.00,24.00,22.00,21.00,"22.25",12.00,"LAROCC","PSEMEN","2"
+124.00,7/22/2015 0:00:00,"LS",46.71,-113.88,"0","FMC","0","30",1398.11,"0",11.00,5.00,13.00,15.00,"11",5.00,"PSEMEN","LAROCC","2"
+125.00,7/22/2015 0:00:00,"EF",46.70,-113.89,"0","FMC","0","270",1479.01,"0",11.00,9.00,10.00,8.00,"9.5",4.00,"LAROCC","PINCON","1"
+131.00,8/20/2015 0:00:00,"JM",46.44,-113.90,"0","FMC","0","251",1550.94,"0",10.00,9.00,19.00,19.00,"14.25",3.00,"PSEMEN","PINPON","3"
+132.00,8/20/2015 0:00:00,"EF",46.43,-113.91,"0","FMC","0","320",1502.57,"plot moved out of active logging",19.00,16.00,21.00,20.00,"19",11.00,"PSEMEN","0","3"
+133.00,8/20/2015 0:00:00,"EF",46.44,-113.90,"0","FMC","0","320",1485.97,"plot moved out of active logging",17.00,10.00,17.00,20.00,"16",9.00,"PSEMEN","PINPON","3"
+134.00,8/20/2015 0:00:00,"JM",46.44,-113.90,"0","FMC","0","303",1549.02,"Moved plot out of recently logged area.",0.00,0.00,0.00,0.00,"0",7.00,"PINPON","PSEMEN","3"
+135.00,8/20/2015 0:00:00,"JM",46.44,-113.90,"0","FMC","0","289",1635.30,"0",20.00,4.00,9.00,11.00,"11",9.00,"PSEMEN","PINPON","3"
+141.00,8/20/2014 0:00:00,"MB",46.72,-113.76,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"50",1277.00,"GAP completed at this plot. Plot on a steep rocky slope.",7.00,11.00,13.00,10.00,"34.1",5.00,"PSEMEN",,
+144.00,8/20/2014 0:00:00,"MB",46.73,-113.76,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"122",1222.00,"Transect was on a very steep rocky slope. No 20m clip plot. Plants were wet when collected.",8.00,6.00,10.00,12.00,"30.0",6.00,"PSEMEN",,
+145.00,8/20/2014 0:00:00,"MB",46.72,-113.76,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"36",1325.00,"Plants were wet when collected.",19.00,17.00,9.00,11.00,"46.6",8.00,"PSEMEN",,
+146.00,7/22/2014 0:00:00,"JM",46.82,-113.92,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"72",1243.00,"0",23.00,13.00,22.00,20.00,"64.9",14.00,"PSEMEN",,
+147.00,7/16/2014 0:00:00,"RD",46.82,-113.92,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"300",1253.00,"moved out of parking lot",18.00,13.00,10.00,20.00,"50.8",10.00,"PSEMEN",,
+148.00,7/22/2014 0:00:00,"RAD",46.82,-113.93,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"211",1260.00,"folf course",10.00,19.00,18.00,22.00,"57.4",16.00,"PSEMEN",,
+149.00,7/22/2014 0:00:00,"EF",46.82,-113.93,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"340",1234.00,"0",13.00,12.00,13.00,15.00,"44.1",10.00,"PSEMEN",,
+150.00,7/22/2014 0:00:00,"JM",46.83,-113.92,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"90",1244.00,"0",18.00,20.00,23.00,24.00,"70.7",15.00,"PINPON",,
+151.00,8/18/2015 0:00:00,"LS",46.60,-113.90,"0","OPP","0","340",1353.51,"0",16.00,7.00,1.00,15.00,"9.75",7.00,"PINPON","0","3"
+153.00,8/18/2015 0:00:00,"LS",46.60,-113.90,"0","OPP","0","160",1332.95,"0",6.00,12.00,18.00,5.00,"10.25",11.00,"PINPON","0","3"
+154.00,8/18/2015 0:00:00,"JM",46.60,-113.90,"0","OPP","0","277",1356.95,"0",5.00,0.00,0.00,3.00,"2",4.00,"PINPON","0","3"
+161.00,8/4/2014 0:00:00,"JM",46.82,-113.94,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"317",1225.00,"0",19.00,3.00,18.00,23.00,"52.4",14.00,"PSEMEN",,
+162.00,8/4/2014 0:00:00,"JS, EF",46.82,-113.94,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"228",1243.00,"0",19.00,23.00,24.00,19.00,"70.7",13.00,"PINPON",,
+164.00,8/4/2014 0:00:00,"EF JS",46.83,-113.94,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"338",1267.00,"0",1.00,5.00,5.00,0.00,"9.2",3.00,"PINPON",,
+165.00,8/4/2014 0:00:00,"JM",46.82,-113.94,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"306",1249.00,"0",10.00,19.00,12.00,5.00,"38.3",11.00,"PSEMEN",,
+171.00,8/22/2014 0:00:00,"JM",46.76,-113.72,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"101",1186.00,"0",14.00,17.00,17.00,8.00,"46.6",8.00,"PSEMEN",,
+172.00,8/12/2014 0:00:00,"JM",46.76,-113.73,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"80",1279.00,"0",5.00,10.00,22.00,8.00,"37.4",6.00,"PSEMEN",,
+173.00,8/22/2014 0:00:00,"JM",46.76,-113.72,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"4",1199.00,"0",21.00,16.00,23.00,22.00,"68.2",4.00,"PSEMEN",,
+174.00,8/12/2014 0:00:00,"EF",46.76,-113.73,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"160",1319.00,"0",20.00,5.00,24.00,6.00,"45.8",6.00,"PSEMEN",,
+175.00,8/22/2014 0:00:00,"JM",46.75,-113.73,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"68",1286.00,"0",20.00,10.00,23.00,19.00,"59.9",9.00,"PSEMEN",,
+176.00,8/18/2015 0:00:00,"MD",46.85,-113.89,"0","FMC","0","309",1109.39,"0",22.00,24.00,18.00,24.00,"22",12.00,"PSEMEN","PINPON","2"
+179.00,8/18/2015 0:00:00,"MD",46.85,-113.89,"0","FMC","0","323",1101.53,"0",22.00,24.00,21.00,24.00,"22.75",21.00,"PSEMEN","PINPON","2"
+191.00,8/4/2015 0:00:00,"JM, KB",46.50,-113.85,"0","MFDSF","MFMSF","FLAT",1830.33,"0",5.00,19.00,4.00,15.00,"10.75",18.00,"PINCON","PICENG","2"
+192.00,8/4/2015 0:00:00,"MD",46.51,-113.86,"0","MFLP","0","FLAT",1881.89,"0",24.00,23.00,24.00,20.00,"22.75",13.00,"PINCON","ABILAS","2"
+193.00,8/4/2015 0:00:00,"JM,KB",46.50,-113.85,"0","MFDSF","MFMSF","19",1842.12,"0",19.00,19.00,22.00,21.00,"20.25",5.00,"ABILAS","PICENG","2"
+194.00,8/3/2015 0:00:00,"MD",46.51,-113.85,"0","MFLP","0","FLAT",1870.33,"0",22.00,24.00,19.00,14.00,"19.75",5.00,"PINCON","ABILAS","2"
+195.00,8/4/2015 0:00:00,"JM,KB,MD",46.51,-113.85,"0","MFDSF","MFMSF","14",1812.42,"0",21.00,19.00,18.00,23.00,"20.25",8.00,"PICENG","ABILAS","2"
+206.00,8/26/2014 0:00:00,"EF",46.76,-113.88,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"290",2049.00,"0",9.00,9.00,3.00,9.00,"25.0",9.00,"PINCON",,
+207.00,8/26/2014 0:00:00,"JM",46.75,-113.88,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"93",2040.00,"0",1.00,1.00,4.00,5.00,"9.2",0.00,"ABILAS",,
+208.00,8/26/2014 0:00:00,"EF",46.76,-113.88,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"184",2054.00,"Plot moved farther away from 206. Plot in logged area.",1.00,2.00,24.00,20.00,"39.1",2.00,"ABILAS",,
+209.00,8/26/2014 0:00:00,"EF JM",46.76,-113.87,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"200",2083.00,"0",2.00,7.00,2.00,5.00,"13.3",4.00,"ABILAS",,
+210.00,8/26/2014 0:00:00,"JM",46.75,-113.88,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"70",1979.00,"0",18.00,11.00,24.00,14.00,"55.7",9.00,"ABILAS",,
+216.00,8/3/2015 0:00:00,"MD",46.71,-113.74,"0","FMC","0","342",1848.68,"0",23.00,24.00,20.00,24.00,"22.75",23.00,"PSEMEN","0","2"
+217.00,8/3/2015 0:00:00,"RD",46.71,-113.74,"0","MFLP","0","318",1894.61,"fair amount of dead lodgepole",20.00,20.00,5.00,15.00,"15",4.00,"PINCON","ABILAS","2"
+218.00,8/3/2015 0:00:00,"MD",46.71,-113.74,"0","MFLP","0","9",1880.81,"0",24.00,23.00,19.00,24.00,"22.5",15.00,"PINCON","PSEMEN","1"
+220.00,8/3/2015 0:00:00,"RD",46.71,-113.74,"0","MFLP","0","62",1929.20,"a fair amount of dead lodgepole, canopy seems denser than prism reading.",5.00,16.00,13.00,8.00,"10.5",5.00,"PINCON","PSEMEN","2"
+221.00,8/28/2015 0:00:00,"EF",46.64,-113.76,"0","MFDSF","0","313",1847.88,"lack of understory plants due to extremely dense tree canopy.",23.00,22.00,24.00,24.00,"23.25",28.00,"ABILAS","PICENG","2"
+222.00,8/28/2015 0:00:00,"JM",46.64,-113.76,"0","MFDSF","0","93",1805.79,"0",21.00,14.00,19.00,5.00,"14.75",11.00,"ABILAS","PICENG","2"
+223.00,8/28/2015 0:00:00,"JM",46.64,-113.76,"0","MFDSF","0","80",1787.94,"0",16.00,15.00,14.00,17.00,"15.5",15.00,"PICENG","PSEMEN","3"
+224.00,8/28/2015 0:00:00,"EF",46.64,-113.76,"0","MFDSF","0","320",1803.55,"0",14.00,17.00,13.00,18.00,"15.5",12.00,"PSEMEN","PICENG","3"
+231.00,8/19/2015 0:00:00,"MD",46.32,-113.89,"0","SWP","0","171",2385.54,"moved plot out of burn",20.00,24.00,24.00,18.00,"21.5",28.00,"PINCON","ABILAS","2"
+232.00,8/19/2015 0:00:00,"EF",46.32,-113.88,"0","SWP","0","220",2312.33,"plot moved. the approach was cliffed out.",9.00,4.00,4.00,3.00,"5",7.00,"ABILAS","PINALB","2"
+233.00,8/19/2015 0:00:00,"LS",46.32,-113.88,"0","SWP","0","342",2412.80,"0",14.00,15.00,17.00,15.00,"15.25",13.00,"ABILAS","PICENG","3"
+234.00,8/19/2015 0:00:00,"JM",46.32,-113.89,"0","SWP","0","278",2405.36,"0",5.00,8.00,2.00,3.00,"4.5",16.00,"ABILAS","PICENG","3"
+235.00,8/19/2015 0:00:00,"MD",46.32,-113.89,"0","SWP","0","186",2407.47,"0",16.00,22.00,16.00,13.00,"16.75",7.00,"PINALB","ABILAS","2"
+237.00,8/29/2014 0:00:00,"JM",46.29,-113.87,"Forest","Rocky Mountain Subalpine Woodland and Parkland",,"325",2462.00,"0",10.00,0.00,3.00,11.00,"20.0",7.00,"ABILAS",,
+238.00,8/29/2014 0:00:00,"RAD JMM EF",46.30,-113.87,"Forest","Rocky Mountain Subalpine Woodland and Parkland",,"303",2529.00,"0",2.00,2.00,11.00,17.00,"26.6",11.00,"ABILAS",,
+239.00,8/29/2014 0:00:00,"EF",46.29,-113.87,"Forest","Rocky Mountain Subalpine Woodland and Parkland",,"220",2477.00,"Plot moved 475' upslope - too steep.",14.00,3.00,17.00,13.00,"39.1",7.00,"ABILAS",,
+240.00,8/29/2014 0:00:00,"RAD",46.29,-113.87,"Forest","Rocky Mountain Subalpine Woodland and Parkland",,"311",2444.00,"plot moved to avoid scree cliffs. elk sign. lots of dead whitebark pine s0gs and live ones.",12.00,14.00,18.00,21.00,"54.1",7.00,"ABILAS",,
+244.00,7/24/2014 0:00:00,"EF",46.53,-113.84,"Forest","Rocky Mountain Lodgepole Pine Forest",,"170",1954.00,"Habitat changed from grassland.",18.00,19.00,24.00,8.00,"57.4",11.00,"PSEMEN",,
+245.00,7/24/2014 0:00:00,"JM",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"30",1964.00,"Labeled as grassland",11.00,8.00,24.00,20.00,"52.4",5.00,"PINCON",,
+246.00,7/24/2014 0:00:00,"JM",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"30",1970.00,"Labeled as a grassland",18.00,17.00,15.00,17.00,"55.7",8.00,"PINCON",,
+265.00,7/24/2014 0:00:00,"JM",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"28",1962.00,"Labeled as grassland",24.00,16.00,15.00,22.00,"64.1",0.00,"PINCON",,
+266.00,7/24/2014 0:00:00,"EF",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"285",1966.00,"Habitat changed from grassland.",8.00,16.00,19.00,24.00,"55.7",5.00,"PSEMEN",,
+267.00,7/24/2014 0:00:00,"EF",46.53,-113.84,"Forest","Rocky Mountain Lodgepole Pine Forest",,"16",1961.00,"Habitat changed from grassland.",3.00,4.00,4.00,6.00,"14.1",3.00,"PINCON",,
+268.00,7/29/2014 0:00:00,"RAD",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"32",1954.00,"0",1.00,10.00,12.00,21.00,"36.6",9.00,"PINCON",,
+269.00,7/29/2014 0:00:00,"RAD",46.53,-113.83,"Forest","Rocky Mountain Lodgepole Pine Forest",,"26",1959.00,"Lots of neat biocrust",11.00,8.00,2.00,15.00,"30.0",5.00,"ABILAS",,
+270.00,8/6/2015 0:00:00,"LS",46.43,-113.88,"0","MFDSF",,"94",2003.49,"The original coordinates were in the middle of a tallus slope with zero vegetation. The plot was moved 40 meters to the bottom of the tallus slope.",3.00,8.00,6.00,2.00,"4.75",7.00,"POPTRE","ABILAS","1"
+279.00,8/31/2015 0:00:00,"EF",46.71,-114.05,"0","WVB","0","360",964.26,"plot moved into WVB. densiometer readings due to tall (>2m) SALIX, not tree canopy",0.00,2.00,6.00,10.00,"4.5",0.00,"0","0","0"
+280.00,8/31/2015 0:00:00,"EF",46.71,-114.04,"0","WVB","0","360",964.26,"plot moved 50' into wet meadow",5.00,10.00,16.00,18.00,"12.25",3.00,"POPBAL","PINPON","2"
+281.00,8/21/2015 0:00:00,"EF",46.70,-114.04,"0","WVB","0","360",964.29,"plot runs along the river bank at the ""bankfull"" vegetation line. vegetation patchy with river rock dominating.",2.00,1.00,1.00,0.00,"1",1.00,"POPBAL","PINPON","3"
+282.00,8/21/2015 0:00:00,"EF",46.71,-114.05,"0","WVB","0","360",964.26,"plot moved. it was on an island in the middle of the bitterroot. i moved it .1mile into a POPBAL grove representing WVB.",6.00,7.00,13.00,12.00,"9.5",3.00,"POPBAL","PINPON","3"
+283.00,8/21/2015 0:00:00,"EF",46.71,-114.05,"0","WVB","0","360",964.26,"plot moved ca. 50' out of dry meadow.",4.00,3.00,5.00,4.00,"4",8.00,"POPBAL","PINPON","3"
+284.00,7/16/2015 0:00:00,"EF",46.67,-114.04,"0","WVB","0","10",970.35,"Seasonally wet meadow. Dry at time of sampling.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+285.00,7/16/2015 0:00:00,"EF",46.67,-114.04,"0","WVB","0","10",970.35,"Seasonally wet meadow. Very dry at time of sampling.",2.00,1.00,0.00,0.00,"0.75",1.00,"PINPON","POPBAL","3"
+286.00,8/17/2015 0:00:00,"MD",46.56,-114.09,"0","WVB","0","FLAT",992.05,"plot moved to riparian habitat",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+287.00,8/17/2015 0:00:00,"MD",46.55,-114.09,"0","WVB","0","FLAT",991.87,"plot moved to riparian habitat",21.00,7.00,7.00,0.00,"8.75",13.00,"POPBAL","PINMON","3"
+288.00,8/17/2015 0:00:00,"EF",46.56,-114.09,"0","WVB","0","330",992.08,"plot moved into WVB",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+289.00,8/17/2015 0:00:00,"EF",46.56,-114.08,"0","WEM","0","330",991.70,"plot moved into WEM",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+290.00,8/14/2014 0:00:00,"JM",46.58,-114.06,"Wetland","Northern Rocky Mountain Lower Montane Riparian Woodland and Shrubland",,"10",985.00,"labeled as grassland",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+291.00,8/14/2014 0:00:00,"EF",46.56,-114.09,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"350",990.00,"This is the GAP plot for the group.",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+292.00,8/14/2014 0:00:00,"EF",46.58,-114.06,"Wetland","Northern Rocky Mountain Lower Montane Riparian Woodland and Shrubland",,"350",986.00,"Habitat changed from grassland. Plot moved 350ft to be on dry ground.",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+293.00,8/17/2015 0:00:00,"EF, MD",46.57,-114.06,"0","WEM","0","330",986.79,"plot moved to bank of pond.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+294.00,8/14/2014 0:00:00,"JM",46.56,-114.08,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"90",989.00,"flat N-S transect",0.00,6.00,2.00,6.00,"11.6",1.00,"PINPON",,
+300.00,7/17/2014 0:00:00,"JM",46.85,-113.88,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"90",1034.00,"Labeled as grassland",7.00,9.00,9.00,10.00,"29.1",3.00,"PINPON",,
+301.00,7/17/2014 0:00:00,"JM",46.85,-113.88,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"90",1020.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+302.00,7/22/2014 0:00:00,"JM",46.85,-113.88,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"70",1010.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+303.00,7/17/2014 0:00:00,"EF",46.85,-113.88,"Grassland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"64",1025.00,"0",3.00,2.00,3.00,2.00,"8.3",1.00,"PSEMEN",,
+304.00,7/17/2014 0:00:00,"EF",46.85,-113.88,"Grassland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"60",1019.00,"Plot moved out of road.",1.00,3.00,3.00,3.00,"8.3",4.00,"PSEMEN",,
+305.00,8/4/2014 0:00:00,"EF",46.81,-114.01,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"350",1141.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+306.00,8/4/2014 0:00:00,"JM",46.81,-114.00,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"342",1165.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+307.00,8/4/2014 0:00:00,"EF",46.81,-114.00,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"330",1201.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+308.00,8/4/2014 0:00:00,"JM",46.81,-114.00,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"334",1211.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+309.00,8/4/2014 0:00:00,"EF",46.81,-114.01,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"312",1170.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+310.00,8/11/2014 0:00:00,"MB",46.74,-114.03,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"254",1201.00,"GAP completed at this plot",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+311.00,8/11/2014 0:00:00,"MB",46.74,-114.03,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"278",1202.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+312.00,8/11/2014 0:00:00,"MB",46.74,-114.03,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"258",1194.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+313.00,8/11/2014 0:00:00,"MB",46.73,-114.03,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"196",1191.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+314.00,8/11/2014 0:00:00,"MB",46.73,-114.03,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"184",1188.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+315.00,8/25/2014 0:00:00,"MB",46.60,-113.93,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"226",1230.00,"GAP completed at this plot.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+316.00,8/25/2014 0:00:00,"MB",46.60,-113.93,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"162",1226.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+318.00,8/25/2014 0:00:00,"MB",46.60,-113.93,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"98",1198.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+319.00,8/25/2014 0:00:00,"MB",46.60,-113.93,"Grassland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"300",1218.00,"0",5.00,6.00,5.00,0.00,"13.3",2.00,"PINPON",,
+322.00,6/9/2014 0:00:00,"JM, MB, EF",46.55,-113.93,"Grassland",,,"68",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+322.00,6/30/2014 0:00:00,"MB JM",46.55,-113.93,"Grassland",,,"81",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+322.00,9/4/2014 0:00:00,"MB",46.55,-113.93,"Grassland",,,"72",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+323.00,6/9/2014 0:00:00,"JM, MB, EF",46.56,-113.93,"Grassland",,,"25",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+323.00,6/30/2014 0:00:00,"EF",46.56,-113.93,"Grassland",,,"200",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+323.00,9/4/2014 0:00:00,"MB",46.56,-113.93,"Grassland",,,"214",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,5/27/2014 0:00:00,"MB EF",46.73,-114.04,"Grassland",,,"216",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,6/16/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"194",,"Plants were clipped in the rain. Wet weights may not be accurate.",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,7/10/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"198",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,8/12/2014 0:00:00,"MB",46.73,-114.04,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"200",1200.00,"GAP completed at this plot",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+325.00,9/3/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"188",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,9/22/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"198",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+325.00,5/25/2015 0:00:00,"MD,JM,LS",46.73,-114.04,"0","GLM","0","190",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0",
+325.00,6/15/2015 0:00:00,"MD,JM",46.73,-114.04,"0","GLM","0","282",0.00,"plot moved",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+325.00,7/6/2015 0:00:00,"LS, JM",46.73,-114.04,"0","GLM","0","250",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+325.00,8/5/2015 0:00:00,"MD",46.73,-114.04,"0","GLM","0","291",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+325.00,9/11/2015 0:00:00,"LS",46.73,-114.04,"0","GLM","0","208",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+325.00,9/23/2015 0:00:00,"LS",46.73,-114.04,"0","GLM","0","223",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+326.00,5/20/2014 0:00:00,"JS,JM,MB,EF",46.73,-114.04,"Grassland",,,"flat",,"flat aspect",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+326.00,6/16/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"258",,"Plants were clipped in the rain. Wet weights may not be accurate.",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+326.00,7/10/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"262",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+326.00,8/12/2014 0:00:00,"MB",46.73,-114.04,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"262",997.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+326.00,9/3/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"260",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+326.00,9/22/2014 0:00:00,"MB",46.73,-114.04,"Grassland",,,"260",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+326.00,5/25/2015 0:00:00,"LS,MD,JM",46.73,-114.04,"0","GLM","0","flat",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0"," ","0"
+326.00,6/15/2015 0:00:00,"JM, MD",46.73,-114.04,"0","GLM","0","flat",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+326.00,7/6/2015 0:00:00,"LS, JM",46.73,-114.04,"0","GLM","0","FLAT",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+326.00,8/5/2015 0:00:00,"MD",46.73,-114.04,"0","GLM","0","FLAT",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+326.00,9/11/2015 0:00:00,"LS",46.73,-114.04,"0","GLM","0","flat",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+326.00,9/23/2015 0:00:00,"LS",46.73,-114.04,"0","GLM","0","flat",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+327.00,8/12/2014 0:00:00,"MB",46.73,-114.04,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"164",1005.00,"original plot was in a difficult area to lay out transect along same contour and aspect. moved plot 100 feet to a more suitable location. same plant communty and teansect will be on same contour and aspect.",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+328.00,8/12/2014 0:00:00,"MB",46.73,-114.04,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"212",1035.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+329.00,8/12/2014 0:00:00,"MB",46.73,-114.04,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"176",1029.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+330.00,7/23/2014 0:00:00,"TAH",46.67,-113.98,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"173",1240.00,"0",0.00,0.00,0.00,0.00,"0.0",1.00,"0",,
+331.00,7/21/2014 0:00:00,"TH",46.67,-113.99,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"138",1222.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+332.00,7/23/2014 0:00:00,"TH",46.67,-113.99,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"324",1206.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+333.00,7/23/2014 0:00:00,"TH",46.67,-113.99,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"123",1208.00,"0",0.00,0.00,0.00,0.00,"0.0",1.00,"0",,
+334.00,7/23/2014 0:00:00,"TH",46.67,-113.98,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"202",1294.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+335.00,7/21/2014 0:00:00,"EF",46.58,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"175",1325.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+336.00,7/21/2014 0:00:00,"MB",46.58,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"188",1316.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+337.00,7/21/2014 0:00:00,"MB",46.58,-113.92,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"262",1218.00,"0",2.00,0.00,0.00,0.00,"1.7",0.00,"PINPON",,
+338.00,7/21/2014 0:00:00,"JM",46.58,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"164",1301.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+339.00,7/21/2014 0:00:00,"EF",46.58,-113.91,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"295",1299.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+340.00,5/21/2014 0:00:00,"RD JM MB EF",46.84,-113.96,"Grassland",,,"96",,"0",0.00,0.00,0.00,0.00,"0",1.00,"PSEMEN",,
+340.00,6/16/2014 0:00:00,"JMM",46.84,-113.96,"Grassland",,,"116",,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON",,
+340.00,7/10/2014 0:00:00,"JMM",46.84,-113.96,"Grassland",,,"118",,"0",1.00,6.00,3.00,0.00,"10",4.00,"PINPON",,
+340.00,8/13/2014 0:00:00,"MB",46.84,-113.96,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"114",1345.00,"GAP completed at this plot.",0.00,0.00,0.00,0.00,"0.0",1.00,"PINPON",,
+340.00,9/3/2014 0:00:00,"JM",46.84,-113.96,"Grassland",,,"96",,"0",0.00,0.00,10.00,0.00,"10",2.00,"PINPON",,
+340.00,9/22/2014 0:00:00,"JM",46.84,-113.96,"Grassland",,,"113",,"0",0.00,0.00,2.00,0.00,"2",2.00,"PINPON",,
+340.00,5/27/2015 0:00:00,"MD,LS,JM",46.84,-113.96,"0","GLM ","0","96",0.00,"moved plot",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","2","0"
+340.00,6/16/2015 0:00:00,"LS,MD",46.84,-113.96,"0","GLM","0","130",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","2"
+340.00,7/6/2015 0:00:00,"MD,LE",46.84,-113.96,"0","GLM","0","138",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","2"
+340.00,8/7/2015 0:00:00,"LS",46.84,-113.95,"0","GLM","0","144",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","2"
+340.00,9/9/2015 0:00:00,"LS",46.84,-113.96,"0","GLM","0","122",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","3"
+340.00,9/23/2015 0:00:00,"MD",46.84,-113.96,"0","GLM","0","128",0.00,"0",0.00,0.00,0.00,0.00,"0",3.00,"PINPON","0","2"
+341.00,8/13/2014 0:00:00,"MB",46.83,-113.96,"Grassland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"274",1303.00,"0",3.00,0.00,13.00,7.00,"19.1",4.00,"PINPON",,
+342.00,8/13/2014 0:00:00,"MB",46.84,-113.96,"Grassland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"146",1437.00,"0",13.00,5.00,0.00,0.00,"15.0",4.00,"PINPON",,
+343.00,8/13/2014 0:00:00,"MB",46.84,-113.96,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"198",1370.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+344.00,5/21/2014 0:00:00,"EF MB",46.84,-113.96,"Grassland",,,"204",,"0",0.00,0.00,0.00,0.00,"0",0.00,"PSEMEN",,
+344.00,6/16/2014 0:00:00,"JMM",46.84,-113.96,"Grassland",,,"176",,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON",,
+344.00,7/10/2014 0:00:00,"JMM",46.84,-113.96,"Grassland",,,"182",,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON",,
+344.00,8/13/2014 0:00:00,"MB",46.84,-113.96,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"198",1368.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+344.00,9/3/2014 0:00:00,"JM",46.84,-113.96,"Grassland",,,"172",,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON",,
+344.00,9/22/2014 0:00:00,"JM",46.84,-113.96,"Grassland",,,"202",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+344.00,5/27/2015 0:00:00,"LS, MD, JM",46.84,-113.96,"0","GLM","0","200",0.00,"0-meter forbs are in 2 bags ",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+344.00,6/16/2015 0:00:00,"MD,LS",46.84,-113.96,"0","GLM","0","197",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+344.00,7/6/2015 0:00:00,"MD, LE",46.84,-113.96,"0","GLM","0","199",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+344.00,8/7/2015 0:00:00,"LS",46.84,-113.96,"0","GLM","0","200",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+344.00,9/9/2015 0:00:00,"LS",46.84,-113.96,"0","GLM","0","180",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+344.00,9/23/2015 0:00:00,"MD",46.84,-113.96,"0","GLM","0","189",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+345.00,7/23/2015 0:00:00,"EF",46.74,-113.99,"0","GUM","0","100",1347.34,"0",18.00,4.00,4.00,15.00,"10.25",2.00,"PINPON","0","4"
+346.00,7/23/2015 0:00:00,"MD",46.74,-113.99,"0","GUM","0","167",1264.39,"0",23.00,0.00,21.00,23.00,"16.75",6.00,"PINPON","PSEMEN","3"
+347.00,7/23/2015 0:00:00,"MD",46.74,-113.99,"0","GUM","0","153",1311.63,"0",0.00,8.00,7.00,11.00,"6.5",1.00,"PINPON","0","3"
+348.00,7/23/2015 0:00:00,"EF",46.77,-113.99,"0","SHR","0","218",1318.49,"Plot moved out of small clump of PINPON into shrubland.",2.00,1.00,0.00,1.00,"1",0.00,"0","0","0"
+349.00,7/23/2015 0:00:00,"EF, MD",46.74,-113.99,"0","SHR","0","100",1321.95,"Plot moved out of small PINPON clump into open shrubland.",1.00,12.00,21.00,0.00,"8.5",2.00,"PINPON","0","4"
+359.00,7/23/2014 0:00:00,"EF",46.54,-113.92,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"200",1323.00,"This was the GAP plot for this group. No shrubs.",0.00,1.00,0.00,1.00,"1.7",0.00,"PINPON",,
+360.00,7/23/2014 0:00:00,"EF",46.54,-113.91,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"244",1376.00,"Plot heavily grazed by cattle.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+361.00,7/23/2014 0:00:00,"JM",46.54,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"53",1382.00,"Heavily grazed",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+362.00,7/23/2014 0:00:00,"EF",46.54,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"335",1357.00,"Plot heavily grazed by cattle.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+363.00,7/23/2014 0:00:00,"MB",46.55,-113.91,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"356",1363.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+364.00,5/26/2014 0:00:00,"JM, MB, EF",46.53,-113.90,"Grassland",,,"174",,"0",8.00,1.00,2.00,8.00,"20",0.00,"PINPON",,
+364.00,6/16/2014 0:00:00,"EF",46.53,-113.90,"Grassland",,,"200",,"0",2.00,0.00,5.00,10.00,"18",1.00,"PINPON",,
+364.00,7/9/2014 0:00:00,"MB",46.53,-113.90,"Grassland",,,"184",,"Plot 10m was under a large PSEMEN",17.00,1.00,3.00,8.00,"30",3.00,"PINPON",,
+364.00,8/18/2014 0:00:00,"MB",46.53,-113.90,"Grassland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"192",1380.00,"GAP completed at this plot.",2.00,0.00,0.00,9.00,"9.2",1.00,"PSEMEN",,
+364.00,9/3/2014 0:00:00,"EF",46.53,-113.90,"Grassland",,,"190",,,0.00,0.00,1.00,22.00,"24",0.00,"PINPON",,
+364.00,9/22/2014 0:00:00,"EF",46.53,-113.90,"Grassland",,,"200",,"0",0.00,0.00,1.00,4.00,"5",0.00,"PINPON",,
+364.00,5/26/2015 0:00:00,"JM,LS,MD",46.54,-113.90,"0","GUM","0","240",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","3"
+364.00,6/17/2015 0:00:00,"JM,LS",46.54,-113.90,"0","GUM","0","222",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+364.00,7/7/2015 0:00:00,"EF JM ls md",46.53,-113.90,"0","GUM","0","213",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+364.00,8/6/2015 0:00:00,"EF",46.53,-113.90,"0","GUM","0","215",0.00,"0",0.00,10.00,0.00,0.00,"2",1.00,"PINPON","0","3"
+364.00,9/9/2015 0:00:00,"EF",46.53,-113.90,"0","GUM","0","213",0.00,"0",0.00,0.00,1.00,2.00,"1",0.00,"0","0","0"
+364.00,9/23/2015 0:00:00,"EF",46.53,-113.90,"0","GUM","0","170",0.00,"0",3.00,2.00,0.00,0.00,"1",2.00,"PSEMEN","PINPON","3"
+366.00,8/18/2014 0:00:00,"MB",46.53,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland",,"344",1388.00,"0",0.00,8.00,12.00,18.00,"31.6",6.00,"PSEMEN",,
+367.00,5/26/2014 0:00:00,"JM, MB, EF",46.54,-113.90,"Grassland",,,"324",,"0",1.00,0.00,1.00,0.00,"2",0.00,"PINPON",,
+367.00,6/16/2014 0:00:00,"EF",46.54,-113.90,"Grassland",,,"220",,"Aspect from first sample significantly different. Training confusion? This aspect good.",0.00,0.00,8.00,6.00,"15",1.00,"PINPON",,
+367.00,7/9/2014 0:00:00,"MB",46.54,-113.90,"Grassland",,,"226",,"0",0.00,4.00,1.00,6.00,"11",0.00,"PINPON",,
+367.00,8/18/2014 0:00:00,"MB",46.54,-113.90,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"220",1376.00,"0",0.00,0.00,0.00,0.00,"0.0",1.00,"PINPON",,
+367.00,9/3/2014 0:00:00,"EF",46.54,-113.90,"Grassland",,,"220",,,0.00,0.00,1.00,2.00,"3",0.00,"PINPON",,
+367.00,9/22/2014 0:00:00,"EF",46.54,-113.90,"Grassland",,,"220",,"0",0.00,0.00,1.00,4.00,"5",0.00,"PINPON",,
+367.00,5/26/2015 0:00:00,"LS,MD,JM",46.54,-113.90,"0","GUM","0","220",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON","0","3"
+367.00,6/17/2015 0:00:00,"LS,JM",46.54,-113.90,"0","GUM","0","214",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+367.00,7/7/2015 0:00:00,"EF JM md ls",46.54,-113.90,"0","GUM","0","220",0.00,"46.54045",0.00,0.00,0.00,0.00,"0",2.00,"PINPON"," ","2"
+367.00,8/6/2015 0:00:00,"EF",46.54,-113.90,"0","GUM","0","220",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON","0","2"
+367.00,9/9/2015 0:00:00,"EF",46.54,-113.90,"0","GUM","0","212",0.00,"0",0.00,0.00,0.00,2.00,"0",0.00,"0","0","0"
+367.00,9/23/2015 0:00:00,"EF",46.54,-113.90,"0","GUM","0","210",0.00,"0",0.00,0.00,0.00,7.00,"2",0.00,"0","0","0"
+368.00,8/18/2014 0:00:00,"MB",46.53,-113.90,"Grassland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"176",1384.00,"0",4.00,11.00,6.00,0.00,"17.5",6.00,"PSEMEN",,
+369.00,7/23/2014 0:00:00,"MB",46.55,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"80",1360.00,"Heavily grazed. Gap completed at this plot. No shrubs. No forbs in any clip plot",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+370.00,7/23/2014 0:00:00,"JM",46.54,-113.90,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"18",1388.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+371.00,7/23/2014 0:00:00,"MB",46.55,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"358",1363.00,"Heavily grazed. No forbs in any of the clip plots.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+372.00,7/23/2014 0:00:00,"JM",46.54,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"85",1381.00,"Heavily grazed",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+373.00,7/23/2014 0:00:00,"MB",46.55,-113.91,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"264",1372.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+374.00,7/18/2014 0:00:00,"MB TA",46.49,-113.95,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"212",1401.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+375.00,7/17/2014 0:00:00,"MB TA",46.49,-113.95,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"104",1364.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+376.00,7/17/2014 0:00:00,"MB TA",46.49,-113.95,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"154",1368.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+377.00,7/17/2014 0:00:00,"MB TA",46.49,-113.95,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"264",1390.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+378.00,7/18/2014 0:00:00,"MB TA",46.49,-113.95,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"186",1385.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+379.00,7/15/2015 0:00:00,"EF",46.53,-113.92,"0","GLM","DA","240",1386.40,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+380.00,7/15/2015 0:00:00,"MD",46.53,-113.91,"0","DA","GLM","349",1432.71,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+381.00,7/15/2015 0:00:00,"MD",46.53,-113.91,"0","DA","GLM","5",1404.08,"No forbs in clipplot 0m, 20m, 40m",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+382.00,7/15/2015 0:00:00,"MD, EF",46.53,-113.91,"0","DA","GLM","319",1389.84,"No forbs in clipplot 0m, 20m, 40m",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+383.00,7/15/2015 0:00:00,"EF",46.53,-113.91,"0","DA","GLM","295",1433.29,"Plot moved aprox 60' away from edge of forest.",0.00,0.00,0.00,4.00,"1",0.00,"PINPON","0","2"
+384.00,8/5/2015 0:00:00,"JM",46.59,-113.90,"0","OPP","0","202",1370.21,"0",3.00,5.00,20.00,1.00,"7.25",8.00,"PINPON","0","3"
+385.00,8/5/2015 0:00:00,"LS",46.58,-113.90,"0","OPP","0","200",1357.07,"0",11.00,2.00,13.00,14.00,"10",11.00,"PINPON","0","4"
+386.00,8/5/2015 0:00:00,"JM",46.59,-113.90,"0","OPP","0","246",1379.02,"0",0.00,2.00,0.00,2.00,"1",5.00,"PINPON","0","3"
+387.00,8/5/2015 0:00:00,"LS",46.59,-113.90,"0","OPP","0","176",1363.54,"0",8.00,1.00,10.00,13.00,"8",7.00,"PINPON","0","4"
+401.00,7/18/2014 0:00:00,"MB TA",46.49,-113.94,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"120",1433.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+402.00,7/18/2014 0:00:00,"MB TA",46.49,-113.93,"Grassland","Inter-Mountain Basins Montane Sagebrush Steppe",,"186",1471.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+425.00,8/27/2014 0:00:00,"JM",46.75,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"14",1807.00,"was labeled as shrubland",11.00,5.00,3.00,20.00,"32.4",2.00,"PSEMEN",,
+426.00,8/27/2014 0:00:00,"EF",46.75,-113.83,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"335",1749.00,"Habitat changed from shrubland. Plot moved 300' upslope - too steep.",21.00,21.00,23.00,22.00,"72.4",21.00,"ABILAS",,
+427.00,8/27/2014 0:00:00,"EF",46.74,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"120",1812.00,"Habitat changed from shrubland. The open area on map reflects a series of meadow wetlands. This plot is slightly uphill in drier forest.",3.00,4.00,14.00,21.00,"34.9",4.00,"ABILAS",,
+428.00,8/27/2014 0:00:00,"JM",46.74,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"135",1819.00,"Was labeled as shrubland.",0.00,6.00,0.00,21.00,"22.5",1.00,"PSEMEN",,
+429.00,8/27/2014 0:00:00,"EF JM",46.74,-113.84,"Forest","Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland",,"170",1854.00,"Habitat changed from shrubland.",21.00,21.00,21.00,22.00,"70.7",11.00,"ABILAS",,
+430.00,7/24/2015 0:00:00,"LS",46.50,-113.84,"0","MFLP","0","118",1870.29,"0",14.00,11.00,10.00,10.00,"11.25",12.00,"PSEMEN","PINCON","2"
+431.00,7/24/2015 0:00:00,"JM, BC",46.50,-113.84,"0","MFLP","0","149",1860.40,"0",5.00,13.00,11.00,7.00,"9",7.00,"PSEMEN","PINCON","1"
+432.00,7/24/2015 0:00:00,"JM,BC",46.50,-113.84,"0","MFLP","0","138",1858.09,"0",20.00,9.00,12.00,4.00,"11.25",7.00,"PSEMEN","PINCON","1"
+444.00,7/24/2015 0:00:00,"MD",46.73,-113.70,"0","WVB","0","flat",1068.63,"plot moved to valley bottom riparian",24.00,13.00,24.00,24.00,"21.25",3.00,"POPBAL","BETOCC","3"
+445.00,7/24/2015 0:00:00,"EF, MD",46.73,-113.70,"0","WVB","0","300",1150.37,"0",1.00,1.00,0.00,4.00,"1.5",0.00,"POPBAL","0","3"
+446.00,7/24/2015 0:00:00,"EF",46.73,-113.70,"0","WVB","0","300",1067.41,"0",2.00,24.00,12.00,14.00,"13",5.00,"POPBAL","0","3"
+447.00,8/28/2014 0:00:00,"MB",46.61,-113.63,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"60",1492.00,"GAP completed at this plot.",1.00,6.00,24.00,7.00,"31.6",5.00,"PSEMEN",,
+448.00,8/28/2014 0:00:00,"MB TA KP",46.61,-113.63,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"168",1294.00,"0",11.00,6.00,10.00,3.00,"25.0",10.00,"PSEMEN",,
+449.00,8/28/2014 0:00:00,"TA",46.61,-113.63,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"132",1493.00,"0",11.00,0.00,6.00,4.00,"17.5",6.00,"PSEMEN",,
+450.00,8/28/2014 0:00:00,"MB TA KP",46.61,-113.63,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"186",1537.00,"0",3.00,4.00,4.00,4.00,"12.5",6.00,"PINPON",,
+459.00,8/22/2014 0:00:00,"EF",46.82,-113.91,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"14",1364.00,"Habitat changed from shrubland.",5.00,17.00,10.00,14.00,"38.3",5.00,"LAROCC",,
+460.00,8/7/2014 0:00:00,"RAD EF",46.82,-113.91,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest","300",1241.00,"0",10.00,20.00,24.00,24.00,"64.9",2.00,"PSEMEN",,
+461.00,8/15/2014 0:00:00,"JM",46.81,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest","300",1299.00,"0",23.00,24.00,23.00,22.00,"76.5",3.00,"PICENG",,
+462.00,8/7/2014 0:00:00,"RD, EF",46.82,-113.91,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"300",1249.00,"0",22.00,23.00,23.00,10.00,"64.9",13.00,"PSEMEN",,
+464.00,8/12/2014 0:00:00,"JM",46.76,-113.73,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"146",1357.00,"0",6.00,2.00,24.00,13.00,"37.4",3.00,"PSEMEN",,
+465.00,8/12/2014 0:00:00,"EF",46.76,-113.73,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"140",1412.00,"0",24.00,0.00,3.00,4.00,"25.8",3.00,"PSEMEN",,
+466.00,8/12/2014 0:00:00,"JM",46.76,-113.73,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"139",1392.00,"0",4.00,3.00,1.00,4.00,"10.0",1.00,"PSEMEN",,
+467.00,8/12/2014 0:00:00,"JM",46.76,-113.73,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"126",1284.00,"0",6.00,21.00,8.00,4.00,"32.4",3.00,"PSEMEN",,
+468.00,8/12/2014 0:00:00,"EF",46.76,-113.73,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"115",1323.00,"Plot moved away from small cliff.",22.00,22.00,9.00,5.00,"48.3",13.00,"PSEMEN",,
+473.00,7/21/2014 0:00:00,"JM",46.57,-113.92,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"216",1255.00,"0",7.00,5.00,19.00,22.00,"44.1",3.00,"PINPON",,
+475.00,7/30/2015 0:00:00,"EF",46.57,-113.65,"0","GUM","0","210",1436.31,"Plot moved 100' away from small cliff.",0.00,0.00,1.00,4.00,"1.25",2.00,"PINPON","PSEMEN","3"
+476.00,7/30/2015 0:00:00,"EF",46.58,-113.66,"0","GUM","0","225",1316.65,"0",0.00,2.00,0.00,0.00,"0.5",1.00,"PINPON","0","4"
+477.00,7/30/2015 0:00:00,"EF",46.58,-113.66,"0","GUM","0","150",1344.13,"0",5.00,8.00,2.00,3.00,"4.5",4.00,"PINPON","0","4"
+481.00,8/5/2014 0:00:00,"EF",46.73,-113.98,"Shrubland","Inter-Mountain Basins Montane Sagebrush Steppe",,"198",1293.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+482.00,8/5/2014 0:00:00,"EF",46.73,-113.98,"Shrubland","Inter-Mountain Basins Montane Sagebrush Steppe",,"230",1304.00,"0",0.00,2.00,0.00,22.00,"20.0",2.00,"PINPON",,
+483.00,8/5/2014 0:00:00,"JM",46.73,-113.98,"Shrubland","Inter-Mountain Basins Montane Sagebrush Steppe",,"212",1255.00,"0",0.00,0.00,1.00,0.00,"0.8",1.00,"PSEMEN",,
+484.00,8/5/2014 0:00:00,"JM",46.74,-113.98,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"182",1234.00,"0",4.00,6.00,12.00,22.00,"36.6",4.00,"PSEMEN",,
+485.00,8/5/2014 0:00:00,"JM",46.74,-113.97,"Grassland","Rocky Mountain Lower Montane, Foothill, and Valley Grassland",,"134",1339.00,"0",5.00,3.00,0.00,6.00,"11.6",2.00,"PSEMEN",,
+486.00,8/18/2015 0:00:00,"EF",46.60,-113.99,"0","OPP","0","155",1337.64,"0",6.00,11.00,19.00,1.00,"9.25",2.00,"PINPON","0","3"
+488.00,8/18/2015 0:00:00,"JM",46.60,-113.90,"0","OPP","0","241",1376.93,"0",4.00,0.00,0.00,4.00,"2",2.00,"PINPON","0","3"
+493.00,8/18/2015 0:00:00,"EF",46.58,-113.90,"0","OPP","0","160",1316.52,"0",15.00,4.00,3.00,2.00,"6",5.00,"PINPON","0","3"
+495.00,8/5/2014 0:00:00,"RAD",46.74,-113.98,"Shrubland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"175",1341.00,"parked out pinpon with grass and shrubs",0.00,0.00,18.00,4.00,"18.3",3.00,"PINPON",,
+496.00,8/5/2014 0:00:00,"RAD",46.74,-113.98,"Shrubland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"213",1320.00,"open, parked out pinpon grassland with purtri",19.00,2.00,0.00,19.00,"33.3",2.00,"PINPON",,
+497.00,8/5/2014 0:00:00,"RAD",46.74,-113.98,"Shrubland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"184",1358.00,"0",0.00,22.00,22.00,9.00,"44.1",2.00,"PINPON",,
+498.00,7/31/2014 0:00:00,"RAD",46.74,-113.98,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"222",1381.00,"open, parked out PINPON grassland with some shrubs",14.00,15.00,14.00,18.00,"50.8",6.00,"PINPON",,
+499.00,7/31/2014 0:00:00,"RAD",46.74,-113.97,"Shrubland","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"208",1412.00,"A few PINPON",5.00,2.00,2.00,10.00,"15.8",0.00,"PINPON",,
+505.00,7/17/2015 0:00:00,"MD",46.53,-113.89,"0","OPP","ODS","252",1414.64,"0",20.00,24.00,24.00,18.00,"21.5",7.00,"PINPON","PSEMEN","3"
+506.00,7/17/2015 0:00:00,"JM",46.53,-113.89,"0","OPP","ODS","277",1443.51,"Moved plot to an area with more graminoids ; original location was solid PHYMAL",0.00,0.00,0.00,10.00,"2.5",5.00,"PINPON","PSEMEN","3"
+507.00,7/17/2015 0:00:00,"JM",46.53,-113.89,"0","OPP","ODS","155",1413.87,"Moved plot out of creek bed into more ""parked-out"" ponderosa stand with graminoids.",4.00,20.00,1.00,5.00,"7.5",9.00,"PINPON","PSEMEN","3"
+508.00,7/17/2015 0:00:00,"MD",46.53,-113.90,"0","OPP","ODS","206",1401.57,"0",19.00,0.00,7.00,18.00,"11",3.00,"PINPON","PSEMEN","2"
+509.00,8/26/2014 0:00:00,"MB",46.51,-113.85,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"40",1810.00,"GAP completed at this plot.",19.00,23.00,20.00,13.00,"62.4",13.00,"PSEMEN",,
+511.00,8/26/2014 0:00:00,"MB",46.51,-113.85,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"352",1767.00,"0",16.00,18.00,17.00,24.00,"62.4",9.00,"PSEMEN",,
+512.00,8/26/2014 0:00:00,"MB",46.51,-113.85,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"22",1773.00,"0",18.00,20.00,14.00,16.00,"56.6",14.00,"PSEMEN",,
+513.00,7/23/2014 0:00:00,"MB",46.54,-113.91,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"184",1350.00,"Gap completed at this plot. No shrubs",2.00,5.00,19.00,8.00,"28.3",4.00,"PINPON",,
+514.00,7/23/2014 0:00:00,"EF",46.54,-113.91,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"205",1336.00,"Habitat changed from Shrubland.",21.00,2.00,1.00,5.00,"24.1",5.00,"PINPON",,
+516.00,7/23/2014 0:00:00,"JM",46.54,-113.91,"Forest","Rocky Mountain Ponderosa Pine Woodland and Savanna",,"198",1357.00,"Labeled as Shrubland in plot info sheet",17.00,19.00,5.00,8.00,"40.8",10.00,"PINPON",,
+522.00,8/28/2015 0:00:00,"MD",46.72,-113.74,"0","GUM","0","224",1572.95,"0",0.00,0.00,13.00,6.00,"4.75",1.00,"PINPON","PSEMEN","3"
+523.00,8/28/2015 0:00:00,"MD",46.72,-113.74,"0","GUM","0","189",1361.55,"plot moved",0.00,2.00,0.00,23.00,"6.25",1.00,"PINPON","PSEMEN","2"
+524.00,8/28/2015 0:00:00,"LS",46.72,-113.75,"0","GUM","0","164",1503.14,"0",0.00,10.00,1.00,1.00,"3",1.00,"PINPON","0","4"
+525.00,8/28/2015 0:00:00,"LS",46.72,-113.75,"0","GUM","0","178",1423.29,"0",2.00,5.00,0.00,0.00,"1.75",2.00,"PINPON","0","4"
+527.00,8/6/2014 0:00:00,"EF",46.74,-113.96,"Shrubland","Inter-Mountain Basins Montane Sagebrush Steppe",,"170",1492.00,"0",0.00,0.00,0.00,2.00,"1.7",1.00,"PSEMEN",,
+528.00,8/6/2014 0:00:00,"EF",46.74,-113.96,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"132",1519.00,"Habitat changed from shrubland.",20.00,21.00,24.00,22.00,"72.4",10.00,"PSEMEN",,
+529.00,8/6/2014 0:00:00,"EF",46.75,-113.96,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"160",1590.00,"Habitat changed from shrubland.",5.00,17.00,18.00,9.00,"40.8",14.00,"PSEMEN",,
+530.00,8/6/2014 0:00:00,"EF",46.74,-113.96,"Shrubland","Rocky Mountain Montane-Foothill Deciduous Shrubland",,"165",1475.00,"0",8.00,7.00,2.00,0.00,"14.1",7.00,"PSEMEN",,
+538.00,8/21/2015 0:00:00,"LS",46.57,-113.82,"0","MFDSF","0","43",1924.63,"0",15.00,17.00,23.00,6.00,"15.25",19.00,"ABILAS","PINCON","3"
+539.00,8/21/2015 0:00:00,"MD",46.57,-113.82,"0","MFDSF","0","71",1923.42,"plot moved into mesic forest and out of riparian",24.00,16.00,24.00,15.00,"19.75",19.00,"PINCON","ABILAS","2"
+540.00,8/21/2015 0:00:00,"LS",46.57,-113.82,"0","MFDSF","0","66",1950.65,"0",15.00,10.00,24.00,23.00,"18",9.00,"PINCON","ABILAS","2"
+541.00,8/21/2015 0:00:00,"MD",46.57,-113.82,"0","MFDSF","0","FLAT",1934.67,"plot moved out of riparian habitat",24.00,18.00,12.00,17.00,"17.75",6.00,"PINCON","ABILAS","2"
+548.00,7/27/2015 0:00:00,"EF",46.39,-113.69,"0","WVB","0","310",1389.61,"0",1.00,0.00,1.00,1.00,"0.75",0.00,"0","0","0"
+550.00,7/27/2015 0:00:00,"EF",46.40,-113.70,"0","WVB","0","310",1384.70,"0",0.00,0.00,5.00,24.00,"7.25",1.00,"POPBAL","PINPON","2"
+551.00,7/28/2015 0:00:00,"EF",46.39,-113.68,"0","WVB","0","300",1393.09,"0",12.00,13.00,13.00,15.00,"13.25",9.00,"POPTRE","POPBAL","3"
+552.00,7/28/2015 0:00:00,"EF",46.39,-113.68,"0","WVB","0","300",1395.25,"Plot moved 230' to be fully in WVB.",18.00,19.00,20.00,20.00,"19.25",16.00,"POPBAL","PINPON","3"
+554.00,7/28/2015 0:00:00,"EF",46.39,-113.68,"0","WVB","0","300",1395.68,"Plot moved 80' to the bank.",10.00,7.00,1.00,18.00,"9",4.00,"POPBAL","PICENG","3"
+567.00,8/19/2014 0:00:00,"EF",46.69,-113.79,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","35",1352.00,"0",20.00,22.00,22.00,24.00,"73.2",11.00,"PICENG",,
+569.00,8/19/2014 0:00:00,"EF",46.69,-113.79,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","30",1362.00,"0",11.00,14.00,22.00,16.00,"52.4",4.00,"PICENG",,
+570.00,8/19/2014 0:00:00,"JM",46.69,-113.79,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","86",1371.00,"0",24.00,15.00,17.00,20.00,"63.2",7.00,"ABIGRA",,
+571.00,8/19/2014 0:00:00,"JM",46.69,-113.79,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","30",1368.00,"0",23.00,0.00,23.00,21.00,"55.7",9.00,"PICENG",,
+573.00,8/25/2014 0:00:00,"TH",46.71,-113.97,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"6",1371.00,"Not wetland",17.00,10.00,24.00,13.00,"53.2",1.00,"PSEMEN",,
+575.00,8/25/2014 0:00:00,"TH",46.71,-113.97,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"8",1397.00,"Not wetland; Plot on edge of timbered area",2.00,2.00,19.00,17.00,"33.3",1.00,"PSEMEN",,
+577.00,8/20/2014 0:00:00,"JM",46.70,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","50",1316.00,"0",22.00,22.00,20.00,20.00,"69.9",13.00,"PICENG",,
+580.00,8/20/2014 0:00:00,"EF",46.70,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","340",1341.00,"Plot moved 200ft into wetland. Roadside riparian corridor weedy.",11.00,14.00,17.00,18.00,"49.9",10.00,"PICENG",,
+581.00,8/20/2014 0:00:00,"JM",46.70,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","84",1309.00,"0",14.00,19.00,18.00,19.00,"58.2",5.00,"PICENG",,
+592.00,8/21/2014 0:00:00,"EF",46.76,-113.81,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","60",1386.00,"Plot moved downslope to wetland.",23.00,21.00,22.00,18.00,"69.9",6.00,"PICENG",,
+593.00,8/21/2014 0:00:00,"EF",46.76,-113.81,"wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","60",1385.00,"Plot moved downslope to wetland.",22.00,24.00,20.00,20.00,"71.6",8.00,"PICENG",,
+594.00,8/21/2014 0:00:00,"JM",46.76,-113.80,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","60",1379.00,"0",19.00,21.00,23.00,21.00,"69.9",4.00,"PICENG",,
+595.00,8/21/2014 0:00:00,"JM",46.76,-113.80,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","60",1349.00,"0",22.00,16.00,23.00,22.00,"69.1",5.00,"ABIGRA",,
+605.00,8/18/2014 0:00:00,"EF",46.76,-113.82,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","80",1495.00,"0",19.00,17.00,19.00,20.00,"62.4",14.00,"PICENG",,
+606.00,8/18/2014 0:00:00,"JM",46.76,-113.82,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","90",1489.00,"0",16.00,22.00,23.00,23.00,"69.9",16.00,"PICENG",,
+608.00,8/18/2014 0:00:00,"EF",46.76,-113.82,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","60",1508.00,"Plot moved 120ft to keep it in the wetland.",15.00,17.00,14.00,15.00,"50.8",6.00,"PICENG",,
+609.00,8/18/2014 0:00:00,"JM",46.76,-113.82,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","50",1501.00,"0",19.00,14.00,20.00,19.00,"59.9",9.00,"PICENG",,
+613.00,8/31/2015 0:00:00,"MD",46.39,-113.89,"0","WRW","0","FLAT",1502.67,"plot moved to other side of the stream",23.00,24.00,23.00,24.00,"23.5",19.00,"PICENG","PSEMEN","2"
+614.00,8/31/2015 0:00:00,"MD",46.39,-113.89,"0","WRW","0","FLAT",1514.69,"plot moved to riparian habitat",22.00,24.00,24.00,22.00,"23",18.00,"PICENG","ABILAS","3"
+616.00,8/14/2014 0:00:00,"JM",46.60,-113.85,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","250",1523.00,"0",15.00,14.00,4.00,9.00,"34.9",6.00,"PICENG",,
+617.00,8/13/2014 0:00:00,"JM",46.60,-113.85,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","250",1537.00,"0",18.00,22.00,10.00,11.00,"50.8",7.00,"PICENG",,
+618.00,8/13/2014 0:00:00,"EF",46.59,-113.85,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest","355",1551.00,"Plot moved 120ft downslope to keep it in the wetland. Area currently used by cattle.",7.00,5.00,5.00,5.00,"18.3",3.00,"PSEMEN",,
+619.00,8/13/2014 0:00:00,"EF",46.60,-113.86,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest","305",1515.00,"cattle currently grazing the area",2.00,12.00,15.00,23.00,"43.3",6.00,"PSEMEN",,
+620.00,7/29/2015 0:00:00,"EF",46.43,-113.74,"0","WRW","0","300",1339.45,"High densiometer readings due to ALNINC canopy. Most are >2m tall.",24.00,23.00,22.00,24.00,"23.25",2.00,"PICENG","0","4"
+621.00,7/29/2015 0:00:00,"EF",46.43,-113.74,"0","WRW","0","300",1345.76,"Plot moved into mountain riparian HT.",24.00,21.00,14.00,24.00,"20.75",6.00,"PINPON","PICENG","4"
+623.00,7/29/2015 0:00:00,"EF",46.43,-113.74,"0","WRW","0","300",1342.36,"Plot moved to mountain riparian HT. Densiometer readings due to nearly continuous ALNINC canopy - most are >2m tall.",23.00,24.00,24.00,24.00,"23.75",5.00,"PICENG","0","3"
+628.00,7/20/2015 0:00:00,"MD",46.75,-114.00,"0","GUM","SHR","125",1348.20,"Plot habitat not as expected, small amount of sage",12.00,13.00,0.00,0.00,"6.25",5.00,"PINPON","0","3"
+629.00,7/20/2015 0:00:00,"LS",46.75,-114.00,"0","SHR","0","151",1370.66,"Moved plot from original coordinates to be in the target habitat type (sagebrush steppe).",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+630.00,7/20/2015 0:00:00,"MD",46.75,-114.00,"0","GUM","0","87",1326.37,"Different habitat than expected, plot moved out of riparian area into grassland",24.00,11.00,14.00,24.00,"18.25",5.00,"PINPON","0","3"
+631.00,7/20/2015 0:00:00,"MD, LS",46.75,-114.01,"0","SHR","0","156",1436.03,"plot moved to desired habitat",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+632.00,8/25/2014 0:00:00,"JM",46.67,-113.76,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","115",1391.00,"0",22.00,18.00,21.00,13.00,"61.6",4.00,"PICENG",,
+633.00,8/25/2014 0:00:00,"JM",46.67,-113.76,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","115",1413.00,"0",21.00,23.00,20.00,23.00,"72.4",7.00,"PICENG",,
+634.00,8/25/2014 0:00:00,"EF",46.67,-113.77,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","110",1418.00,"Plot relocated upstream due to dangerously steep and difficult access lower down.",23.00,20.00,23.00,23.00,"74.0",15.00,"PICENG",,
+635.00,8/25/2014 0:00:00,"EF",46.67,-113.76,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Subalpine Mesic Spruce-Fir Forest and Woodland","70",1331.00,"0",23.00,22.00,24.00,23.00,"76.5",13.00,"PICENG",,
+646.00,8/15/2014 0:00:00,"EF",46.81,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","300",1372.00,"0",22.00,21.00,19.00,19.00,"67.4",9.00,"PICENG",,
+648.00,8/15/2014 0:00:00,"EF",46.81,-113.90,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","290",1398.00,"0",24.00,19.00,18.00,22.00,"69.1",6.00,"ABIGRA",,
+649.00,8/15/2014 0:00:00,"JM",46.82,-113.91,"Wetland","Rocky Mountain Subalpine-Montane Riparian Woodland","Rocky Mountain Mesic Montane Mixed Conifer Forest","300",1344.00,"0",10.00,13.00,18.00,24.00,"54.1",5.00,"PICENG",,
+658.00,8/27/2015 0:00:00,"JM",46.46,-113.91,"0","OPP","0","130",1482.35,"0",17.00,13.00,5.00,13.00,"12",5.00,"PINPON","JUNSCO","2"
+659.00,8/27/2015 0:00:00,"MD",46.46,-113.91,"0","OPP","0","103",1533.10,"0",22.00,17.00,19.00,13.00,"17.75",8.00,"PINPON","JUNSCO","2"
+660.00,8/27/2015 0:00:00,"JM",46.46,-113.91,"0","OPP","0","258",1489.09,"0",18.00,24.00,17.00,6.00,"16.25",9.00,"PINPON","JUNSCO","3"
+671.00,7/16/2014 0:00:00,"EF",46.46,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"105",1675.00,"Habitat changed from wetland",15.00,16.00,11.00,16.00,"48.3",11.00,"PSEMEN",,
+672.00,7/15/2014 0:00:00,"RD  MB",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"167",1750.00,"0",22.00,9.00,6.00,20.00,"47.4",4.00,"PSEMEN",,
+673.00,7/15/2014 0:00:00,"RAD",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"182",1725.00,"0",8.00,20.00,13.00,22.00,"52.4",7.00,"PSEMEN",,
+674.00,7/16/2014 0:00:00,"JM",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"102",1698.00,"Marked as wetland in info sheet.",20.00,21.00,23.00,16.00,"66.6",12.00,"PINPON",,
+675.00,7/15/2014 0:00:00,"JM",46.47,-113.90,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"152",1812.00,"Was labeled as a wetland in plot  info form.",20.00,14.00,12.00,14.00,"49.9",5.00,"PSEMEN",,
+676.00,7/15/2014 0:00:00,"JM",46.47,-113.89,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"154",1745.00,"Was labeled as  wetland in plot info.",12.00,18.00,20.00,16.00,"54.9",5.00,"PINPON",,
+677.00,7/15/2014 0:00:00,"EF",46.47,-113.89,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"100",1717.00,"Habitat change - was wetland",9.00,7.00,10.00,10.00,"30.0",3.00,"PINPON",,
+678.00,7/15/2014 0:00:00,"EF",46.47,-113.89,"Forest","Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest",,"235",1802.00,"Habitat change, was wetland",11.00,8.00,22.00,24.00,"54.1",3.00,"PSEMEN",,
+680.00,7/9/2014 0:00:00,"EF, JM",46.66,-113.84,"Grassland",,,"140",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+680.00,9/4/2014 0:00:00,"EF",46.66,-113.84,"Grassland",,,"170",,,0.00,0.00,0.00,0.00,"0",0.00,"0",,
+680.00,9/23/2014 0:00:00,"EF",46.66,-113.84,"Grassland",,,"140",,"0",0.00,0.00,0.00,0.00,"0",0.00,"0",,
+680.00,6/1/2015 0:00:00,"JM,MD,LS,RD",46.66,-113.84,"0","GUM","0","132",0.00,"No grass in 20m clip plot  ",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+680.00,6/17/2015 0:00:00,"MD,RD",46.66,-113.84,"0","GUM","0","138",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+680.00,7/2/2015 0:00:00,"JM",46.66,-113.84,"0","GUM","0","145",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+680.00,8/7/2015 0:00:00,"JM",46.66,-113.84,"0","GUM","0","127",1855.68,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+680.00,9/9/2015 0:00:00,"JM",46.66,-113.84,"0","GUM","0","115",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+680.00,9/23/2015 0:00:00,"JM",46.66,-113.84,"0","GUM","0","135",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+681.00,6/23/2014 0:00:00,"JM, MB, EF",46.47,-113.90,"Grassland",,,"256",,"0",8.00,5.00,8.00,20.00,"43",6.00,"PSEMEN",,
+681.00,7/10/2014 0:00:00,"EF",46.47,-113.90,"Grassland",,,"270",,"0",6.00,4.00,4.00,5.00,"20",4.00,"PSEMEN",,
+681.00,9/4/2014 0:00:00,"JM",46.48,-113.90,"Grassland",,,"260",,"0",0.00,0.00,20.00,4.00,"25",3.00,"PSEMEN",,
+681.00,9/23/2014 0:00:00,"JM",46.47,-113.90,"Grassland",,,"270",,"0",0.00,6.00,4.00,0.00,"10",3.00,"PSEMEN",,
+681.00,5/28/2015 0:00:00,"LS,KB,MD,JM,RD",46.47,-113.90,"0","GUM","0","231",0.00,"0",0.00,19.00,0.00,9.00,"7",2.00,"PSEMEN","PINPON","3"
+681.00,6/16/2015 0:00:00,"JM, KB",46.47,-113.90,"0","GUM","0","264",0.00,"0",7.00,7.00,0.00,16.00,"8",5.00,"PSEMEN","2","0"
+681.00,7/3/2015 0:00:00,"LS",46.47,-113.90,"0","GUM","0","260",0.00,"0",0.00,18.00,0.00,0.00,"4",2.00,"PSEMEN","PINPON","3"
+681.00,8/7/2015 0:00:00,"JM",46.47,-113.90,"0","GUM","0","234",1838.05,"0",0.00,20.00,0.00,22.00,"10.5",4.00,"PSEMEN","PINPON","2"
+681.00,9/9/2015 0:00:00,"JM",46.47,-113.90,"0","GUM","0","256",0.00,"0",0.00,21.00,0.00,10.00,"8",2.00,"PSEMEN","PINPON","2"
+681.00,9/23/2015 0:00:00,"EF",46.47,-113.90,"0","GUM","0","240",0.00,"0",2.00,4.00,2.00,8.00,"4",5.00,"PSEMEN","PINPON","3"
+682.00,5/20/2015 0:00:00,"LS, JM, MD, RD",46.69,-113.98,"0","GLM","0","315",0.00,"Moved plot",0.00,0.00,0.00,0.00,"0",0.00,"0","0",
+682.00,6/15/2015 0:00:00,"RAD",46.69,-113.98,"0","GLM","0","308",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+682.00,7/2/2015 0:00:00,"MD,LS",46.69,-113.98,"0","GLM","0","408",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+682.00,7/15/2015 0:00:00,"LS",46.69,-113.98,"0","GLM","0","290",1599.45,"this is a phenology plot and was relocated on 5/20/15",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+682.00,9/9/2015 0:00:00,"MD",46.69,-113.98,"0","GLM","0","317",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+682.00,9/23/2015 0:00:00,"LS",46.69,-113.98,"0","GLM","0","288",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+683.00,7/15/2015 0:00:00,"JM",46.69,-113.98,"0","GLM","0","280",1557.53,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+684.00,7/15/2015 0:00:00,"LS",46.79,-113.98,"0","GLM","0","274",1562.37,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+685.00,7/15/2015 0:00:00,"JM, LS",46.69,-113.98,"0","GLM","0","297",1536.10,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+686.00,5/20/2015 0:00:00," LS, JM, MD",46.68,-113.98,"0","GLM","0","299",0.00,"moved plot",0.00,0.00,0.00,0.00,"0",0.00,"0","0",
+686.00,6/15/2015 0:00:00,"LS,LE",46.69,-113.98,"0","GLM","0","322",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+686.00,7/2/2015 0:00:00,"LS,MD",46.69,-113.98,"0","GLM","0","342",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+686.00,7/15/2015 0:00:00,"JM",46.69,-113.98,"0","GLM","0","312",1617.91,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+686.00,9/9/2015 0:00:00,"MD",46.68,-113.98,"0","GLM","0","323",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+686.00,9/23/2015 0:00:00,"LS",46.69,-113.98,"0","GLM","0","343",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+690.00,8/25/2015 0:00:00,"MD",46.69,-113.98,"0","OPP","0","165",,"0",24.00,5.00,2.00,3.00,"8.5",4.00,"PINPON","0","3"
+691.00,8/25/2015 0:00:00,"MD",46.69,-113.97,"0","OPP","0","271",,"0",11.00,2.00,3.00,7.00,"5.75",5.00,"PINPON","0","3"
+692.00,8/25/2015 0:00:00,"JM",46.69,-113.98,"0","OPP","GUM","234",,"0",2.00,0.00,8.00,7.00,"4.25",1.00,"PINPON","PSEMEN","2"
+693.00,8/25/2015 0:00:00,"JM,MD",46.69,-113.97,"0","OPP","GUM","178",,"0",7.00,20.00,24.00,13.00,"16",3.00,"PINPON","0","3"
+694.00,8/25/2015 0:00:00,"JM",46.69,-113.98,"0","OPP","GUM","252",,"0",4.00,8.00,18.00,3.00,"8.25",3.00,"PINPON","0","3"
+695.00,8/25/2015 0:00:00,"EF",46.70,-113.99,"0","OPP","0","210",,"0",1.00,2.00,5.00,2.00,"2.5",2.00,"PINPON","0","3"
+696.00,8/25/2015 0:00:00,"EF",46.70,-113.99,"0","OPP","0","170",,"0",0.00,4.00,1.00,0.00,"1.25",1.00,"PINPON","0","4"
+697.00,8/25/2015 0:00:00,"LS",46.69,-113.99,"0","OPP","0","288",,"0",0.00,10.00,1.00,5.00,"4",3.00,"PINPON","PSEMEN","3"
+698.00,8/25/2015 0:00:00,"LS",46.69,-113.99,"0","OPP","0","281",,"0",5.00,3.00,6.00,12.00,"6.5",6.00,"PINPON","PSEMEN","3"
+699.00,8/25/2015 0:00:00,"LS",46.69,-114.00,"0","OPP","0","278",,"0",0.00,7.00,1.00,0.00,"2",4.00,"PINPON","PSEMEN","3"
+700.00,7/28/2014 0:00:00,"EF",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"75",1535.00,"0",1.00,2.00,2.00,5.00,"10.4",5.00,"PSEMEN",,
+701.00,7/29/2014 0:00:00,"JM",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"214",1580.00,"0",0.00,0.00,0.00,1.00,"1.0",1.00,"PSEMEN",,
+702.00,7/29/2014 0:00:00,"JM",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"118",1521.00,"0",0.00,0.00,3.00,7.00,"10.4",7.00,"PSEMEN",,
+703.00,7/29/2014 0:00:00,"EF",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"48",1579.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+709.00,7/30/2014 0:00:00,"JM",45.97,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"156",1372.00,"0",0.00,0.00,1.00,1.00,"2.1",1.00,"PSEMEN",,
+711.00,7/30/2014 0:00:00,"EF",45.97,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"110",1384.00,"Plot moved 36m to place it in the forest and away from 709.",7.00,3.00,6.00,2.00,"18.7",2.00,"PSEMEN",,
+712.00,7/30/2014 0:00:00,"EF, JM",45.97,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"88",1402.00,"Plot moved from barely-burned wetland to moderately burned Forest.",10.00,9.00,9.00,2.00,"31.2",2.00,"PSEMEN",,
+713.00,7/29/2014 0:00:00,"EF, JM",45.97,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"330",1438.00,"Plot moved 40m uphill due to super steep slope below the road cut.",9.00,5.00,13.00,6.00,"34.3",6.00,"PSEMEN",,
+719.00,7/29/2014 0:00:00,"EF",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"104",1594.00,"0",1.00,9.00,7.00,4.00,"21.8",4.00,"PSEMEN",,
+720.00,7/29/2014 0:00:00,"EF",45.99,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"56",1460.00,"Plot moved 15m to keep in same habitat type.",0.00,13.00,10.00,7.00,"6",10.00,"PSEMEN",,
+722.00,7/29/2014 0:00:00,"JM",46.00,-114.03,"Burned Forest","Burned Forest 6-15yrs",,"175",1597.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+723.00,7/28/2014 0:00:00,"JM, EF",46.00,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"95",1408.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+724.00,8/12/2015 0:00:00,"JM",45.96,-113.99,"0","WF2","FMC","343",1527.65,"0",2.00,14.00,1.00,0.00,"4.25",6.00,"PINPON","PSEMEN","2"
+725.00,8/12/2015 0:00:00,"JM,MD",45.96,-113.99,"0","WF2","FMC","32",1475.91,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINCON","PSEMEN","1"
+726.00,8/12/2015 0:00:00,"JM",45.96,-113.99,"0","WF2","FMC","27",1511.41,"0",0.00,9.00,7.00,4.00,"5",5.00,"PINPON","PSEMEN","2"
+727.00,8/12/2015 0:00:00,"MD",46.96,-113.99,"0","WF2","FMC","28",1518.38,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+728.00,8/12/2015 0:00:00,"MD",45.95,-113.99,"0","WF2","FMC","14",1584.67,"0",24.00,21.00,2.00,23.00,"17.5",11.00,"PINPON","PSEMEN","3"
+734.00,8/27/2014 0:00:00,"MB",46.66,-113.81,"Burned Forest","Burned Forest 6-15yrs",,"174",1752.00,"GAP completed at this plot",6.00,7.00,12.00,9.00,"35.4",9.00,"PSEMEN",,
+736.00,8/27/2014 0:00:00,"MB",46.66,-113.81,"Burned Forest","Burned Forest 6-15yrs",,"154",1711.00,"0",16.00,21.00,17.00,13.00,"69.7",13.00,"PSEMEN",,
+789.00,8/21/2014 0:00:00,"MB",46.11,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"310",1549.00,"GAP completed at this plot.",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+790.00,8/21/2014 0:00:00,"TA",46.11,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"342",1490.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINCON",,
+791.00,8/21/2014 0:00:00,"TA",46.11,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"2",1575.00,"0",4.00,2.00,12.00,8.00,"27.0",8.00,"PSEMEN",,
+793.00,8/21/2014 0:00:00,"MB",46.11,-114.02,"Burned Forest","Burned Forest 6-15yrs",,"54",1541.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"POPTRE",,
+794.00,7/31/2014 0:00:00,"JM",45.96,-113.95,"Burned Forest","Burned Forest 6-15yrs",,"344",1714.00,"0",3.00,2.00,5.00,0.00,"10.4",0.00,"PSEMEN",,
+795.00,7/31/2014 0:00:00,"JM",45.95,-113.95,"Burned Forest","Burned Forest 6-15yrs",,"224",1694.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+796.00,7/31/2014 0:00:00,"EF",45.96,-113.95,"Burned Forest","Burned Forest 6-15yrs",,"170",1716.00,"0",23.00,7.00,4.00,22.00,"58.2",22.00,"PSEMEN",,
+797.00,7/30/2014 0:00:00,"JM",45.96,-113.95,"Burned Forest","Burned Forest 6-15yrs",,"224",1671.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+798.00,7/30/2014 0:00:00,"EF",45.96,-113.95,"Burned Forest","Burned Forest 6-15yrs",,"17",1703.00,"0",8.00,3.00,1.00,0.00,"12.5",0.00,"PINPON",,
+799.00,7/25/2014 0:00:00,"MB",46.67,-113.85,"Burned Forest","Burned Forest 6-15yrs",,"262",1622.00,"Gap completed at this plot",0.00,0.00,0.00,0.00,"0.0",0.00,"PINCON",,
+800.00,7/25/2014 0:00:00,"TA",46.67,-113.85,"Burned Forest","Burned Forest 6-15yrs",,"132",1617.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+802.00,7/25/2014 0:00:00,"MB",46.67,-113.85,"Burned Forest","Burned Forest 6-15yrs",,"120",1713.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+824.00,8/12/2015 0:00:00,"EF",45.86,-114.06,"0","WF2","FMC","125",1369.23,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+825.00,8/12/2015 0:00:00,"EF",45.86,-114.06,"0","WF2","FMC","120",1362.13,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+826.00,8/12/2015 0:00:00,"LS",45.86,-114.07,"0","WF2","FMC","200",1472.21,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+827.00,8/12/2015 0:00:00,"EF",45.86,-114.06,"0","WF2","FMC","156",1478.87,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+828.00,8/12/2015 0:00:00,"LS",45.87,-114.07,"0","WF2","FMC","258",1492.84,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+844.00,7/24/2014 0:00:00,"MB TA",46.68,-113.84,"Burned Forest","Burned Forest 6-15yrs",,"218",1944.00,"Gap done at this plot. No shrubs were present.",0.00,3.00,2.00,0.00,"5.2",0.00,"PINCON",,
+845.00,7/24/2014 0:00:00,"TA",46.67,-113.84,"Burned Forest","Burned Forest 6-15yrs",,"262",1782.00,"0",0.00,1.00,5.00,2.00,"8.3",2.00,"PINCON",,
+846.00,7/24/2014 0:00:00,"MB TA",46.67,-113.84,"Burned Forest","Burned Forest 6-15yrs",,"220",1974.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINCON",,
+847.00,7/24/2014 0:00:00,"TA",46.67,-113.84,"Burned Forest","Burned Forest 6-15yrs",,"266",1710.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"PINCON",,
+848.00,7/24/2014 0:00:00,"MB",46.67,-113.84,"Burned Forest","Burned Forest 6-15yrs",,"222",1833.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+864.00,8/7/2014 0:00:00,"MB",45.51,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"248",2193.00,"GAP completed at this plot.",6.00,13.00,11.00,8.00,"39.5",8.00,"PINCON",,
+865.00,8/7/2014 0:00:00,"MB",45.51,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"272",2256.00,"0",16.00,13.00,14.00,9.00,"54.1",9.00,"PINCON",,
+866.00,8/7/2014 0:00:00,"MB",45.51,-114.26,"Burned Forest","Burned Forest 0-5yrs",,"18",2191.00,"0",7.00,12.00,9.00,7.00,"36.4",7.00,"PSEMEN",,
+868.00,8/7/2014 0:00:00,"MB",45.51,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"262",2225.00,"0",9.00,3.00,7.00,12.00,"32.2",12.00,"PSEMEN",,
+869.00,8/6/2014 0:00:00,"MB",45.50,-114.29,"Burned Forest","Burned Forest 0-5yrs",,"264",2039.00,"GAP completed at this plot",3.00,0.00,5.00,12.00,"20.8",12.00,"PSEMEN",,
+871.00,8/6/2014 0:00:00,"MB",45.50,-114.29,"Burned Forest","Burned Forest 0-5yrs",,"8",2115.00,"0",9.00,13.00,13.00,11.00,"47.8",11.00,"PINCON",,
+872.00,8/6/2014 0:00:00,"MB",45.50,-114.29,"Burned Forest","Burned Forest 0-5yrs",,"252",2073.00,"0",5.00,2.00,11.00,0.00,"18.7",0.00,"PSEMEN",,
+873.00,8/6/2014 0:00:00,"MB",45.50,-114.29,"Burned Forest","Burned Forest 0-5yrs",,"248",2087.00,"0",0.00,0.00,0.00,5.00,"5.2",5.00,"PSEMEN",,
+874.00,8/5/2014 0:00:00,"MB",45.53,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"316",2034.00,"GAP completed at this plot.",8.00,12.00,2.00,8.00,"31.2",8.00,"PINCON",,
+875.00,8/5/2014 0:00:00,"MB",45.53,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"332",2084.00,"No 20m Clip Plot",0.00,5.00,17.00,12.00,"35.4",12.00,"PINCON",,
+876.00,8/5/2014 0:00:00,"MB",45.53,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"308",2042.00,"No 40m Clip Plot.",2.00,4.00,7.00,4.00,"17.7",4.00,"PINCON",,
+877.00,8/5/2014 0:00:00,"MB",45.53,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"178",2018.00,"877 was not in a burn. Moved plot on same contour and aspect 50 feet from original location.",15.00,12.00,12.00,9.00,"49.9",9.00,"PINCON",,
+878.00,8/5/2014 0:00:00,"MB",45.53,-114.27,"Burned Forest","Burned Forest 0-5yrs",,"340",2130.00,"No 20m Clip Plot",6.00,11.00,2.00,3.00,"22.9",3.00,"PINCON",,
+880.00,8/10/2015 0:00:00,"LS",45.50,-114.47,"0","WF1","MFLP","88",1840.83,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+881.00,8/10/2015 0:00:00,"LS",45.50,-114.47,"0","WF1","MFLP","104",1851.78,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+882.00,8/10/2015 0:00:00,"EF",45.51,-114.47,"0","WF1","MFLP","160",1858.49,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+883.00,8/10/2015 0:00:00,"EF",45.50,-114.47,"0","WF1","MFLP","200",1834.39,"plot moved 30m away from large boulder outcrop",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+884.00,8/14/2015 0:00:00,"MD",46.25,-113.79,"0","WF1","0","213",2203.14,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+885.00,8/13/2015 0:00:00,"MD",46.25,-113.80,"0","WF1","0","176",2155.68,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+886.00,8/14/2015 0:00:00,"JM",46.26,-113.80,"0","WF1","0","157",2215.28,"0",1.00,0.00,0.00,0.00,"0.25",0.00,"0","0","0"
+887.00,8/14/2015 0:00:00,"MD",46.26,-113.80,"0","WF1","0","183",2181.01,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+888.00,8/13/2015 0:00:00,"JM",46.25,-113.80,"0","WF1","0","174",2130.73,"0",3.00,4.00,3.00,3.00,"3.25",0.00,"0","0","0"
+889.00,8/14/2014 0:00:00,"MB TA",46.32,-114.23,"Burned Forest","Burned Forest 6-15yrs",,"34",1447.00,"GAP completed at this plot.",0.00,0.00,0.00,0.00,"0.0",0.00,"PSEMEN",,
+891.00,8/14/2014 0:00:00,"TA",46.32,-114.24,"Burned Forest","Burned Forest 6-15yrs",,"20",1483.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"LAROCC",,
+892.00,8/14/2014 0:00:00,"MB",46.31,-114.24,"Burned Forest","Burned Forest 6-15yrs",,"68",1571.00,"Plot 10m was within a large SALI SP. >2m. BD was taken but not sure if it is needed because of its size.",0.00,0.00,0.00,0.00,"0.0",0.00,"LAROCC",,
+894.00,8/15/2014 0:00:00,"MB",46.32,-114.25,"Burned Forest","Burned Forest 6-15yrs",,"160",1688.00,"GAP completed at this plot. Plant samples were wet when collected. Wet weights may be inaccurate.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINPON",,
+896.00,8/15/2014 0:00:00,"MB",46.32,-114.24,"Burned Forest","Burned Forest 6-15yrs",,"22",1622.00,"No 40m clip plot.",0.00,0.00,0.00,0.00,"0.0",0.00,"LAROCC",,
+898.00,8/15/2014 0:00:00,"TA",46.32,-114.24,"Burned Forest","Burned Forest 6-15yrs",,"88",1680.00,"plants collected wet. wet weights may be inaccurate.",0.00,0.00,0.00,0.00,"0.0",0.00,"PINCON",,
+907.00,8/13/2015 0:00:00,"JM",46.24,-113.84,"0","WF1","0","215",1891.65,"Moved plot.",3.00,3.00,6.00,0.00,"3",1.00,"ABILAS","PINCON","3"
+908.00,8/13/2015 0:00:00,"MD",46.24,-113.84,"0","WF1","0","202",1943.06,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+909.00,8/13/2015 0:00:00,"JM",46.24,-113.84,"0","WF1","0","230",1950.25,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+911.00,8/13/2015 0:00:00,"MD",46.24,-113.84,"0","WF1","0","123",1962.15,"0",0.00,5.00,3.00,0.00,"2",2.00,"PSEMEN","0","3"
+912.00,8/4/2014 0:00:00,"MB",45.53,-114.35,"Burned Forest","Burned Forest 0-5yrs",,"212",2075.00,"GAP completed at this plot.",3.00,3.00,5.00,2.00,"13.5",2.00,"PSEMEN",,
+913.00,8/4/2014 0:00:00,"MB",45.52,-114.35,"Burned Forest","Burned Forest 0-5yrs",,"262",1935.00,"0",2.00,4.00,3.00,0.00,"9.4",0.00,"PINCON",,
+914.00,8/4/2014 0:00:00,"MB",45.53,-114.35,"Burned Forest","Burned Forest 0-5yrs",,"268",2047.00,"0",2.00,0.00,4.00,2.00,"8.3",2.00,"PSEMEN",,
+916.00,8/4/2014 0:00:00,"MB",45.53,-114.35,"Burned Forest","Burned Forest 0-5yrs",,"282",2056.00,"0",3.00,4.00,6.00,3.00,"16.6",3.00,"PSEMEN",,
+917.00,8/10/2015 0:00:00,"MD",45.55,-114.36,"0","WF1","0","336",2158.89,"plot moved",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+918.00,8/10/2015 0:00:00,"JM",45.55,-114.36,"0","WF1","0","329",2123.82,"Moved plot closer to road.",4.00,2.00,1.00,1.00,"2",0.00,"0","0","0"
+919.00,8/10/2015 0:00:00,"MD",45.55,-114.36,"0","WF1","0","329",2021.42,"plot moved",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+920.00,8/10/2015 0:00:00,"JM",45.55,-114.36,"0","WF1","0","66",2061.38,"Moved plot closer to road.",2.00,1.00,1.00,1.00,"1.25",0.00,"0","0","0"
+931.00,7/16/2014 0:00:00,"MB",46.77,-114.21,"Burned Forest","Burned Forest 0-5yrs",,"138",1609.00,"No veg for 20m clip plot",5.00,7.00,0.00,5.00,"17.7",5.00,"PINCON",,
+933.00,7/16/2014 0:00:00,"MB",46.77,-114.21,"Burned Forest","Burned Forest 0-5yrs",,"90",1610.00,"No veg in 40m clip plot",2.00,0.00,2.00,3.00,"7.3",3.00,"PINCON",,
+934.00,7/16/2014 0:00:00,"MB",46.77,-114.21,"Burned Forest","Burned Forest 0-5yrs",,"260",1542.00,"0",4.00,11.00,9.00,2.00,"27.0",2.00,"PINPON",,
+935.00,7/16/2014 0:00:00,"MB",46.76,-114.21,"Burned Forest","Burned Forest 0-5yrs",,"74",1600.00,"No clip plot veg at 0m and 20m",8.00,3.00,0.00,0.00,"11.4",0.00,"PINCON",,
+950.00,8/1/2014 0:00:00,"TH",46.71,-114.03,"Agriculture","Restoration",,"284",993.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+951.00,8/20/2014 0:00:00,"TH",46.68,-114.03,"Agriculture","Restoration",,"224",1011.00,"Field has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+952.00,8/18/2014 0:00:00,"TH",46.67,-114.01,"Agriculture","Restoration",,"239",1101.00,"Field has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+953.00,8/8/2014 0:00:00,"TH",46.67,-114.02,"Agriculture","Restoration",,"264",1045.00,"Field has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+954.00,8/7/2014 0:00:00,"TH",46.68,-114.02,"Agriculture","Dry Ag",,"251",1014.00,"Field has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+955.00,8/18/2014 0:00:00,"TH",46.68,-114.02,"Agriculture","Dry Ag",,"200",1009.00,"Field has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+956.00,8/8/2014 0:00:00,"TH",46.68,-114.03,"Agriculture","Dry Ag",,"205",1044.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+957.00,8/8/2014 0:00:00,"TH",46.68,-114.03,"Agriculture","Dry Ag",,"270",1022.00,"0",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+958.00,8/20/2014 0:00:00,"TH",46.67,-114.02,"Agriculture","Irrigated Ag",,"277",1023.00,"Wet, irrigated center pivot",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+959.00,8/22/2014 0:00:00,"TH",46.68,-114.03,"Agriculture","Irrigated Ag",,"140",1040.00,"Wet irrigated pivot; has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+960.00,8/22/2014 0:00:00,"TH",46.68,-114.03,"Agriculture","Irrigated Ag",,"207",1049.00,"Point has been moved from origi0l location. Wet irrigated pivot; has been mechanically cut",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+961.00,8/20/2014 0:00:00,"TH",46.67,-114.02,"Agriculture","Irrigated Ag",,"282",1030.00,"wet center pivot",0.00,0.00,0.00,0.00,"0.0",0.00,"0",,
+1016.00,8/26/2015 0:00:00,"LS",46.45,-113.76,"0","RX1","FMC","130",1642.92,"0",13.00,15.00,7.00,12.00,"11.75",2.00,"PSEMEN","PINPON","3"
+1017.00,8/26/2015 0:00:00,"LS",46.45,-113.76,"0","RX1","FMC","134",1872.26,"0",12.00,18.00,10.00,9.00,"12.25",3.00,"PINPON","PSEMEN","3"
+1018.00,8/26/2015 0:00:00,"MD",46.45,-113.76,"0","RX1","FMC","99",1631.08,"0",1.00,11.00,9.00,6.00,"6.75",10.00,"PSEMEN","JUNSCO","2"
+1019.00,8/26/2015 0:00:00,"JM",46.45,-113.76,"0","RX 1","FMC","130",1812.64,"0",11.00,3.00,4.00,1.00,"4.75",7.00,"PSEMEN","PINPON","3"
+1020.00,8/26/2015 0:00:00,"JM",46.45,-113.76,"0","RX 1","FMC","128",1762.24,"0",0.00,5.00,11.00,9.00,"6.25",3.00,"PSEMEN","PINPON","3"
+1022.00,7/28/2015 0:00:00,"RD",46.41,-113.69,"0","RX1","FMC","301",1688.21,"No visual indication of burn though some trees look stressed.",9.00,24.00,6.00,12.00,"12.75",13.00,"PSEMEN","PINPON","3"
+1023.00,7/28/2015 0:00:00,"RD",46.41,-113.70,"0","RX1","FMC","276",1647.27,"Patchy evidence of char.",15.00,14.00,7.00,2.00,"9.5",7.00,"PSEMEN","PINPON","3"
+1026.00,7/29/2015 0:00:00,"RD LS",46.45,-113.68,"0","RX2","SWP","323",2397.81,"no evidence of recent burn",9.00,10.00,8.00,16.00,"10.75",11.00,"PINALB","ABILAS","2"
+1028.00,7/29/2015 0:00:00,"RD LS",46.45,-113.68,"0","RX2","SWP","310",2430.12,"no visible recent burn evidence",6.00,10.00,16.00,6.00,"9.5",22.00,"PINCON","PINALB","2"
+1034.00,7/28/2015 0:00:00,"MD",46.50,-113.74,"0","RX1","FMC","241",1634.93,"0",23.00,24.00,24.00,24.00,"23.75",15.00,"PSEMEN","PINPON","3"
+1035.00,7/28/2015 0:00:00,"MD",46.50,-113.75,"0","RX1","FMC","215",1690.68,"0",15.00,14.00,13.00,24.00,"16.5",5.00,"PSEMEN","PINPON","3"
+1036.00,7/17/2015 0:00:00,"LS,EF,KB",46.55,-113.85,"0","RX2","FMC","260",1749.16,"0",9.00,12.00,7.00,17.00,"11.25",15.00,"PSEMEN","PINPON","2"
+1037.00,7/17/2015 0:00:00,"LS",46.55,-113.85,"0","RX2","FMC","234",1706.46,"0",7.00,12.00,2.00,4.00,"6.25",9.00,"PINPON","PSEMEN","1"
+1038.00,7/17/2015 0:00:00,"EF, KB",46.55,-113.85,"0","RX2","FMC","180",1731.27,"0",8.00,9.00,7.00,9.00,"8.25",5.00,"PSEMEN","PINPON","3"
+1039.00,7/17/2015 0:00:00,"EF, KB",46.55,-113.85,"0","RX2","FMC","232",1755.86,"0",17.00,10.00,7.00,15.00,"12.25",7.00,"PSEMEN","PINPON","3"
+1040.00,7/17/2015 0:00:00,"LS",46.55,-113.85,"0","RX2","FMC","231",1679.91,"0",14.00,4.00,7.00,8.00,"8.25",21.00,"PINPON","PSEMEN","2"
+1041.00,8/13/2015 0:00:00,"EF",46.16,-113.95,"0","RX2","FMC","50",1524.84,"plot moved upslope for navigation safety - very steep!",7.00,8.00,2.00,1.00,"4.5",9.00,"PINPON","PSEMEN","4"
+1042.00,8/13/2015 0:00:00,"LS",46.17,-113.95,"0","RX2","FMC","250",1599.68,"0",14.00,8.00,7.00,10.00,"9.75",15.00,"PSEMEN","PINPON","4"
+1043.00,8/13/2015 0:00:00,"LS",46.17,-113.95,"0","RX2","FMC","354",1549.51,"0",12.00,14.00,13.00,14.00,"13.25",22.00,"PSEMEN","0","3"
+1044.00,8/13/2015 0:00:00,"LS,EF",46.17,-113.95,"0","RX2","FMC","320",1642.60,"0",11.00,16.00,24.00,14.00,"16.25",4.00,"PINPON","PSEMEN","4"
+1045.00,8/13/2015 0:00:00,"EF",46.17,-113.95,"0","RX2","FMC","230",1592.90,"0",6.00,9.00,17.00,10.00,"10.5",12.00,"PINPON","PSEMEN","3"
+1046.00,8/4/2015 0:00:00,"LS",46.43,-113.88,"0","RX2","MFLP","116",1996.71,"0",18.00,12.00,20.00,18.00,"17",16.00,"PINCON","PSEMEN","2"
+1047.00,8/4/2015 0:00:00,"LS",46.43,-113.88,"0","RX2","MFLP","162",1963.13,"0",21.00,15.00,9.00,7.00,"13",19.00,"PINCON","PSEMEN","3"
+1048.00,8/4/2015 0:00:00,"EF",46.43,-113.87,"0","RX2","MFLP","150",1967.06,"0",15.00,21.00,18.00,19.00,"18.25",19.00,"PINCON","PSEMEN","2"
+1049.00,8/4/2015 0:00:00,"EF",46.43,-113.87,"0","RX2","MFLP","220",1923.14,"0",20.00,21.00,20.00,15.00,"19",17.00,"PINCON","PSEMEN","2"
+1051.00,8/24/2015 0:00:00,"JM, LG",46.73,-113.74,"0","RX 1","FMC","29",1480.63,"0",0.00,0.00,2.00,0.00,"0.5",1.00,"PSEMEN","0","2"
+1052.00,8/24/2015 0:00:00,"LS",46.73,-113.74,"0","RX1","FMC","38",1208.92,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","3"
+1053.00,8/24/2015 0:00:00,"JM",46.73,-113.74,"0","RX 1","FMC","95",1371.92,"Moved plot due to very steep access.",0.00,0.00,2.00,3.00,"1.25",0.00,"PSEMEN","0","2"
+1055.00,8/24/2015 0:00:00,"LS",46.73,-113.74,"0","RX1","FMC","71",1396.29,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","3"
+1057.00,7/27/2015 0:00:00,"LS",46.41,-113.64,"0","RX2","MFDSF","30",2223.62,"0",10.00,12.00,15.00,16.00,"13.25",8.00,"ABILAS","PINCON","2"
+1059.00,7/27/2015 0:00:00,"MD,JM",46.41,-113.65,"0","RX2","MFDSF","322",2252.97,"0",24.00,23.00,24.00,22.00,"23.25",22.00,"ABILAS","PINCON","2"
+1061.00,7/29/2015 0:00:00,"MD, JM",46.44,-113.68,"0","RX2","SWP","113",2365.10,"0",21.00,14.00,19.00,21.00,"18.75",10.00,"ABILAS","PINALB","2"
+1063.00,7/29/2015 0:00:00,"JM",46.44,-113.67,"0","RX2","SWP","72",2273.41,"0",20.00,20.00,16.00,20.00,"19",11.00,"ABILAS","PINALB","2"
+1065.00,7/29/2015 0:00:00,"MD",46.44,-113.67,"0","RX2","SWP","92",2296.00,"0",21.00,19.00,20.00,23.00,"20.75",7.00,"ABILAS","PINALB","2"
+1071.00,8/26/2015 0:00:00,"EF",46.46,-113.76,"0","RX1","FMC","220",1743.34,"plot moved",7.00,7.00,13.00,17.00,"11",6.00,"PSEMEN","PINPON","4"
+1072.00,8/26/2015 0:00:00,"MD",46.45,-113.76,"0","RX1","FMC","163",1775.01,"0",6.00,5.00,9.00,24.00,"11",7.00,"PSEMEN","PINPON","3"
+1073.00,8/26/2015 0:00:00,"EF",46.45,-113.76,"0","RX1","FMC","115",1841.77,"plot moved",7.00,12.00,8.00,12.00,"9.75",9.00,"PSEMEN","JUNSCO","2"
+1074.00,8/26/2015 0:00:00,"MD",46.46,-113.76,"0","RX1","FMC","171",1823.34,"0",8.00,15.00,15.00,18.00,"14",6.00,"PINPON","PSEMEN","3"
+1075.00,8/26/2015 0:00:00,"EF",46.46,-113.76,"0","RX1","FMC","135",1706.71,"plot moved",9.00,18.00,6.00,7.00,"10",4.00,"PSEMEN","PINPON","3"
+1076.00,7/30/2015 0:00:00,"MD",46.51,-113.72,"0","RX1","MFLP","223",1970.08,"0",21.00,24.00,23.00,24.00,"23",26.00,"PINCON","PSEMEN","2"
+1078.00,7/30/2015 0:00:00,"JM",46.51,-113.72,"0","RX1","MFLP","187",2014.27,,16.00,12.00,21.00,15.00,"16",11.00,"PINCON","PSEMEN","2"
+1079.00,7/30/2015 0:00:00,"LS",46.52,-113.72,"0","RX1","MFLP","236",2022.17,"no evidence of burn",13.00,6.00,10.00,15.00,"11",13.00,"PINCON","PSEMEN","2"
+1080.00,7/30/2015 0:00:00,"JM",46.51,-113.72,"0","RX1","MFLP","190",2020.94,"0",14.00,21.00,20.00,21.00,"19",21.00,"PINCON","0","2"
+1081.00,7/28/2015 0:00:00,"LS",46.50,-113.75,"0","RX1","FMC","204",1649.44,"0",7.00,10.00,16.00,6.00,"9.75",11.00,"PINPON","PSEMEN","3"
+1082.00,7/28/2015 0:00:00,"JM",46.50,-113.75,"0","RX1","FMC","199",1638.79,"0",12.00,6.00,6.00,2.00,"6.5",8.00,"PINPON","PSEMEN","3"
+1083.00,7/28/2015 0:00:00,"LS",46.50,-113.75,"0","RX1","FMC","202",1622.57,"0",16.00,12.00,3.00,7.00,"9.5",15.00,"PINPON","PSEMEN","2"
+1084.00,7/28/2015 0:00:00,"JM",46.50,-113.75,"0","RX1","FMC","236",1705.33,"0",9.00,13.00,16.00,17.00,"13.75",9.00,"PINPON","PSEMEN","2"
+1085.00,7/28/2015 0:00:00,"JM",46.50,-113.75,"0","RX1","FMC","185",1509.17,"0",7.00,2.00,6.00,11.00,"6.5",10.00,"PSEMEN","PINPON","2"
+1086.00,8/3/2015 0:00:00,"JM",46.76,-113.72,"0","RX1","FMC","49",1190.68,"0",15.00,17.00,19.00,20.00,"17.75",6.00,"PINPON","PSEMEN","2"
+1087.00,8/3/2015 0:00:00,"EF",46.76,-113.72,"0","RX1","FMC","125",1109.11,"Plot moved 60' to be fully within RX1 HT.",1.00,1.00,2.00,11.00,"3.75",2.00,"PSEMEN","PINPON","2"
+1088.00,8/3/2015 0:00:00,"EF",46.76,-113.72,"0","RX1","FMC","60",1134.81,"0",16.00,11.00,9.00,9.00,"11.25",7.00,"PSEMEN","PINPON","2"
+1089.00,8/3/2015 0:00:00,"EF, JM",46.76,-113.72,"0","RX1","FMC","90",1160.58,"0",14.00,16.00,10.00,10.00,"12.5",9.00,"PSEMEN","PINPON","2"
+1090.00,8/3/2015 0:00:00,"JM",46.76,-113.72,"0","RX1","FMC","166",1163.08,"0",9.00,5.00,15.00,21.00,"12.5",9.00,"PINPON","0","3"
+1091.00,8/7/2015 0:00:00,"MD",46.77,-113.73,"0","RX1","FMC","38",1207.91,"compared to 1092, there isn't any evidence of a burn",20.00,24.00,24.00,24.00,"23",14.00,"PSEMEN","LAROCC","2"
+1092.00,8/7/2015 0:00:00,"MD",46.77,-113.73,"0","RX1","FMC","20",1223.36,"0",24.00,17.00,24.00,18.00,"20.75",7.00,"PSEMEN","PINPON","3"
+1093.00,8/7/2015 0:00:00,"EF",46.77,-113.73,"0","RX1","FMC","10",1213.87,"plot moved to be fully within burn boundary",7.00,6.00,5.00,4.00,"5.5",6.00,"PSEMEN","PINPON","2"
+1094.00,8/7/2015 0:00:00,"EF",46.77,-113.73,"0","RX1","FMC","40",1198.80,"0",12.00,19.00,18.00,12.00,"15.25",8.00,"PSEMEN","LAROCC","2"
+1095.00,8/7/2015 0:00:00,"EF, MD",46.76,-113.73,"0","RX1","FMC","35",1212.43,"0",6.00,22.00,18.00,16.00,"15.5",10.00,"PINPON","PSEMEN","3"
+1096.00,8/11/2015 0:00:00,"EF, LS",45.81,-114.27,"0","RX2","FMC","140",1549.72,"plot moved 30' off old road",18.00,19.00,13.00,12.00,"15.5",12.00,"PINPON","PSEMEN","2"
+1097.00,8/11/2015 0:00:00,"EF",45.81,-114.28,"0","RX2","FMC","130",1614.86,"0",4.00,8.00,1.00,1.00,"3.5",5.00,"PSEMEN","PINPON","3"
+1098.00,8/11/2015 0:00:00,"LS",45.81,-114.27,"0","RX2","FMC","185",1482.19,"0",19.00,9.00,19.00,14.00,"15.25",11.00,"PSEMEN","PINPON","3"
+1099.00,8/11/2015 0:00:00,"EF",45.81,-114.28,"0","RX2","FMC","180",1568.97,"0",4.00,9.00,20.00,8.00,"10.25",9.00,"PSEMEN","PINPON","3"
+1100.00,8/11/2015 0:00:00,"LS",45.81,-114.28,"0","RX2","FMC","275",1438.38,"no weights documented for clip plots due to rain.",7.00,7.00,12.00,11.00,"9.25",12.00,"PSEMEN","PINPON","3"
+1101.00,8/11/2015 0:00:00,"JM, MD",45.81,-114.27,"0","RX1","FMC","124",1605.33,"0",8.00,19.00,13.00,14.00,"13.5",8.00,"PINPON","PSEMEN","3"
+1102.00,8/11/2015 0:00:00,"MD",45.82,-114.27,"0","RX1","FMC","134",1635.71,"0",15.00,16.00,8.00,20.00,"14.75",16.00,"PINCON","PSEMEN","3"
+1103.00,8/11/2015 0:00:00,"JM",45.81,-114.26,"0","RX1","FMC","82",1490.82,"0",11.00,4.00,11.00,8.00,"8.5",3.00,"PINPON","PSEMEN","2"
+1104.00,8/11/2015 0:00:00,"JM",45.82,-114.27,"0","RX1","FMC","204",1623.18,"0",12.00,9.00,6.00,21.00,"12",13.00,"PINPON","PSEMEN","3"
+1105.00,8/11/2015 0:00:00,"MD",46.82,-114.27,"0","RX1","FMC","171",1560.06,"no weights for samples-wet",19.00,13.00,23.00,9.00,"16",11.00,"PINPON","PSEMEN","3"
+1200.00,7/16/2015 0:00:00,"LS, JM",46.67,-114.00,"0","DA","0","238",1203.50,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1201.00,7/16/2015 0:00:00,"MD",46.67,-114.00,"0","DA","0","327",1194.27,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1202.00,7/16/2015 0:00:00,"LS",46.69,-114.02,"0","DA","0","232",1156.38,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1203.00,7/16/2015 0:00:00,"MD",46.69,-114.02,"0","DA","0","263",1157.36,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1204.00,7/16/2015 0:00:00,"JM",46.69,-114.02,"0","DA","0","250",1142.27,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1205.00,7/16/2015 0:00:00,"LS, MD",46.69,-114.02,"0","DA","0","238",1135.68,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1206.00,7/16/2015 0:00:00,"JM",46.69,-114.02,"0","DA","0","276",1153.30,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1207.00,7/31/2015 0:00:00,"MD",46.70,-114.03,"0","DA","0","283",1081.14,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1208.00,7/31/2015 0:00:00,"MD",46.70,-114.03,"0","DA","0","259",1068.21,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1209.00,7/31/2015 0:00:00,"MD",46.70,-114.03,"0","DA","0","268",1056.43,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1210.00,8/27/2015 0:00:00,"EF",46.70,-114.03,"0","DA","0","284",1045.54,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1211.00,8/27/2015 0:00:00,"LS",46.70,-114.03,"0","DA","0","272",1087.36,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1212.00,7/21/2015 0:00:00,"LS",46.48,-113.94,"0","DA","GLM","316",1416.23,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1213.00,7/21/2015 0:00:00,"LS, MD",46.47,-113.94,"0","DA","GLM","294",1423.38,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1214.00,7/21/2015 0:00:00,"LS",46.48,-113.94,"0","DA","GLM","275",1399.68,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1215.00,7/21/2015 0:00:00,"MD",46.47,-113.94,"0","DA","GLM","291",1404.52,"plot moved out of sage brush",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1216.00,7/21/2015 0:00:00,"MD",46.47,-113.94,"0","DA","GLM","297",1415.44,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1217.00,7/31/2015 0:00:00,"LS",46.48,-113.94,"0","DA","0","297",1392.40,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1218.00,7/31/2015 0:00:00,"EF",46.48,-113.94,"0","DA","0","280",1405.64,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1219.00,7/31/2015 0:00:00,"LS",46.48,-113.94,"0","DA","0","257",1441.08,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1220.00,7/31/2015 0:00:00,"EF",46.48,-113.94,"0","DA","0","280",1423.45,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1221.00,7/31/2015 0:00:00,"LS",46.48,-113.94,"0","DA","0","284",1412.64,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1227.00,7/22/2015 0:00:00,"MD, JM",46.71,-114.03,"0","DA","0","269",1017.03,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1228.00,7/22/2015 0:00:00,"MD",46.71,-114.03,"0","DA","0","211",1084.89,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1229.00,7/22/2015 0:00:00,"JM",46.71,-114.03,"0","DA","0","216",1046.92,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1230.00,7/22/2015 0:00:00,"MD",46.71,-114.03,"0","DA","0","280",1078.18,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1231.00,7/22/2015 0:00:00,"JM",46.72,-114.03,"0","DA","0","297",1057.15,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1241.00,8/5/2015 0:00:00,"EF",46.68,-114.03,"0","IA","0","300",988.48,,0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1242.00,8/5/2015 0:00:00,"EF",46.68,-114.03,"0","IA","0","300",993.34,,0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1243.00,8/5/2015 0:00:00,"EF",46.68,-114.03,"0","IA","0","300",995.19,,0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1245.00,8/31/2015 0:00:00,"JM",46.57,-113.96,"0","IA","0","flat",1114.87,"Recently harvested.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1246.00,8/31/2015 0:00:00,"LS",46.57,-113.95,"0","IA","0","FLAT",1118.58,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1247.00,8/24/2015 0:00:00,"EF",46.59,-113.93,"0","IA","0","220",1172.18,"this field has NOT recently been mowed. same MEDSAT/DACGLO mix as 1249, but these clip plots have biomass. also spoke with the owner and he said they make a point to chase the elk out of here. :)",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1248.00,8/24/2015 0:00:00,"MD",46.59,-113.94,"0","IA","0","FLAT",1160.65,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1249.00,8/24/2015 0:00:00,"MD, EF",46.60,-113.93,"0","IA","0","FLAT",1197.89,"field has been cut for the season, clip plots not at full biomass",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1250.00,8/24/2015 0:00:00,"MD",46.59,-113.94,"0","IA","0","FLAT",1173.78,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1251.00,8/24/2015 0:00:00,"EF",46.60,-113.94,"0","IA","0","210",1181.15,"plot not cut",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1252.00,8/31/2015 0:00:00,"JM, LS",46.57,-113.96,"0","IA","0","flat",1115.71,"Field will be heavily grazed in a few weeks.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1254.00,8/3/2015 0:00:00,"LS",46.54,-113.95,"0","IA","0","FLAT",1137.46,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1256.00,8/3/2015 0:00:00,"LS",46.54,-113.95,"0","IA","0","FLAT",1136.17,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1257.00,8/3/2015 0:00:00,"LS",46.54,-113.96,"0","IA","0","FLAT",1129.10,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1258.00,8/27/2015 0:00:00,"MD",46.59,-113.94,"0","IA","0","FLAT",1146.71,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1259.00,8/27/2015 0:00:00,"JM",46.59,-113.95,"0","IA","0","flat",1152.86,"Field was very recently cut.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1260.00,8/17/2015 0:00:00,"LS",46.46,-113.94,"0","IA","0","FLAT",1272.91,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1261.00,8/17/2015 0:00:00,"JM",46.46,-113.94,"0","IA","0","flat",1271.86,"very recently harvested.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1262.00,8/17/2015 0:00:00,"JM",46.46,-113.94,"0","IA","0","flat",1280.25,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1263.00,8/17/2015 0:00:00,"JM",46.47,-113.95,"0","IA","0","flat",1265.21,"very recently harvested.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1264.00,8/17/2015 0:00:00,"LS",46.46,-113.94,"0","IA","0","FLAT",1282.18,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1265.00,8/27/2015 0:00:00,"LS",46.47,-113.95,"0","IA","0","FLAT",1267.65,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1266.00,8/27/2015 0:00:00,"EF",46.47,-113.95,"0","IA","0","flat",1268.37,"fields cut. biomass will be less.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1267.00,8/27/2015 0:00:00,"EF, LS",46.46,-113.94,"0","IA","0","flat",1284.39,"fields have been cut",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1268.00,8/31/2015 0:00:00,"JM",46.46,-113.94,"0","IA","0","flat",1279.61,"Recently cut.",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+1269.00,8/31/2015 0:00:00,"LS",46.46,-113.94,"0","IA","0","flat",1287.66,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+5325.00,8/5/2015 0:00:00,"MD",46.73,-114.04,"0","GLM","0","291",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+5326.00,8/5/2015 0:00:00,"MD",46.73,-114.04,"0","GLM","0","FLAT",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+5340.00,8/7/2015 0:00:00,"LS",46.84,-113.95,"0","GLM","0","144",0.00,"0",0.00,0.00,0.00,0.00,"0",1.00,"PINPON","0","2"
+5344.00,8/7/2015 0:00:00,"LS",46.84,-113.96,"0","GLM","0","200",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"0","0","0"
+5364.00,8/6/2015 0:00:00,"EF",46.53,-113.90,"0","GUM","0","215",0.00,"0",0.00,10.00,0.00,0.00,"2.5",1.00,"PINPON","0","3"
+5367.00,8/6/2015 0:00:00,"EF",46.54,-113.90,"0","GUM","0","220",0.00,"0",0.00,0.00,0.00,0.00,"0",0.00,"PINPON","0","2"
