@@ -1,10 +1,10 @@
 ## kjb - things to do/change
 
-# create gdm-plot.csv using prev biomass code
-  # incl visitdate, latitude, longitude, gdm
-# github - upload jesses version as first commit
-  # so you can see exact changes you made, and also
-  # so when you eff it up you can easily revert back
+#X create gdm-plot.csv using prev biomass code
+  #X incl visitdate, latitude, longitude, gdm
+#X github - upload jesses version as first commit
+  #X so you can see exact changes you made, and also
+  #X so when you eff it up you can easily revert back
 # make bbox for nsapph (~l.82)
 # decide best landcov reference level for model (~l.290)
 # note prob need to recode looking at distn of response (~l.296)
@@ -22,7 +22,7 @@ library(dplyr) #Group by function
 library(ggplot2)
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
-wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Vegetation"
+wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\UMT\\Thesis\\Migration_Consequences\\Analyses\\Veg"
 
 if (file.exists(wd_workcomp)) {
   setwd(wd_workcomp)
@@ -34,7 +34,6 @@ if (file.exists(wd_workcomp)) {
 
 rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into memory, increasing processing time
 memory.limit()
-memory.limit(size=10000) # this may not be needed anymore
 
 ############################################################################
 # Read, process, and write out all rasters for modeling and predictions ####
