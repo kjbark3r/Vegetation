@@ -5,7 +5,8 @@
 #X github - upload jesses version as first commit
   #X so you can see exact changes you made, and also
   #X so when you eff it up you can easily revert back
-# make bbox for nsapph (~l.82)
+#X add $Season to data, or subset by date
+#Xunnecessary bc jesse is awesomeX make bbox for nsapph (~l.82)
 # decide best landcov reference level for model (~l.290)
 # note prob need to recode looking at distn of response (~l.296)
 
@@ -33,15 +34,14 @@ if (file.exists(wd_workcomp)) {
 }
 
 rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into memory, increasing processing time
-memory.limit()
 
 ############################################################################
 # Read, process, and write out all rasters for modeling and predictions ####
+#  EITHER RUN THIS SECTION OR FOLLOWING SECTION (PULLS IN PROCESSED DATA)  #
 ############################################################################
 
-#Read in a datafile with the year sampled, GDM per plot, along with plot lat/longs
-plot.data <-read.csv("gdm-plot.csv", header=T) 
-
+#Read in a datafile with the year sampled, GDM per plot, along with plot lat/longsplot.data <-read.csv("gdm-plot.csv", header=T) 
+plot.data <-read.csv("gdm-plot-summer.csv", header=T) 
 head(plot.data)
 nrow(plot.data)   
 #Get points, write out the points to dataframe, to spatial data frame, to shapefile 
@@ -139,23 +139,29 @@ names(s)
 if(!file.exists("writtenrasters")) {dir.create(file.path(wd, "writtenrasters"))}  # creates new folder if doesn't exist
 writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTiff') # takes time (add overwrite=TRUE if overwriting existing rasters)
 
-################################################################################################################################
-#Extract attribute data for each plot-life form and write a data.frame with data for building the landscape nutrition model ####
-################################################################################################################################
+#################################################################################
+#  Pull in processed data from above section (if you've already run it once) ####
+##      EITHER RUN THIS SECTION OR PRECEDING SECTION (PROCESSES DATA)          ##
+#################################################################################
 
-#Read in rasters 
+#datafile with the year sampled, GDM per plot, along with plot lat/longs
+plot.data <-read.csv("gdm-plot-summer.csv", header=T) 
+#above datafile as shapefile
+plots<-readOGR(".", layer ='GDM_plots')
+#all rasters for covariates (graciously processed & provided by jesse)
 raster_data<-list.files(path=paste(wd, "writtenrasters", sep="/"), pattern="tif$", full.names=TRUE) 
 s <- stack(raster_data) 
 names(s)
+
+################################################################################################################################
+#Extract attribute data for each plot-life form and write a data.frame with data for building the landscape nutrition model ####
+################################################################################################################################
 
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
 ext<-extract(s, plots) ##Extract from raster stack for each plot location
 plot.data <- data.frame(plot.data) ##Convert plot info attribute table to dataframe
 data <- cbind(plot.data, ext)	##Bind the plot info and extracted landcover datainto a dataframe
-head(data)
-nrow(data)
-
-data$Date<-as.Date(data$Date, "%m/%d/%Y") #Set dates and calculate Year
+data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick the correct year of landcover (esp) and fire
 data$cover_class <- ifelse(data$Year == 2014, data$esp6_14,
@@ -175,7 +181,6 @@ data$ndvi_amp <- ifelse(data$Year == 2014, data$ndvi_amp_2014,
 
 #Create new covariates, standardize covariates and finish building dataset
 data$cover_class<-as.factor(data$cover_class)
-data$area<-as.factor(data$Area)
 data$elev_std<-((data$elev-(mean(data$elev)))/(sd(data$elev)))
 data$slope_std<-((data$slope-(mean(data$slope)))/(sd(data$slope)))
 data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)))
@@ -198,21 +203,18 @@ clsref_esp$cover_class <- as.numeric(as.character(clsref_esp$cover_class))
 data <- merge(data, clsref_esp, by="cover_class")
 
 #data<-subset(data, !data$cover_class == 0) #Remove sample from "other" landcover 
-head(data)
-nrow(data)
-write.csv(data, "data_GDM.csv")
+write.csv(data, "data_GDM.csv", row.names = FALSE)
 
 ##############################################################################################
 #### Summarize GDM data                                                                   ####
 ##############################################################################################
 dat.GDM <- read.csv("data_GDM.csv")
 #dat.GDM <- data #if running code in full from above, can replace read.csv with this
-head(dat.GDM)
 
-sapply(dat.GDM,class)
-dat.GDM$cover_class<-factor(dat.GDM$cover_class)
-dat.GDM$Date<-as.Date(dat.GDM$Date, "%m/%d/%Y") #Set dates and calculate Year
-dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer") 
+#sapply(dat.GDM,class) #prints str(dat.GDM in diff format)
+dat.GDM$cover_class<-factor(dat.GDM$cover_class) #not needed if replaced read.csv above
+dat.GDM$Date<-as.Date(dat.GDM$Date, "%Y-%m-%d") #not needed if replaced read.csv above
+#dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer") #kjb data already subsetted
 summarise(dat.GDM, aveGDM = mean(dat.GDM$GDM))
 summarise(dat.GDM, sdGDM = sd(dat.GDM$GDM))
 
@@ -220,38 +222,17 @@ dat<-group_by(dat.GDM, cover_class)
 GDMSummary=summarise(dat,
                      class_name=first(class_name),
                      count=n(),
-                     AveGDM=mean(DM),
-                     MedGDM=median(DM),
-                     MinGDM=min(DM),
-                     MaxGDM=max(DM),
-                     SdGDM=sd(DM))
+                     AveGDM=mean(GDM),
+                     MedGDM=median(GDM),
+                     MinGDM=min(GDM),
+                     MaxGDM=max(GDM),
+                     SdGDM=sd(GDM))
 GDMSummary 
-write.table(GDMSummary, "GDMSummary_landcover.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
+write.table(GDMSummary, "GDMSummary_landcover_summer.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
 
-dat2<-group_by(dat.GDM, Area)
-GDMSummary2=summarise(dat2,
-                      count=n(),
-                      AveGDM=mean(DM),
-                      MedGDM=median(DM),
-                      MinGDM=min(DM),
-                      MaxGDM=max(DM),
-                      SdGDM=sd(DM))
-GDMSummary2
-write.table(GDMSummary2, "GDMSummary_area.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
-
-dat3<-group_by(dat.GDM, cover_class, Area)
-GDMSummary3=summarise(dat3,
-                     class_name=first(class_name),
-                     count=n(),
-                     AveGDM=mean(DM),
-                     MedGDM=median(DM),
-                     MinGDM=min(DM),
-                     MaxGDM=max(DM),
-                     SdGDM=sd(DM))
-GDMSummary3
-write.table(GDMSummary3, "GDMSummary_area_landcover.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
-
+#############################
 #####   GGPLOT  BOXPLOT   ###
+## KRISTIN YOU HAVEN'T MADE THIS WORK; DON'T RUN IT ##
 library(plyr)
 dat.GDM$class_name <- factor(dat.GDM$class_name, levels=c("Dry Forest Burn 0-5", "Rx Dry Forest Burn 0-5", "Dry Forest Burn 6-15", "Dry Forest (Burn >15)",   
                                                             "Mesic Forest Burn 0-5", "Mesic Forest Burn 6-15", "Mesic Forest (Burn >15)", "Grass/Shrub/Open Woodland",
@@ -260,7 +241,7 @@ dat.GDM$class_name <- factor(dat.GDM$class_name, levels=c("Dry Forest Burn 0-5",
 give.n <- function(x){ return(c(y = 0.36, label = length(x)))}
 #xlabels <- ddply(dat.GDM, .(class_name), summarize, xlabels = paste(unique(class_name),' \n (n=', length(class_name),')       ', sep=""))
 
-GDM_class= ggplot(data=dat.GDM, aes(x=class_name, y=DM)) +
+GDM_class= ggplot(data=dat.GDM, aes(x=class_name, y=GDM)) +
   #geom_boxplot(aes(fill=class_name), alpha=0.4) +
   geom_boxplot() +
   ylim(0.35, 1) + ylab("Dry Matter Digestibility") +
@@ -280,29 +261,38 @@ ggsave("GDM boxplot per Cover Class_nocol.tiff", plot = GDM_class, width=7, heig
 #### Build summer nutrition models using backwards step-wise selection                    ####
 ##############################################################################################
 dat.GDM <- read.csv("data_GDM.csv")
-dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer")  
+#dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer")  #kjb data already subsetted
 dat.GDM$cover_class<-as.factor(dat.GDM$cover_class)
-nrow(dat.GDM) 
-head(dat.GDM)
 summary(dat.GDM$GDM)
 
-#Reorder cover classes and reference level for model (dry forest no burn first, then chronological)
-dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels=c("2","8", "12", "9", "1", "10", "11", "3", "6", "5", "4", "7"))
+# Check out data to pick reference levels
 
-#Look at distribution of response variable and correlations
-hist(dat.GDM$GDM, breaks = 50)
+## look at distribution - mean or median for best measure of center?
+hist(dat.GDM$GDM) #GDM in general skewed R
+ggplot(dat.GDM, aes(x=GDM)) +
+  geom_histogram() +
+  facet_grid(~cover_class) #same per landcover
+
+## order by median GDM and set as reference level order for model
+cov.gdm <- dat.GDM %>%
+  dplyr::select(c(cover_class, class_name, GDM)) %>%
+  group_by(class_name, cover_class) %>%
+  summarise(MedGDM = median(GDM)) %>%
+  arrange(MedGDM)
+lev <- as.vector(cov.gdm$cover_class)
+dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev)
 
 #Distribution of response
 library(wesanderson)
 pal <- wes_palette("Zissou", 10, type="continuous")
-ggplot(data=dat.GDM, aes(x=class_name, y=opt, color=DM)) +
+ggplot(data=dat.GDM, aes(x=class_name, y=GDM, color=GDM)) +
   geom_jitter(width=0.3, height=0.1, alpha=0.5) +
   theme(axis.text.x=element_text(size=12, angle=55, hjust=1, vjust = 1)) +
   scale_color_gradientn(colors=pal)
 
 #Covariates of interest to check correlations
 mydata <- dat.GDM %>% 
-  select(elev, slope, cc, hillshade, cti, gsri, t_fire, sum_precip, spr_precip, ndvi_ti, ndvi_amp)
+  dplyr::select(elev, slope, cc, hillshade, cti, gsri, t_fire, sum_precip, spr_precip, ndvi_ti, ndvi_amp)
 head(mydata)
 ##Spr and Sum Precip are correlated, NDVI ti and amp are correlated
 ## Elev and Spr precip 0.67, hillshade and gsri 0.67
