@@ -122,10 +122,10 @@ forage <- read.csv("NS_foragespecies_summer.csv") %>%
   rename("Species"=SpeciesName)
 
 # WINTER FORAGE PLANTS
-forage.WIN <- read.csv("NS_foragespecies_winter.csv") %>%
-  filter(cumave < 95) %>% # retain species that make up 95% of diet
-  mutate(Genus2 = trimws(SpeciesName)) %>% # for defining forage later
-  rename("Species"=SpeciesName)
+#forage.WIN <- read.csv("NS_foragespecies_winter.csv") %>%
+#  filter(cumave < 95) %>% # retain species that make up 95% of diet
+#  mutate(Genus2 = trimws(SpeciesName)) %>% # for defining forage later
+#  rename("Species"=SpeciesName)
 #forage <- forage.WIN
 
 ##########################################
@@ -149,7 +149,7 @@ spp.forage <- semi_join(spp, forage, by = "Genus2") %>% # retain all spp of fora
   mutate(ForagePlant = "Yes")
 spp.forage <- spp.forage[!duplicated(spp.forage),] # remove duplicates
 rm(spp.forage.b, forage) # clean up workspace
-#write.csv(spp.forage, file="NSERP_ForagePlants_Summer.csv", row.names=FALSE)
+write.csv(spp.forage, file="NSERP_ForagePlants_Summer.csv", row.names=FALSE)
 #write.csv(spp.forage, file="NSERP_ForagePlants_Winter.csv", row.names=FALSE)
 
 ##########
@@ -334,7 +334,7 @@ plot.biomass <- biomass.species %>%
 plot.foragespp <- forage.shrub %>%
   mutate(LifeForm = "shrub") %>%
   bind_rows(forage.herb)
-#write.csv(plot.foragespp, file = "foragebiomass_summer.csv", row.names = FALSE)
+write.csv(plot.foragespp, file = "foragebiomass_summer.csv", row.names = FALSE)
 #write.csv(plot.foragespp, file = "foragebiomass_winter.csv", row.names = FALSE)
 
 # forage biomass by plot
@@ -360,8 +360,8 @@ phenology <- mutate(phenology, PlotVisit = paste(PlotID, ".", Date, sep=""))
 # read in DMD data & format
 channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
                                  dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb")
-channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
-                                 dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/ElkForageDiet/ForagePlantAnalysis/ForagePlantDatabase.accdb")
+#channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+#                                 dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/ElkForageDiet/ForagePlantAnalysis/ForagePlantDatabase.accdb")
 DMD.data <- sqlQuery(channel.DMD, paste("select * from DMDdata"))
 #DMD.data <- read.csv("DMDdata.csv") # if reading from csv
 DMD.data$DMD <- DMD.data$DMD/100 # turn percent to proportion
@@ -383,7 +383,9 @@ DMD.clss <- DMD.data %>%
 
 #### GDM for SUMMER FORAGE SPECIES ####
 
-# Forage biomass per plot - by species and phenophase
+###
+# GDM per plot - by species and phenophase
+###
 
 # join with forage biomass by species
 plot.phenospp <- left_join(plot.foragespp, phenology, by=c("PlotVisit","Species")) 
@@ -462,11 +464,26 @@ plotinfo <- mutate(plotinfo, PlotVisit = paste(PlotID, ".", Date, sep="")) # cre
 
 # add to GDM per plot
 gdm.plot <- left_join(gdm.plot, plotinfo, by="PlotVisit")
-#write.csv(gdm.plot, file="gdm-plot.csv", row.names=F)
+#write.csv(gdm.plot, file = "gdm-plot.csv", row.names=FALSE)
+
+# subset only jul/aug data; only use first visit of phenology plots
+## summer = jul1 - aug31 (same as dates used to create summer KDEs to calc VI)
+gdm.plot.summ <- gdm.plot
+gdm.plot.summ$Date <- as.Date(gdm.plot.summ$Date)
+gdm.plot.summ <- gdm.plot.summ %>%
+  subset(Date >= "2014-07-01" & Date <= "2014-08-31" | 
+         Date >= "2015-07-01" & Date <= "2015-08-31") %>%
+  mutate(PlotYear = paste(PlotID, ".", year(Date), sep=""))
+gdm.plot.summ <- gdm.plot.summ[!duplicated(gdm.plot.summ$PlotYear),] 
+write.csv(gdm.plot.summ, file = "gdm-plot-summer.csv", row.names=FALSE)
+  
+###
+# GDM per plot - by lifeform
+###
 
 # add to GDM per lifeform per plot
 gdm.plot.lifeform <- left_join(gdm.plot.lifeform, plotinfo, by="PlotVisit")
-gdm.plot.lifeform$Area <- with(gdm.plot.lifeform, ifelse(Latitude > 46.157, "Nsapph", "Sbroot")) # designate study area by Latitude (N of 46.157 = Nsapph)
+#gdm.plot.lifeform$Area <- with(gdm.plot.lifeform, ifelse(Latitude > 46.157, "Nsapph", "Sbroot")) # designate study area by Latitude (N of 46.157 = Nsapph)
 
 # for plots missing a row for a lifeform, need to add a row with 0 for GDM
 gdm.plot.lifeform.temp <- spread(gdm.plot.lifeform, LifeForm, GDM, fill=0) # spread out LifeForm into columns, filling with GDMs, missing data are filled with 0s
