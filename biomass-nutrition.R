@@ -359,7 +359,8 @@ phenology <- mutate(phenology, PlotVisit = paste(PlotID, ".", Date, sep=""))
 
 # read in DMD data & format
 channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
-                                 dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb")
+                                  dbq=C:/Users/kjbark3r/Documents/NSERP/Databases/ForagePlantDatabase.accdb") #laptop
+#                                 dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb")
 #channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
 #                                 dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/ElkForageDiet/ForagePlantAnalysis/ForagePlantDatabase.accdb")
 DMD.data <- sqlQuery(channel.DMD, paste("select * from DMDdata"))
@@ -447,7 +448,7 @@ gdm.plot.phenospp <- select(gdm.plot.phenospp, PlotVisit, Species, LifeForm, Bio
 gdm.plot.lifeform <- gdm.plot.phenospp %>%
   group_by(PlotVisit, LifeForm) %>%
   summarise(GDM = round(sum(TOTAL.gdm),3),
-            BIOMASS = round(sum(Biomass), 3))
+            BIOMASS = round(sum(Biomass), 3)) %>%
   ungroup()
 
 # grams of digestible forage biomass per plot
@@ -473,7 +474,7 @@ gdm.plot.summ$Date <- as.Date(gdm.plot.summ$Date)
 gdm.plot.summ <- gdm.plot.summ %>%
   subset(Date >= "2014-07-01" & Date <= "2014-08-31" | 
          Date >= "2015-07-01" & Date <= "2015-08-31") %>%
-  mutate(PlotYear = paste(PlotID, ".", year(Date), sep=""))
+  mutate(PlotYear = paste(PlotID, ".", format(Date, '%Y'), sep=""))
 gdm.plot.summ <- gdm.plot.summ[!duplicated(gdm.plot.summ$PlotYear),] 
 write.csv(gdm.plot.summ, file = "gdm-plot-summer.csv", row.names=FALSE)
   
