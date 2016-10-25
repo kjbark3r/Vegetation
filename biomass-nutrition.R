@@ -359,8 +359,8 @@ phenology <- mutate(phenology, PlotVisit = paste(PlotID, ".", Date, sep=""))
 
 # read in DMD data & format
 channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
-                                  dbq=C:/Users/kjbark3r/Documents/NSERP/Databases/ForagePlantDatabase.accdb") #laptop
-#                                 dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb")
+#                                  dbq=C:/Users/kjbark3r/Documents/NSERP/Databases/ForagePlantDatabase.accdb") #laptop
+                                 dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb") #workcomp
 #channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
 #                                 dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/ElkForageDiet/ForagePlantAnalysis/ForagePlantDatabase.accdb")
 DMD.data <- sqlQuery(channel.DMD, paste("select * from DMDdata"))

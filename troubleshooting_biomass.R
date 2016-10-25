@@ -5,20 +5,16 @@
 ##########################################################
 
 ## WD
-wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Biomass"
-wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Biomass"
+wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
+wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Vegetation"
 	if (file.exists(wd_workcomp)) {
 	  setwd(wd_workcomp)
 	} else {
 	  if(file.exists(wd_laptop)) {
 		setwd(wd_laptop)
-	  } else {
-		if(file.exists(wd_external)) {
-		  setwd(wd_external)
 		} else {
 		  cat("Are you SURE you got that file path right?\n")
 		}
-	  }
 	}
 	rm(wd_workcomp, wd_laptop)
 
@@ -713,7 +709,42 @@ test$Genus2 <-gsub(' leaf| stem', '', test$Genus2)
 test$Genus2 <- ifelse(grepl(" leaf| stem", test$Genus2), "NiceWork", forage$Genus2)
 
 #########################
-## DELETED CODE
+## NUTRITION-RELATED CODE ####
+##########################
+
+# add NDVI tiff to GDM model
+latlong <- CRS("+init=epsg:4326")
+stateplane <- CRS("+init=epsg:2818")
+ndvi <- raster("./ndvi/kristinExport20140218.tif")
+ndvi_stateplane <- projectRaster(ndvi, crs = stateplane)
+
+########
+#actually, just fix those two plots that had lat/long typos
+#for efficiency/sanity purposes
+  #PlotVisit == "727.2015-08-12"; PlotVisit == "1105.2015-08-11"
+
+upd.ndvi <- raster("./ndvi/kristinExport20150813.tif")
+
+upd.rmt <- read.csv("gdm-plot-summer.csv") %>%
+  filter(PlotVisit == "727.2015-08-12" | PlotVisit == "1105.2015-08-11") %>%
+  dplyr::select(c(Longitude, Latitude))
+
+upd.ext <- extract(upd.ndvi, upd.rmt) 
+
+upd.plots <- read.csv("upd-remote-plot.csv") %>%
+  select(-EVI)
+upd.plots$NDVI <- ifelse(upd.plots$PlotVisit == "1105.2015-08-11", upd.ext[1],
+                         ifelse(upd.plots$PlotVisit == "727.2015-08-12", upd.ext[2],
+                                upd.plots$NDVI))
+write.csv(upd.plots, file = "ndvi-plot.csv", row.names=F)
+
+###
+# seeing if rasterToPoints keeps lat/longs 
+#for sanity check of extract values (make sur they're from expected plotvisits)
+
+test <- rasterToPoints(
+#########################
+## DELETED CODE ####
 ##########################
 
 

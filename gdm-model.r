@@ -32,7 +32,7 @@ if (file.exists(wd_workcomp)) {
     setwd(wd_laptop)
     wd <- wd_laptop
 }
-
+rm(wd_workcomp, wd_laptop)
 rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into memory, increasing processing time
 
 ############################################################################
@@ -40,8 +40,12 @@ rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into me
 #  EITHER RUN THIS SECTION OR FOLLOWING SECTION (PULLS IN PROCESSED DATA)  #
 ############################################################################
 
-#Read in a datafile with the year sampled, GDM per plot, along with plot lat/longsplot.data <-read.csv("gdm-plot.csv", header=T) 
-plot.data <-read.csv("gdm-plot-summer.csv", header=T) 
+# plot-level NDVI values
+rmt.data <- read.csv("ndvi-plot.csv") %>%
+  select(PlotVisit, NDVI)
+#datafile with the year sampled, GDM per plot, along with plot lat/longs
+plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% #add ndvi
+  left_join(rmt.data, by = "PlotVisit")
 head(plot.data)
 nrow(plot.data)   
 #Get points, write out the points to dataframe, to spatial data frame, to shapefile 
@@ -144,8 +148,12 @@ writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTif
 ##      EITHER RUN THIS SECTION OR PRECEDING SECTION (PROCESSES DATA)          ##
 #################################################################################
 
+# plot-level NDVI values
+rmt.data <- read.csv("ndvi-plot.csv") %>%
+  select(PlotVisit, NDVI)
 #datafile with the year sampled, GDM per plot, along with plot lat/longs
-plot.data <-read.csv("gdm-plot-summer.csv", header=T) 
+plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% #add ndvi
+  left_join(rmt.data, by = "PlotVisit")
 #above datafile as shapefile
 plots<-readOGR(".", layer ='GDM_plots')
 #all rasters for covariates (graciously processed & provided by jesse)
@@ -160,7 +168,7 @@ names(s)
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
 ext<-extract(s, plots) ##Extract from raster stack for each plot location
 plot.data <- data.frame(plot.data) ##Convert plot info attribute table to dataframe
-data <- cbind(plot.data, ext)	##Bind the plot info and extracted landcover datainto a dataframe
+data <- cbind(plot.data, ext)	##Bind  plot info and extracted landcover datainto a dataframe
 data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick the correct year of landcover (esp) and fire
@@ -211,7 +219,7 @@ write.csv(data, "data_GDM.csv", row.names = FALSE)
 dat.GDM <- read.csv("data_GDM.csv")
 #dat.GDM <- data #if running code in full from above, can replace read.csv with this
 
-#sapply(dat.GDM,class) #prints str(dat.GDM in diff format)
+#sapply(dat.GDM,class) #just prints str(dat.GDM) in diff format
 dat.GDM$cover_class<-factor(dat.GDM$cover_class) #not needed if replaced read.csv above
 dat.GDM$Date<-as.Date(dat.GDM$Date, "%Y-%m-%d") #not needed if replaced read.csv above
 #dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer") #kjb data already subsetted
@@ -292,7 +300,7 @@ ggplot(data=dat.GDM, aes(x=class_name, y=GDM, color=GDM)) +
 
 #Covariates of interest to check correlations
 mydata <- dat.GDM %>% 
-  dplyr::select(elev, slope, cc, hillshade, cti, gsri, t_fire, sum_precip, spr_precip, ndvi_ti, ndvi_amp)
+  dplyr::select(elev, slope, cc, hillshade, cti, t_fire, sum_precip, spr_precip, ndvi_ti, ndvi_amp)
 head(mydata)
 ##Spr and Sum Precip are correlated, NDVI ti and amp are correlated
 ## Elev and Spr precip 0.67, hillshade and gsri 0.67
