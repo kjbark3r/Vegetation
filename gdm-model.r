@@ -1,15 +1,8 @@
-## kjb - things to do/change
-
-#X create gdm-plot.csv using prev biomass code
-  #X incl visitdate, latitude, longitude, gdm
-#X github - upload jesses version as first commit
-  #X so you can see exact changes you made, and also
-  #X so when you eff it up you can easily revert back
-#X add $Season to data, or subset by date
-#Xunnecessary bc jesse is awesomeX make bbox for nsapph (~l.82)
-# decide best landcov reference level for model (~l.290)
-# note prob need to recode looking at distn of response (~l.296)
-
+##########################################################
+#######   ESTIMATING GRAMS OF DIGESTIBLE MATTER    #######
+####   ACROSS NORTH SAPPHIRES IN SIMMER 2014 & 2015   ####
+##################    OCT 2016     #######################
+##########################################################
 
 ###########################
 #### Setup             ####
@@ -36,28 +29,9 @@ rm(wd_workcomp, wd_laptop)
 rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into memory, increasing processing time
 
 ############################################################################
-# Read, process, and write out all rasters for modeling and predictions ####
 #  EITHER RUN THIS SECTION OR FOLLOWING SECTION (PULLS IN PROCESSED DATA)  #
+# Read, process, and write out all rasters for modeling and predictions ####
 ############################################################################
-
-# plot-level NDVI values
-rmt.data <- read.csv("ndvi-plot.csv") %>%
-  select(PlotVisit, NDVI)
-#datafile with the year sampled, GDM per plot, along with plot lat/longs
-plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% #add ndvi
-  left_join(rmt.data, by = "PlotVisit")
-head(plot.data)
-nrow(plot.data)   
-#Get points, write out the points to dataframe, to spatial data frame, to shapefile 
-xy <- data.frame("x"=plot.data$Longitude,"y"=plot.data$Latitude)
-latlong = CRS("+init=epsg:4326")
-xy.spdf.ll <- SpatialPointsDataFrame(xy, plot.data, proj4string = latlong)
-##Reproject plots to MT State Plane
-proj.crs <- "+proj=lcc +lat_1=49 +lat_2=45 +lat_0=44.25 +lon_0=-109.5 +x_0=600000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-plots.tmp<-spTransform(xy.spdf.ll, CRS(proj.crs))
-writeOGR(plots.tmp, dsn = ".", layer = 'GDM_plots', driver="ESRI Shapefile",overwrite_layer=TRUE)
-#Read in shapefile and extract attribute data
-plots<-readOGR(".", layer ='GDM_plots') 
 
 #Read in all rasters in State Plane projection
 esp6_15_orig <- raster("..\\Landcover\\finalrasters\\esp6_15.tif") 	
@@ -143,17 +117,58 @@ names(s)
 if(!file.exists("writtenrasters")) {dir.create(file.path(wd, "writtenrasters"))}  # creates new folder if doesn't exist
 writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTiff') # takes time (add overwrite=TRUE if overwriting existing rasters)
 
+#################################################
+### mini-section of extra/different KJB stuff ###
+#################################################
+
+# plot-level NDVI values
+rmt.data <- read.csv("ndvi-plot.csv") %>%
+  select(PlotVisit, NDVI)
+#datafile with the year sampled, GDM per plot, along with plot lat/longs
+plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% 
+    filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
+    left_join(rmt.data, by = "PlotVisit") #add ndvi
+
+head(plot.data)
+nrow(plot.data)   
+#Get points, write out the points to dataframe, to spatial data frame, to shapefile 
+xy <- data.frame("x"=plot.data$Longitude,"y"=plot.data$Latitude)
+latlong = CRS("+init=epsg:4326")
+xy.spdf.ll <- SpatialPointsDataFrame(xy, plot.data, proj4string = latlong)
+##Reproject plots to MT State Plane
+proj.crs <- "+proj=lcc +lat_1=49 +lat_2=45 +lat_0=44.25 +lon_0=-109.5 +x_0=600000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+plots.tmp<-spTransform(xy.spdf.ll, CRS(proj.crs))
+writeOGR(plots.tmp, dsn = ".", layer = 'GDM_plots', driver="ESRI Shapefile",overwrite_layer=TRUE)
+#Read in shapefile and extract attribute data
+plots<-readOGR(".", layer ='GDM_plots') 
+
+# NDVI duration (length of growing season)
+ndvi_dur_2014 <- raster('./writtenrasters/rawNDVIdur/NDVIdur2014.tif')
+ndvi_dur_2015 <- raster('./writtenrasters/rawNDVIdur/NDVIdur2015.tif')
+# resolution and extent of other data to match
+boundbox <- extent(150000, 350000, 110000, 350000)
+esp6_15_orig <- raster('./writtenrasters/esp6_15.tif') 
+esp6_15 <- crop(esp6_15_orig, boundbox) # data to match
+# match other data so stack works
+ndvi_dur_2014 <- crop(ndvi_dur_2014, boundbox) # match extent
+ndvi_dur_2014 <- resample(ndvi_dur_2014, esp6_15, method = "bilinear") # and resolution
+ndvi_dur_2015 <- crop(ndvi_dur_2015, boundbox)
+ndvi_dur_2015 <- resample(ndvi_dur_2015, esp6_15, method = "bilinear")
+writeRaster(ndvi_dur_2014, file.path('writtenrasters', "ndvi_dur_2014"), format='GTiff')
+writeRaster(ndvi_dur_2015, file.path('writtenrasters', "ndvi_dur_2015"), format='GTiff')
+
 #################################################################################
-#  Pull in processed data from above section (if you've already run it once) ####
 ##      EITHER RUN THIS SECTION OR PRECEDING SECTION (PROCESSES DATA)          ##
+#  Pull in processed data from above section (if you've already run it once) ####
 #################################################################################
 
 # plot-level NDVI values
 rmt.data <- read.csv("ndvi-plot.csv") %>%
   select(PlotVisit, NDVI)
 #datafile with the year sampled, GDM per plot, along with plot lat/longs
-plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% #add ndvi
-  left_join(rmt.data, by = "PlotVisit")
+plot.data <-read.csv("gdm-plot-summer.csv", header=T)  %>% 
+    filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
+    left_join(rmt.data, by = "PlotVisit") #add ndvi
 #above datafile as shapefile
 plots<-readOGR(".", layer ='GDM_plots')
 #all rasters for covariates (graciously processed & provided by jesse)
@@ -162,7 +177,7 @@ s <- stack(raster_data)
 names(s)
 
 ################################################################################################################################
-#Extract attribute data for each plot-life form and write a data.frame with data for building the landscape nutrition model ####
+#Extract attribute data for each plot and write a data.frame for building landscape GDM model ####
 ################################################################################################################################
 
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
@@ -171,34 +186,23 @@ plot.data <- data.frame(plot.data) ##Convert plot info attribute table to datafr
 data <- cbind(plot.data, ext)	##Bind  plot info and extracted landcover datainto a dataframe
 data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
-#Pick the correct year of landcover (esp) and fire
-data$cover_class <- ifelse(data$Year == 2014, data$esp6_14,
-                           ifelse(data$Year == 2015, data$esp6_15, NA))
-data$t_fire <- ifelse(data$Year == 2014, data$t_fire_14,
-                      ifelse(data$Year == 2015, data$t_fire_15, NA))
-#Pick the correct year of summer (May - Aug) and spring (May-June) precipitation
-data$sum_precip <- ifelse(data$Year == 2014, data$precip_2014,
-				                  ifelse(data$Year == 2015, data$precip_2015, NA))
-data$spr_precip <- ifelse(data$Year == 2014, data$spr_precip_2014,
-				                  ifelse(data$Year == 2015, data$spr_precip_2015, NA))
-#Pick the correct year of tiNDVI and NDVIamp
-data$ndvi_ti <- ifelse(data$Year == 2014, data$ndvi_ti_2014,
-				               ifelse(data$Year == 2015, data$ndvi_ti_2015, NA))
-data$ndvi_amp <- ifelse(data$Year == 2014, data$ndvi_amp_2014,
-				                ifelse(data$Year == 2015, data$ndvi_amp_2015, NA))
+#Pick correct years of covariates
+data$cover_class <- ifelse(data$Year == 2014, data$esp6_14, data$esp6_15)
+data$ndvi_dur <- ifelse(data$Year == 2014, data$ndvi_dur_2014, data$ndvi_dur_2015)
+data$ndvi_ti <- ifelse(data$Year == 2014, data$ndvi_ti_2014, data$ndvi_ti_2015)
+data$sum_precip <- ifelse(data$Year == 2014, data$precip_2014, data$precip_2015)
+#make NDVI durations classified as "NoData" into NAs
+data$ndvi_dur <- ifelse(data$ndvi_dur < 90 | data$ndvi_dur > 365, NA, data$ndvi_dur)
 
 #Create new covariates, standardize covariates and finish building dataset
 data$cover_class<-as.factor(data$cover_class)
-data$elev_std<-((data$elev-(mean(data$elev)))/(sd(data$elev)))
-data$slope_std<-((data$slope-(mean(data$slope)))/(sd(data$slope)))
-data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)))
-data$cti_std<-((data$cti-(mean(data$cti)))/(sd(data$cti)))
 data$cc_std<-((data$cc-(mean(data$cc)))/(sd(data$cc)))
-data$sum_precip_std<-((data$sum_precip-(mean(data$sum_precip)))/(sd(data$sum_precip)))
-data$spr_precip_std<-((data$spr_precip-(mean(data$spr_precip)))/(sd(data$spr_precip)))
+data$cti_std<-((data$cti-(mean(data$cti)))/(sd(data$cti)))
+data$elev_std<-((data$elev-(mean(data$elev)))/(sd(data$elev)))
+data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)))
 data$ndvi_ti_std<-((data$ndvi_ti-(mean(data$ndvi_ti)))/(sd(data$ndvi_ti)))
-data$ndvi_amp_std<-((data$ndvi_amp-(mean(data$ndvi_amp)))/(sd(data$ndvi_amp)))
-data$gsri_std<-((data$gsri-(mean(data$gsri)))/(sd(data$gsri)))
+data$sum_precip_std<-((data$sum_precip-(mean(data$sum_precip)))/(sd(data$sum_precip)))
+data$slope_std<-((data$slope-(mean(data$slope)))/(sd(data$slope)))
 
 # join to land cover classifications to attach names
 clsref_esp <- data.frame(cbind(cover_class = c(1,2,3,4,5,6,7,8,9,10,11,12),
@@ -209,6 +213,10 @@ clsref_esp <- data.frame(cbind(cover_class = c(1,2,3,4,5,6,7,8,9,10,11,12),
                                               "Rx Dry Forest Burn 0-5")))
 clsref_esp$cover_class <- as.numeric(as.character(clsref_esp$cover_class))
 data <- merge(data, clsref_esp, by="cover_class")
+
+# create subset of data without the "NA" NDVI durations
+datasub <- data[!is.na(data$ndvi_dur),]
+datasub$ndvi_dur_std<-((datasub$ndvi_dur-(mean(datasub$ndvi_dur)))/(sd(datasub$ndvi_dur)))
 
 #data<-subset(data, !data$cover_class == 0) #Remove sample from "other" landcover 
 write.csv(data, "data_GDM.csv", row.names = FALSE)
@@ -268,10 +276,11 @@ ggsave("GDM boxplot per Cover Class_nocol.tiff", plot = GDM_class, width=7, heig
 ##############################################################################################
 #### Build summer nutrition models using backwards step-wise selection                    ####
 ##############################################################################################
-dat.GDM <- read.csv("data_GDM.csv")
+dat.GDM <- read.csv("data_GDM.csv") # or dat.GDM <- data # or dat.GDM = datasub
 #dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer")  #kjb data already subsetted
 dat.GDM$cover_class<-as.factor(dat.GDM$cover_class)
 summary(dat.GDM$GDM)
+summary(datasub$GDM) #good, not super different
 
 # Check out data to pick reference levels
 
@@ -281,7 +290,7 @@ ggplot(dat.GDM, aes(x=GDM)) +
   geom_histogram() +
   facet_grid(~cover_class) #same per landcover
 
-## order by median GDM and set as reference level order for model
+## order by inc'ing median GDM and set that as reference level order for model
 cov.gdm <- dat.GDM %>%
   dplyr::select(c(cover_class, class_name, GDM)) %>%
   group_by(class_name, cover_class) %>%
@@ -299,11 +308,9 @@ ggplot(data=dat.GDM, aes(x=class_name, y=GDM, color=GDM)) +
   scale_color_gradientn(colors=pal)
 
 #Covariates of interest to check correlations
-mydata <- dat.GDM %>% 
-  dplyr::select(elev, slope, cc, hillshade, cti, t_fire, sum_precip, spr_precip, ndvi_ti, ndvi_amp)
+mydata <- dat.GDM %>% # or mydata <- datasub %>%
+  dplyr::select(cc, cti, elev, cc, hillshade, ndvi_dur, ndvi_ti, sum_precip, slope)
 head(mydata)
-##Spr and Sum Precip are correlated, NDVI ti and amp are correlated
-## Elev and Spr precip 0.67, hillshade and gsri 0.67
 cor(mydata) # correlation matrix
 # plot the data and display r values
 library(PerformanceAnalytics)

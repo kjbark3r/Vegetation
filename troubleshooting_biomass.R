@@ -738,11 +738,7 @@ upd.plots$NDVI <- ifelse(upd.plots$PlotVisit == "1105.2015-08-11", upd.ext[1],
                                 upd.plots$NDVI))
 write.csv(upd.plots, file = "ndvi-plot.csv", row.names=F)
 
-###
-# seeing if rasterToPoints keeps lat/longs 
-#for sanity check of extract values (make sur they're from expected plotvisits)
 
-test <- rasterToPoints(
 #########################
 ## DELETED CODE ####
 ##########################
