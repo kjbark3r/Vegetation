@@ -738,6 +738,45 @@ upd.plots$NDVI <- ifelse(upd.plots$PlotVisit == "1105.2015-08-11", upd.ext[1],
                                 upd.plots$NDVI))
 write.csv(upd.plots, file = "ndvi-plot.csv", row.names=F)
 
+###
+# plotting relationships
+par(mfrow = c(1,1))
+plot(log(GDM) ~ cti, data = dat.GDM)
+plot(log(GDM) ~ elev, data = dat.GDM)
+plot(log(GDM) ~ slope, data = dat.GDM)
+plot(log(GDM) ~ hillshade, data = dat.GDM)
+plot(log(GDM) ~ ndvi_dur, data = dat.GDM)
+plot(log(GDM) ~ ndvi_ti, data = dat.GDM)
+plot(log(GDM) ~ ndvi, data = dat.GDM)
+plot(log(GDM) ~ sum_precip, data = dat.GDM)
+
+par(mfrow = c(1,1))
+plot(log(GDM) ~ cti_std, data = dat.GDM)
+plot(log(GDM) ~ elev_std, data = dat.GDM)
+plot(log(GDM) ~ slope_std, data = dat.GDM)
+plot(log(GDM) ~ hillshade_std, data = dat.GDM)
+plot(log(GDM) ~ ndvi_dur_std, data = dat.GDM)
+plot(log(GDM) ~ ndvi_ti_std, data = dat.GDM)
+plot(log(GDM) ~ ndvi_std, data = dat.GDM)
+plot(log(GDM) ~ sum_precip_std, data = dat.GDM)
+
+# trying my hand at testing all possible models instead of backwards step
+  # in case there's similar support for a simpler one
+  # and just for funzies to learn the diffs bt methods
+library(leaps)
+leaps<-regsubsets(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std,data=dat.GDM,nbest=3)
+# attempting to figure out what the heck this tells me
+# goal: find which models have best adjusted r-squared
+a <- summary(leaps)
+names(a)
+eff <- matrix(nrow = 24, ncol = 2)
+a
+# ok seems like each cover_class is treated separately, so i'm
+# confused about how to interpret
+(summary(leaps) $adjr2)
+(arrange(desc(a)))
+summary(a$rsq)
+plot(leaps, scale = "r2")
 
 #########################
 ## DELETED CODE ####

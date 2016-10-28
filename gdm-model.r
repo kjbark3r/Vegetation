@@ -14,6 +14,7 @@ library(rgdal) #Access geodatabases
 library(rgeos)
 library(dplyr) #Group by function
 library(ggplot2)
+library(AICcmodavg)
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
 wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\UMT\\Thesis\\Migration_Consequences\\Analyses\\Veg"
@@ -164,7 +165,7 @@ writeRaster(ndvi_dur_2015, file.path('writtenrasters', "ndvi_dur_2015"), format=
 
 # plot-level NDVI values
 rmt.data <- read.csv("ndvi-plot.csv") %>%
-  select(PlotVisit, NDVI)
+  dplyr::select(PlotVisit, NDVI)
 #datafile with the year sampled, GDM per plot, along with plot lat/longs
 plot.data <-read.csv("gdm-plot-summer.csv", header=T)  %>% 
     filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
@@ -183,7 +184,8 @@ names(s)
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
 ext<-extract(s, plots) ##Extract from raster stack for each plot location
 plot.data <- data.frame(plot.data) ##Convert plot info attribute table to dataframe
-data <- cbind(plot.data, ext)	##Bind  plot info and extracted landcover datainto a dataframe
+data <- cbind(plot.data, ext)	%>% ##Bind  plot info and extracted landcover data into df
+  rename(ndvi = NDVI) ##Follow naming convention
 data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick correct years of covariates
@@ -203,6 +205,7 @@ data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)
 data$ndvi_ti_std<-((data$ndvi_ti-(mean(data$ndvi_ti)))/(sd(data$ndvi_ti)))
 data$sum_precip_std<-((data$sum_precip-(mean(data$sum_precip)))/(sd(data$sum_precip)))
 data$slope_std<-((data$slope-(mean(data$slope)))/(sd(data$slope)))
+data$ndvi_std<-((data$ndvi-(mean(data$ndvi)))/(sd(data$ndvi)))
 
 # join to land cover classifications to attach names
 clsref_esp <- data.frame(cbind(cover_class = c(1,2,3,4,5,6,7,8,9,10,11,12),
@@ -225,7 +228,7 @@ write.csv(data, "data_GDM.csv", row.names = FALSE)
 #### Summarize GDM data                                                                   ####
 ##############################################################################################
 dat.GDM <- read.csv("data_GDM.csv")
-#dat.GDM <- data #if running code in full from above, can replace read.csv with this
+#  dat.GDM <- data  #if running code in full from above, can replace read.csv with this
 
 #sapply(dat.GDM,class) #just prints str(dat.GDM) in diff format
 dat.GDM$cover_class<-factor(dat.GDM$cover_class) #not needed if replaced read.csv above
@@ -244,7 +247,7 @@ GDMSummary=summarise(dat,
                      MaxGDM=max(GDM),
                      SdGDM=sd(GDM))
 GDMSummary 
-write.table(GDMSummary, "GDMSummary_landcover_summer.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
+#write.table(GDMSummary, "GDMSummary_landcover_summer.csv", sep=",", col.names=TRUE, row.names=FALSE, quote=FALSE)
 
 #############################
 #####   GGPLOT  BOXPLOT   ###
@@ -276,16 +279,21 @@ ggsave("GDM boxplot per Cover Class_nocol.tiff", plot = GDM_class, width=7, heig
 ##############################################################################################
 #### Build summer nutrition models using backwards step-wise selection                    ####
 ##############################################################################################
-dat.GDM <- read.csv("data_GDM.csv") # or dat.GDM <- data # or dat.GDM = datasub
-#dat.GDM<-subset(dat.GDM, dat.GDM$Season == "Summer")  #kjb data already subsetted
+
+# pick one of the 3 lines below
+#dat.GDM <- read.csv("data_GDM.csv") 
+#dat.GDM <- data
+#dat.GDM <- datasub
+
 dat.GDM$cover_class<-as.factor(dat.GDM$cover_class)
-summary(dat.GDM$GDM)
-summary(datasub$GDM) #good, not super different
+#summary(dat.GDM$GDM)
+#summary(datasub$GDM) #good, not super different
 
 # Check out data to pick reference levels
 
 ## look at distribution - mean or median for best measure of center?
 hist(dat.GDM$GDM) #GDM in general skewed R
+hist(log(dat.GDM$GDM))
 ggplot(dat.GDM, aes(x=GDM)) +
   geom_histogram() +
   facet_grid(~cover_class) #same per landcover
@@ -309,17 +317,70 @@ ggplot(data=dat.GDM, aes(x=class_name, y=GDM, color=GDM)) +
 
 #Covariates of interest to check correlations
 mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cc, cti, elev, cc, hillshade, ndvi_dur, ndvi_ti, sum_precip, slope)
+  dplyr::select(cc, cti, elev, cc, hillshade, ndvi_dur, ndvi_ti, sum_precip, slope, ndvi, GDM)
+mydata$logGDM <- log(mydata$GDM)
 head(mydata)
 cor(mydata) # correlation matrix
 # plot the data and display r values
 library(PerformanceAnalytics)
 chart.Correlation(mydata)
+# no correlation coefficients higher than 0.54
 
-m1 <- glm(gdm~cover_class+elev_std+slope_std+cti_std+cc_std+ndvi_amp_std+spr_precip_std+gsri_std, family = binomial(link=logit), data=dat.GDM)
-step <- stepAIC(m1, direction="both")
+#m1 <- glm(gdm~cover_class+elev_std+slope_std+cti_std+cc_std+ndvi_amp_std+spr_precip_std+gsri_std, family = binomial(link=logit), data=dat.GDM)
+
+# determine whether linear or quadratic relationship with ndvi is better supported
+Cand.set <- list( )
+Cand.set[[1]] <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std, data=dat.GDM)
+Cand.set[[2]] <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std+I(ndvi_std^2), data=dat.GDM)
+names(Cand.set) <- c("with NDVI", "with NDVI^2")
+aictable <- aictab(Cand.set, second.ord=FALSE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+# straight ndvi moderately better supported (but technically not that diff; delta aic 1.85)
+# trying with all other covariates removed
+Cand.set <- list( )
+Cand.set[[1]] <- lm(log(GDM) ~ ndvi_std, data=dat.GDM)
+Cand.set[[2]] <- lm(log(GDM) ~ ndvi_std+I(ndvi_std^2), data=dat.GDM)
+names(Cand.set) <- c("NDVI", "NDVI^2")
+aictable <- aictab(Cand.set, second.ord=FALSE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+# delta aic exactly 2 for ndvi^2. going with ndvi.
+
+m.all <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std, data=dat.GDM)
+step <- stepAIC(m.all, direction="both")
 step$anova  # display results  
 
+# look at top model
+m1 <- lm(log(GDM) ~ cover_class + cti_std + elev_std + ndvi_ti_std + slope_std + ndvi_std, data=dat.GDM)
+summary(m1)
+plot(m1) # residual plots
+
+# Predict the model based on raster covariates ####
+# using code shamelessly stolen from below as baseline
+
+#~~~~~ OPTION A: using built-in raster::predict() on raster stack
+# --first create function to get both response and SE predictions
+predfun <- function(model, data) {
+  v <- predict(model, data, se.fit=TRUE, type='response') # type='respone' is probability scale, type='link' is log-odds scale
+  cbind(p=as.vector(v$fit), se=as.vector(v$se.fit))
+}
+
+# --then run that function in raster::predict, ouputting a raster of both probability and SE
+rasts.pred.opt <- predict(s, mtop.opt, fun=predfun, index=1:2, progress="text") # predfun returns two variables (response and se), so need to include index=1:2
+rasts.pred.ade <- predict(s, mtop.ade, fun=predfun, index=1:2, progress="text")
+names(rasts.pred.opt) <- c("prob_opt_sum","se_opt_sum") 
+names(rasts.pred.ade) <- c("prob_ade_sum","se_ade_sum")
+plot(rasts.pred.opt) # plot both
+plot(rasts.pred.opt[["prob_opt_sum"]]) # plot one at a time
+plot(rasts.pred.opt[["se_opt_sum"]])
+plot(rasts.pred.ade)
+
+#Write rasters (writes both rasters in the stack)
+writeRaster(rasts.pred.opt, names(rasts.pred.opt), bylayer=TRUE, format='GTiff', overwrite=TRUE)
+writeRaster(rasts.pred.ade, names(rasts.pred.ade), bylayer=TRUE, format='GTiff', overwrite=TRUE)
+#~~~~~~~~~~~~~~~
+
+
+######### kjb you haven't touched below code #############
 mtop.ade.std <- glm(ade ~ cover_class + elev_std + ndvi_amp_std + gsri_std, family = binomial(link=logit), data=dat.GDM)
 mtop.ade<-glm(ade ~ cover_class + elev + ndvi_amp + gsri, family = binomial, data=dat.GDM)
 summary(mtop.ade.std)
