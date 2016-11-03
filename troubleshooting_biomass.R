@@ -779,17 +779,154 @@ summary(a$rsq)
 plot(leaps, scale = "r2")
 
 #########################
+## NDVI RASTER STUFF ####
+##########################
+
+#STEPS#
+#X pull in NDVI tifs from mid-Jul - Aug as rasters
+#X calculate average of the rasters
+  #X for 2014 and 2015
+#X figure out boundbox of NDVI
+ndvipath <- paste(getwd(), "/ndvi", sep="")
+tifs14 <- list.files(ndvipath, pattern = "20140728|20140813|20140829")
+tifs15 <- list.files(ndvipath, pattern = "20150728|20150813|20150829")
+stack14 <- stack(paste(ndvipath, "/", tifs14, sep=""))
+stack15 <- stack(paste(ndvipath, "/", tifs15, sep=""))
+ndvi14 <- projectRaster(mean(stack14), crs = esp6_15_orig@crs)
+ndvi15 <- projectRaster(mean(stack15), crs = esp6_15_orig@crs)
+ndvi14@extent; ndvi14@crs; ndvi15$extent
+
+#projections
+latlong <- CRS("+init=epsg:4326")
+stateplane <- CRS("+init=epsg:2818")
+
+esp6_15_orig <- raster("writtenrasters\\esp6_15.tif") 
+esp6_15_orig@extent; esp6_15_orig@crs
+
+# re-clip/whatever-else all other rasters accordingly (xmin, xmax, ymin, ymax)
+boundbox <- extent(150000, 350000, 110000, 350000) ##Entire study area
+esp6_15 <- crop(esp6_15_orig, boundbox)				##Crop to boundbox extent
+esp6_14 <- crop(esp6_14_orig, boundbox)	
+t_fire_15 <- crop(t_fire_15_orig, boundbox)
+t_fire_15 <- resample(t_fire_15, esp6_15, "ngb") 
+t_fire_14 <- crop(t_fire_14_orig, boundbox)
+t_fire_14 <- resample(t_fire_14, esp6_15, "ngb")
+elev<- crop(elev_orig, boundbox)   ##if extent and resolution different, set extent and resolution in order to stack rasters 
+elev<- resample(elev, esp6_15, "bilinear")  # resample down to esp level
+slope<- crop(slope_orig, boundbox)
+slope<- resample(slope, esp6_15, "bilinear")
+cc<- crop(cc_orig, boundbox)
+cc<- resample(cc, esp6_15, "bilinear")
+precip_2014<- crop(precip_2014_orig, boundbox)
+precip_2014<- resample(precip_2014, esp6_15, "bilinear")
+precip_2015<- crop(precip_2015_orig, boundbox)
+precip_2015<- resample(precip_2015, esp6_15, "bilinear")
+spr_precip_2014<- crop(spr_precip_2014_orig, boundbox)
+spr_precip_2014<- resample(spr_precip_2014, esp6_15, "bilinear")
+spr_precip_2015<- crop(spr_precip_2015_orig, boundbox)
+spr_precip_2015<- resample(spr_precip_2015, esp6_15, "bilinear")
+hillshade<- crop(hillshade_orig, boundbox)
+hillshade<- resample(hillshade, esp6_15, "bilinear")
+cti<- crop(cti_orig, boundbox)
+cti<- resample(cti, esp6_15, "bilinear")
+ndvi_ti_2014<- crop(ndvi_ti_2014_orig, boundbox)
+ndvi_ti_2014<- calc(ndvi_ti_2014, fun=function(x) { ifelse(x==0 | x==255, NA, x)}) 
+ndvi_ti_2014<- resample(ndvi_ti_2014, esp6_15, "bilinear")
+ndvi_ti_2014<- focal(ndvi_ti_2014, w=matrix(1,11,11), fun=mean, na.rm=TRUE, NAonly=TRUE) 
+ndvi_ti_2015<- crop(ndvi_ti_2015_orig, boundbox)
+ndvi_ti_2015<- calc(ndvi_ti_2015, fun=function(x) { ifelse(x==0 | x==255, NA, x)}) 
+ndvi_ti_2015<- resample(ndvi_ti_2015, esp6_15, "bilinear")
+ndvi_ti_2015<- focal(ndvi_ti_2015, w=matrix(1,11,11), fun=mean, na.rm=TRUE, NAonly=TRUE) 
+ndvi_amp_2014<- crop(ndvi_amp_2014_orig, boundbox)
+ndvi_amp_2014<- calc(ndvi_amp_2014, fun=function(x) { ifelse(x==0 | x==255, NA, x)}) 
+ndvi_amp_2014<- resample(ndvi_amp_2014, esp6_15, "bilinear") 
+ndvi_amp_2014<- focal(ndvi_amp_2014, w=matrix(1,11,11), fun=mean, na.rm=TRUE, NAonly=TRUE) # only for NA's, replace with focal mean of 11x11
+ndvi_amp_2015<- crop(ndvi_amp_2015_orig, boundbox)
+ndvi_amp_2015<- calc(ndvi_amp_2015, fun=function(x) { ifelse(x==0 | x==255, NA, x)}) 
+ndvi_amp_2015<- resample(ndvi_amp_2015, esp6_15, "bilinear") 
+ndvi_amp_2015<- focal(ndvi_amp_2015, w=matrix(1,11,11), fun=mean, na.rm=TRUE, NAonly=TRUE) # only for NA's, replace with focal mean of 11x11
+gsri<- crop(gsri_orig, boundbox)
+gsri<- resample(gsri, esp6_15, "bilinear") 
+
+# stack em
+# use stack to predict GDM across Sapph in 2014 and 2015
+  # may need 2 stacks for this i guess
+# try not to dry drown
+
+#########################
+## COVER CLASS RASTER STUFF ####
+##########################
+
+# testing predict on 2014 data in kinda hacky way
+rast_14 <- list.files(path=paste(wd, "writtenrasters/covs2014", sep="/"), pattern="tif$", full.names=TRUE) 
+s14 <- stack(rast_14) 
+names(s14)
+names(s14) <- c("cti", "elev", "cover_class", "hillshade", "ndvi_avg", "ndvi_ti", "precip", "slope")
+m14 <- lm(log(GDM) ~ cover_class + cti + elev + ndvi_ti + slope + ndvi_avg, data=dat.GDM)
+pred.14 <- predict(s14, m14, fun=predfun, index=1:2, progress="text") # predfun returns two variables (response and se), so need to include index=1:2
+
+# having trouble with cover_class; trying with just the easy continuous ones to see if i can make it work
+m14 <- lm(log(GDM) ~ cti + elev + ndvi_ti + slope + ndvi_avg, data=dat.GDM)
+pred.14 <- predict(s14, m14, fun=predfun, index=1:2, progress="text")
+names(pred.14) <- c("GDM", "se")
+plot(pred.14[["GDM"]])
+# oh. em. eff. geeeeeee. too cool.
+
+# ok, so how do i make cover_class work???
+
+cc_wtf <- raster("C:/Users/kristin.barker/Documents/GitHub/Vegetation/writtenrasters/covs2014/esp6_14.tif")
+plot(cc_wtf)
+  # maybe it thinks those numbers are numeric, not factors?
+  # or i need to rename to match covariate names in lm
+  # and don't forget about factor levels; not sure those are captured in rasters
+  
+# in lm: used cover_class, factor with levels  
+  # which is in a dataframe consisting of plot info and extracted values from rasters
+  # cover_class is pulled from esp6_14 and esp6_15 rasters
+	# data with 13 slots
+cc_wtf <- raster("C:/Users/kristin.barker/Documents/GitHub/Vegetation/writtenrasters/covs2014/esp6_14.tif")
+plot(cc_wtf)
+cc_wtf@data 
+	# Slot "isfactor":
+	#[1] FALSE
+cc_wtf@data <- as.factor(cc_wtf@data)
+	#dat.GDM$cover_class, used in the lm, is factor with 12 levels (correct)
+	#but esp6 tifs also have a 0 which gives them 13; i think that's the issue
+	
+# jesse says 0s are non-habitat. replacing with NAs
+cc_wtf[cc_wtf==0] <- NA
+# and save as new raster to pull for predict
+writeRaster(cc_wtf, 
+  "C:/Users/kristin.barker/Documents/GitHub/Vegetation/writtenrasters/covs2014/cover_class", 
+  format = 'GTiff', 
+  overwrite = TRUE)
+# then restack and rerun
+rast_14 <- list.files(path=paste(wd, "writtenrasters/covs2014", sep="/"), pattern="tif$", full.names=TRUE) 
+s14 <- stack(rast_14) 
+names(s14)
+names(s14) <- c("cover_class", "cti", "elev", "hillshade", "ndvi_avg", "ndvi_ti", "precip", "slope")
+m14 <- lm(log(GDM) ~ cover_class + cti + elev + ndvi_ti + slope + ndvi_avg, data=dat.GDM)
+pred.14 <- predict(s14, m14, fun=predfun, index=1:2, progress="text")
+
+plot(exp(pred.14[["layer.1"]]))
+
+# ok sweet. steps for completion:
+# make sure pulling ndvi_avg according to yr (pretty sure yes)
+# separate covariate raster stacks per year
+# predict for each year
+
+#########################
 ## DELETED CODE ####
 ##########################
 
 
 # herbaceous biomass and herbaceous forage biomass per plot - by species
-#plot.herb.species <- plot.herb %>%
-#  select(c(PlotVisit, Species, Biomass)) %>%
-#  rename(HerbBiomass = Biomass) %>%
-#  full_join(forage.herb, by = c("PlotVisit", "Species")) %>%
-#  rename(ForageHerbBiomass = Biomass) 
-#plot.herb.species[is.na(plot.herb.species)] <- 0
+plot.herb.species <- plot.herb %>%
+  select(c(PlotVisit, Species, Biomass)) %>%
+  rename(HerbBiomass = Biomass) %>%
+  full_join(forage.herb, by = c("PlotVisit", "Species")) %>%
+  rename(ForageHerbBiomass = Biomass) 
+plot.herb.species[is.na(plot.herb.species)] <- 0
 
 #pull genus from full species name 
 plot.shrub$Genus <- sapply(strsplit(as.character(plot.shrub$NameScientific), " "), "[", 1)
