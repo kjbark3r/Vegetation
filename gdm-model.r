@@ -69,6 +69,7 @@ esp6_14_orig <- raster("writtenrasters\\orig\\esp6_14.tif")
   esp6_14_orig[esp6_14_orig == 0] <- NA
 esp6_15_orig <- raster("writtenrasters\\orig\\esp6_15.tif") 
   esp6_15_orig[esp6_15_orig == 0] <- NA
+gsri_orig <- raster("writtenrasters\\orig\\gsri.tif")
 hillshade_orig <- raster("writtenrasters\\orig\\hillshade.tif") 
 ndvi_ti_14_orig <- raster("writtenrasters\\orig\\ndvi_ti_2014.tif") 
 ndvi_ti_15_orig <- raster("writtenrasters\\orig\\ndvi_ti_2015.tif") 
@@ -97,6 +98,7 @@ esp6_14 <- crop(esp6_14_orig, bbox, snap = 'near')
 cc <- crop(cc_orig, bbox, snap = 'near')
 cti <- crop(cti_orig, bbox, snap = 'near')
 elev <- crop(elev_orig, bbox, snap = 'near')
+gsri <- crop(gsri_orig, bbox, snap = 'near')
 hillshade <- crop(hillshade_orig, bbox, snap = 'near')
 ndvi_ti_14 <- crop(ndvi_ti_14_orig, bbox, snap = 'near')
  ndvi_ti_15 <- crop(ndvi_ti_15_orig, bbox, snap = 'near')
@@ -110,14 +112,29 @@ ndvi_avg_14 <- resample(ndvi_avg_14_orig, esp6_15_orig, "bilinear")
 ndvi_avg_15 <- resample(ndvi_avg_15_orig, esp6_15_orig, "bilinear")
  ndvi_avg_15 <- crop(ndvi_avg_15, bbox, snap = 'near')
 
+# add tree cover (binary yes/no)
+cov_14 <- esp6_14
+cov_14@data@values <- (ifelse(
+  cov_14@data@values == 3 | # grass/shrub/open woodland
+	cov_14@data@values == 4 | # dry ag
+	cov_14@data@values == 7, 0, # irrigated ag
+	1))
+cov_15 <- esp6_15
+cov_15@data@values <- (ifelse(
+  cov_15@data@values == 3 | # grass/shrub/open woodland
+	cov_15@data@values == 4 | # dry ag
+	cov_15@data@values == 7, 0, # irrigated ag
+	1))
+
 # stack and save
-s <- stack(esp6_15, esp6_14, cc, cti, elev, hillshade, ndvi_ti_14, ndvi_ti_15,
-		   precip_2014, precip_2015, slope, ndvi_dur_14, ndvi_dur_15, 
-		   ndvi_avg_14, ndvi_avg_15)
+s <- stack(esp6_14, esp6_15, cov_14, cov_15, cc, cti, elev, gsri, 
+           hillshade, ndvi_ti_14, ndvi_ti_15, precip_2014, precip_2015, 
+           slope, ndvi_dur_14, ndvi_dur_15, ndvi_avg_14, ndvi_avg_15)
 names(s)
-names(s) <- c("esp6_15", "esp6_14", "cc", "cti", "elev", "hillshade", 
-			  "ndvi_ti_14", "ndvi_ti_15", "precip_14", "precip_15", 
-			   "slope", "ndvi_dur_14", "ndvi_dur_15", "ndvi_avg_14", "ndvi_avg_15")
+names(s) <- c("esp6_14", "esp6_15", "cov_14", "cov_15", "cc", "cti", "elev", 
+              "gsri", "hillshade", "ndvi_ti_14", "ndvi_ti_15", "precip_14", 
+              "precip_15", "slope", "ndvi_dur_14", "ndvi_dur_15", 
+              "ndvi_avg_14", "ndvi_avg_15")
 writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTiff')
 
 #################################################################################
@@ -139,9 +156,9 @@ raster_data<-list.files(path=paste(wd, "writtenrasters", sep="/"), pattern="tif$
 s <- stack(raster_data) 
 names(s)
 
-################################################################################################################################
+##################################################################################################
 #Extract attribute data for each plot and write a data.frame for building landscape GDM model ####
-################################################################################################################################
+##################################################################################################
 
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
 ext<-extract(s, plots) ##Extract from raster stack for each plot location
@@ -152,6 +169,7 @@ data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick correct years of covariates
 data$cover_class <- ifelse(data$Year == 2014, data$esp6_14, data$esp6_15)
+data$tree_cov <- as.factor(ifelse(data$Year == 2014, data$cov_14, data$cov_15))
 data$ndvi_dur <- ifelse(data$Year == 2014, data$ndvi_dur_14, data$ndvi_dur_15)
 data$ndvi_ti <- ifelse(data$Year == 2014, data$ndvi_ti_14, data$ndvi_ti_15)
 data$ndvi_avg <- ifelse(data$Year == 2014, data$ndvi_avg_14, data$ndvi_avg_15)
@@ -164,6 +182,7 @@ data$cover_class<-as.factor(data$cover_class)
 data$cc_std<-((data$cc-(mean(data$cc)))/(sd(data$cc)))
 data$cti_std<-((data$cti-(mean(data$cti)))/(sd(data$cti)))
 data$elev_std<-((data$elev-(mean(data$elev)))/(sd(data$elev)))
+data$gsri_std<-((data$gsri-(mean(data$gsri)))/(sd(data$gsri)))
 data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)))
 data$ndvi_ti_std<-((data$ndvi_ti-(mean(data$ndvi_ti)))/(sd(data$ndvi_ti)))
 data$ndvi_avg_std<-((data$ndvi_avg-(mean(data$ndvi_avg)))/(sd(data$ndvi_avg)))
@@ -284,7 +303,8 @@ dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev)
 
 #Covariates of interest to check correlations
 mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cc, cti, elev, hillshade, ndvi_dur, ndvi_ti, sum_precip, slope, ndvi, GDM)
+  dplyr::select(cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                sum_precip, slope, ndvi, GDM)
 head(mydata)
 cor(mydata) # correlation matrix
 # plot the data and display r values
@@ -299,8 +319,8 @@ mydata$logGDM <- log(mydata$GDM)
 # determine whether linear or quadratic relationship with ndvi is better supported
 # for the record, ran this with both ndvi_std and ndvi_avg_std, same results
 Cand.set <- list( )
-Cand.set[[1]] <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std, data=dat.GDM)
-Cand.set[[2]] <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + I(ndvi_std^2), data=dat.GDM)
+Cand.set[[1]] <- lm(log(GDM) ~ cover_class + cc + cti_std + elev_std + gsri_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std, data=dat.GDM)
+Cand.set[[2]] <- lm(log(GDM) ~ cover_class + cc + cti_std + elev_std + gsri_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + I(ndvi_std^2), data=dat.GDM)
 names(Cand.set) <- c("with NDVI", "with NDVI^2")
 aictable <- aictab(Cand.set, second.ord=FALSE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
@@ -315,7 +335,7 @@ aicresults <- print(aictable, digits = 2, LL = FALSE)
 # straight ndvi still better. going with it.
 
 # backwards stepwise aic to determine top model
-#m.all <- lm(log(GDM) ~ cover_class + cti_std + elev_std + hillshade_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_avg_std, data=dat.GDM)
+#m.all <- lm(log(GDM) ~ cover_class + cti_std + elev_std + gsri_std + hillshade_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_avg_std, data=dat.GDM)
 #step <- stepAIC(m.all, direction="both")
 #step$anova  # display results  
 
@@ -328,7 +348,8 @@ aicresults <- print(aictable, digits = 2, LL = FALSE)
 # to make spatial prediction easier/make more sense
 
 # backwards stepwise aic to determine top model
-m.all <- lm(log(GDM) ~ cover_class + cti + elev + hillshade + ndvi_ti + sum_precip + slope + ndvi_avg, data=dat.GDM)
+### just making sure unstandardized result is same as standardized
+m.all <- lm(log(GDM) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope + ndvi_avg, data=dat.GDM)
 step <- stepAIC(m.all, direction="both")
 
 # look at top model

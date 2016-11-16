@@ -916,6 +916,40 @@ plot(exp(pred.14[["layer.1"]]))
 # predict for each year
 
 #########################
+## TREE COVER RASTER STUFF ####
+##########################
+
+#forest/riparian- 1, 2, 5, 6, 8, 9, 10, 11, 12
+#nocov - 3, 4, 7
+
+testcov14 <- raster(ifelse(esp6_14@data@values == 3 | # grass/shrub/open woodland
+						   esp6_14@data@values == 4 | # dry ag
+						   esp6_14@data@values == 7 | # irrigated ag
+						   esp6_14@data@values == NA, 0, 1)) # na
+#Error in (function (classes, fdef, mtable)  : 
+#  unable to find an inherited method for function 'raster' for signature '"numeric"'	
+
+testcov14 <- esp6_14
+testcov14@data@values <- (ifelse(
+  testcov14@data@values == 3 | # grass/shrub/open woodland
+	testcov14@data@values == 4 | # dry ag
+	testcov14@data@values == 7 | # irrigated ag
+	testcov14@data@values == NA, 0, 1)) # na
+plot(testcov14)
+unique(testcov14@data@values)
+# close but no 1s
+
+testcov14 <- esp6_14
+testcov14@data@values <- (ifelse(
+  testcov14@data@values == 3 | # grass/shrub/open woodland
+	testcov14@data@values == 4 | # dry ag
+	testcov14@data@values == 7, # irrigated ag
+	 0, 1)) # na
+plot(testcov14)
+unique(testcov14@data@values)
+# bam
+
+#########################
 ## DELETED CODE ####
 ##########################
 
