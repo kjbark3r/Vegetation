@@ -1,8 +1,8 @@
 ##########################################################
-#######   ESTIMATING GRAMS OF DIGESTIBLE MATTER    #######
-####   ACROSS NORTH SAPPHIRES IN SIMMER 2014 & 2015   ####
-###############     KRISTIN BARKER        ################
-##################    OCT 2016     #######################
+#         ESTIMATING GRAMS OF DIGESTIBLE MATTER          #
+#      ACROSS NORTH SAPPHIRES IN SUMMER 2014 & 2015      #
+#                   KRISTIN BARKER                       #
+#                     OCT 2016                           #
 ##########################################################
 
 ###########################
@@ -191,6 +191,9 @@ write.csv(data, "data_GDM.csv", row.names = FALSE)
 ##############################################################################################
 #### Summarize GDM data                                                                   ####
 ##############################################################################################
+
+# KRISTIN you can skip this section for now
+
 dat.GDM <- read.csv("data_GDM.csv")
 #  dat.GDM <- data  #if running code in full from above, can replace read.csv with this
 
@@ -215,7 +218,7 @@ GDMSummary
 
 #############################
 #####   GGPLOT  BOXPLOT   ###
-## KRISTIN YOU HAVEN'T MADE THIS WORK; DON'T RUN IT ##
+
 library(plyr)
 dat.GDM$class_name <- factor(dat.GDM$class_name, levels=c("Dry Forest Burn 0-5", "Rx Dry Forest Burn 0-5", "Dry Forest Burn 6-15", "Dry Forest (Burn >15)",   
                                                             "Mesic Forest Burn 0-5", "Mesic Forest Burn 6-15", "Mesic Forest (Burn >15)", "Grass/Shrub/Open Woodland",
@@ -281,14 +284,17 @@ dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev)
 
 #Covariates of interest to check correlations
 mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cc, cti, elev, hillshade, ndvi_dur, ndvi_ti, ndvi_avg, sum_precip, slope, ndvi, GDM)
-mydata$logGDM <- log(mydata$GDM)
+  dplyr::select(cc, cti, elev, hillshade, ndvi_dur, ndvi_ti, sum_precip, slope, ndvi, GDM)
 head(mydata)
 cor(mydata) # correlation matrix
 # plot the data and display r values
 library(PerformanceAnalytics)
 chart.Correlation(mydata)
 # no correlation coefficients higher than 0.54
+
+# make GDM more normally distributed
+#par(mfrow=c(2,1)); hist(mydata$GDM); hist(mydata$logGDM) 
+mydata$logGDM <- log(mydata$GDM)
 
 # determine whether linear or quadratic relationship with ndvi is better supported
 # for the record, ran this with both ndvi_std and ndvi_avg_std, same results
