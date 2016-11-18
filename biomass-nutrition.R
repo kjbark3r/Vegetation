@@ -463,6 +463,17 @@ plotinfo <- sqlQuery(channel, paste("select PlotID, Date, Latitude, Longitude fr
 #plotinfo <- read.csv("PlotInfo.csv") # if reading from csv
 plotinfo <- mutate(plotinfo, PlotVisit = paste(PlotID, ".", Date, sep="")) # create PlotVisit column to join on
 
+# add to GDM per lifeform
+gdm.plot.lifeform <- left_join(gdm.plot.lifeform, plotinfo, by="PlotVisit") %>%
+  select(-BIOMASS) %>% # avoid duplicate rows
+  spread(LifeForm, GDM) %>% # make wideform (1 row per plot visit)
+  rename(GDMforb = forb, GDMgrass = graminoid, GDMshrub = shrub)
+# make NAs be 0
+gdm.plot.lifeform$GDMforb[is.na(gdm.plot.lifeform$GDMforb)] <- 0
+gdm.plot.lifeform$GDMgrass[is.na(gdm.plot.lifeform$GDMgrass)] <- 0
+gdm.plot.lifeform$GDMshrub[is.na(gdm.plot.lifeform$GDMshrub)] <- 0
+write.csv(gdm.plot.lifeform, file = "gdm-plot-lifeform.csv", row.names=FALSE)
+
 # add to GDM per plot
 gdm.plot <- left_join(gdm.plot, plotinfo, by="PlotVisit")
 #write.csv(gdm.plot, file = "gdm-plot.csv", row.names=FALSE)

@@ -13,9 +13,9 @@ library(adehabitatHR) #for kernel centroid estimate
 library(raster)
 library(rgdal) #Access geodatabases
 library(rgeos)
-library(dplyr) #Group by function
 library(ggplot2)
 library(AICcmodavg)
+library(dplyr) 
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
 wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\UMT\\Thesis\\Migration_Consequences\\Analyses\\Veg"
@@ -43,7 +43,7 @@ rmt.data <- read.csv("ndvi-plot.csv") %>%
   select(PlotVisit, NDVI)
 
 # per plot: year sampled, GDM, lat/long, NDVI
-plot.data <-read.csv("gdm-plot-summer.csv", header=T) %>% 
+plot.data <-read.csv("gdm-plot-lifeform.csv", header=T) %>% 
     filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
     left_join(rmt.data, by = "PlotVisit") #add ndvi
 
@@ -112,26 +112,12 @@ ndvi_avg_14 <- resample(ndvi_avg_14_orig, esp6_15_orig, "bilinear")
 ndvi_avg_15 <- resample(ndvi_avg_15_orig, esp6_15_orig, "bilinear")
  ndvi_avg_15 <- crop(ndvi_avg_15, bbox, snap = 'near')
 
-# add tree cover (binary yes/no)
-cov_14 <- esp6_14
-cov_14@data@values <- (ifelse(
-  cov_14@data@values == 3 | # grass/shrub/open woodland
-	cov_14@data@values == 4 | # dry ag
-	cov_14@data@values == 7, 0, # irrigated ag
-	1))
-cov_15 <- esp6_15
-cov_15@data@values <- (ifelse(
-  cov_15@data@values == 3 | # grass/shrub/open woodland
-	cov_15@data@values == 4 | # dry ag
-	cov_15@data@values == 7, 0, # irrigated ag
-	1))
-
 # stack and save
-s <- stack(esp6_14, esp6_15, cov_14, cov_15, cc, cti, elev, gsri, 
+s <- stack(esp6_14, esp6_15, cc, cti, elev, gsri, 
            hillshade, ndvi_ti_14, ndvi_ti_15, precip_2014, precip_2015, 
            slope, ndvi_dur_14, ndvi_dur_15, ndvi_avg_14, ndvi_avg_15)
 names(s)
-names(s) <- c("esp6_14", "esp6_15", "cov_14", "cov_15", "cc", "cti", "elev", 
+names(s) <- c("esp6_14", "esp6_15", "cc", "cti", "elev", 
               "gsri", "hillshade", "ndvi_ti_14", "ndvi_ti_15", "precip_14", 
               "precip_15", "slope", "ndvi_dur_14", "ndvi_dur_15", 
               "ndvi_avg_14", "ndvi_avg_15")
@@ -146,7 +132,7 @@ writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTif
 rmt.data <- read.csv("ndvi-plot.csv") %>%
   dplyr::select(PlotVisit, NDVI)
 #datafile with the year sampled, GDM per plot, along with plot lat/longs
-plot.data <-read.csv("gdm-plot-summer.csv", header=T)  %>% 
+plot.data <-read.csv("gdm-plot-lifeform.csv", header=T)  %>% 
     filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
     left_join(rmt.data, by = "PlotVisit") #add ndvi
 #above datafile as shapefile
@@ -169,7 +155,6 @@ data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick correct years of covariates
 data$cover_class <- ifelse(data$Year == 2014, data$esp6_14, data$esp6_15)
-data$tree_cov <- as.factor(ifelse(data$Year == 2014, data$cov_14, data$cov_15))
 data$ndvi_dur <- ifelse(data$Year == 2014, data$ndvi_dur_14, data$ndvi_dur_15)
 data$ndvi_ti <- ifelse(data$Year == 2014, data$ndvi_ti_14, data$ndvi_ti_15)
 data$ndvi_avg <- ifelse(data$Year == 2014, data$ndvi_avg_14, data$ndvi_avg_15)
@@ -285,12 +270,40 @@ dat.GDM$cover_class<-as.factor(dat.GDM$cover_class)
 #  facet_grid(~cover_class) #same per landcover
 
 ## order landcov by inc'ing median GDM and set that as reference level order for model
-cov.gdm <- dat.GDM %>%
-  dplyr::select(c(cover_class, class_name, GDM)) %>%
+cov.gdm.forb <- dat.GDM %>%
+  dplyr::select(c(cover_class, class_name, GDMforb)) %>%
   group_by(class_name, cover_class) %>%
-  summarise(MedGDM = median(GDM)) %>%
-  arrange(MedGDM)
-lev <- as.vector(cov.gdm$cover_class)
+  summarise(MedGDMforb = median(GDMforb)) %>%
+  arrange(MedGDMforb)
+lev.forb <- as.vector(cov.gdm.forb$cover_class)
+
+cov.gdm.grass <- dat.GDM %>%
+  dplyr::select(c(cover_class, class_name, GDMgrass)) %>%
+  group_by(class_name, cover_class) %>%
+  summarise(MedGDMgrass = median(GDMgrass)) %>%
+  arrange(MedGDMgrass)
+(lev.grass <- as.vector(cov.gdm.grass$cover_class))
+
+# look at order
+dat.forb<-group_by(dat.GDM, cover_class)
+(GDMSummaryforb=summarise(dat.forb,
+                     class_name=first(class_name),
+                     count=n(),
+                     AveGDMforb=mean(GDMforb),
+                     MedGDMforb=median(GDMforb),
+                     MinGDMforb=min(GDMforb),
+                     MaxGDMforb=max(GDMforb),
+                     SdGDMforb=sd(GDMforb)))
+dat.grass<-group_by(dat.GDM, cover_class)
+(GDMSummarygrass=summarise(dat.grass,
+                     class_name=first(class_name),
+                     count=n(),
+                     AveGDMgrass=mean(GDMgrass),
+                     MedGDMgrass=median(GDMgrass),
+                     MinGDMgrass=min(GDMgrass),
+                     MaxGDMgrass=max(GDMgrass),
+                     SdGDMgrass=sd(GDMgrass)))
+
 dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev)
 
 #Distribution of response
