@@ -8,6 +8,7 @@
 ###########################
 #### Setup             ####
 ###########################
+
 library(sp) #for kernel centroid estimate
 library(adehabitatHR) #for kernel centroid estimate
 library(raster)
@@ -15,7 +16,9 @@ library(rgdal) #Access geodatabases
 library(rgeos)
 library(ggplot2)
 library(AICcmodavg)
+library(car) # correlations with factor covariates
 library(dplyr) 
+library(pscl) # hurdle model
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
 wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\UMT\\Thesis\\Migration_Consequences\\Analyses\\Veg"
@@ -251,38 +254,135 @@ ggsave("GDM boxplot per Cover Class_nocol.tiff", plot = GDM_class, width=7, heig
 #### Build summer nutrition models using backwards step-wise selection                    ####
 ##############################################################################################
 
-# pick one of the 3 lines below
+# Read in data - pick one of the 3 lines below
+
 #dat.GDM <- read.csv("data_GDM.csv") 
 dat.GDM <- data
-#dat.GDM <- datasub
+#dat.GDM <- datasub # from removing bad ndvi_dur values
+  #summary(dat.GDM$GDM)
+  #summary(datasub$GDM) #good, not super different
 
-dat.GDM$cover_class<-as.factor(dat.GDM$cover_class)
-#summary(dat.GDM$GDM)
-#summary(datasub$GDM) #good, not super different
+############################
+####    FORB             ###
+############################
 
-# Check out data to pick reference levels
+# Check out data and pick reference levels
 
-## look at distribution - mean or median for best measure of center?
-#hist(dat.GDM$GDM) #GDM in general skewed R
-#hist(log(dat.GDM$GDM))
-#ggplot(dat.GDM, aes(x=GDM)) +
-#  geom_histogram() +
-#  facet_grid(~cover_class) #same per landcover
+## distribution of GDM
+hist(dat.GDM$GDMforb) # super skewed R (valid, not outliers - high in irrig ag)
+  hist(log(dat.GDM$GDMforb))
+  hist(log10(dat.GDM$GDMforb))
+  hist(log1p(dat.GDM$GDMforb)) # box-cox transformation
 
-## order landcov by inc'ing median GDM and set that as reference level order for model
+ggplot(dat.GDM, aes(x=GDMforb)) +
+  geom_histogram() +
+  facet_grid(~cover_class) #same per landcover
+median(dat.GDM$GDMforb); mean(dat.GDM$GDMforb)
+# median best meas of center; use log10GDM for model
+
+## order landcov by inc'ing median GDM; set this as reference level order
 cov.gdm.forb <- dat.GDM %>%
   dplyr::select(c(cover_class, class_name, GDMforb)) %>%
   group_by(class_name, cover_class) %>%
   summarise(MedGDMforb = median(GDMforb)) %>%
-  arrange(MedGDMforb)
+  arrange(desc(MedGDMforb)) # desc orders high to low (default is low to high)
+write.csv(cov.gdm.forb, file = "gdm-forb-landcov.csv", row.names=F)
 lev.forb <- as.vector(cov.gdm.forb$cover_class)
 
+dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.forb)
+
+# Check correlations between covariates of interest
+
+mydata <- dat.GDM %>% # or mydata <- datasub %>%
+  dplyr::select(cover_class, cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                sum_precip, slope, ndvi, GDMforb)
+head(mydata)
+cor(mydata) # correlation matrix
+# plot the data and display r values
+library(PerformanceAnalytics)
+chart.Correlation(mydata)
+# no correlation coefficients higher than 0.54
+
+m.all.forb <- lm(log10(GDMforb) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM)
+vif(m.all.forb) # correlations with cover_class factor
+
+testmod <- lm(log10(GDMforb) ~ cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM)
+hurdle(glm(log10(GDMforb) ~ cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM))
+#step <- stepAIC(m.all, direction="both")
+#step$anova  # display results  
+
+
+############################
+####    GRAMINOID        ###
+############################
+
+# Check out data and pick reference levels
+
+## distribution of GDM
+hist(dat.GDM$GDMgrass) # skewed R, but not as much as forbs
+  hist(log(dat.GDM$GDMgrass)) 
+  hist(sqrt(dat.GDM$GDMgrass)) 
+  hist(log1p(dat.GDM$GDMgrass)) # box-cox transformation
+ggplot(dat.GDM, aes(x=GDMgrass)) +
+  geom_histogram() +
+  facet_grid(~cover_class) #same per landcover
+median(dat.GDM$GDMgrass); mean(dat.GDM$GDMgrass)
+# median best meas of center; use logGDM for model
+
+## order landcov by inc'ing median GDM and set as ref level order for model
 cov.gdm.grass <- dat.GDM %>%
   dplyr::select(c(cover_class, class_name, GDMgrass)) %>%
   group_by(class_name, cover_class) %>%
   summarise(MedGDMgrass = median(GDMgrass)) %>%
-  arrange(MedGDMgrass)
-(lev.grass <- as.vector(cov.gdm.grass$cover_class))
+  arrange(desc(MedGDMgrass))
+lev.grass <- as.vector(cov.gdm.grass$cover_class)
+
+dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.grass)
+
+############################
+####    SHRUB            ###
+############################
+
+# Check out data and pick reference levels
+
+## distribution of GDM
+hist(dat.GDM$GDMshrub) # skewed R, but not as much as forbs
+  hist(log(dat.GDM$GDMshrub)) 
+  hist(sqrt(dat.GDM$GDMshrub)) 
+  hist(log1p(dat.GDM$GDMshrub)) # box-cox transformation
+ggplot(dat.GDM, aes(x=GDMshrub)) +
+  geom_histogram() +
+  facet_grid(~cover_class) #same per landcover
+median(dat.GDM$GDMshrub); mean(dat.GDM$GDMshrub)
+# median best meas of center; use logGDM for model
+
+## order landcov by inc'ing median GDM and set as ref level order for model
+cov.gdm.shrub <- dat.GDM %>%
+  dplyr::select(c(cover_class, class_name, GDMshrub)) %>%
+  group_by(class_name, cover_class) %>%
+  summarise(MedGDMshrub = median(GDMshrub)) %>%
+  arrange(desc(MedGDMshrub))
+lev.shrub <- as.vector(cov.gdm.shrub$cover_class)
+
+dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.shrub)
+
+############################
+#### COMBINED STUFF      ###
+############################
+
+# GDM by cover class for each veg type
+cov.gdm <- left_join(cov.gdm.forb, cov.gdm.grass, 
+                    by = c("cover_class", "class_name")) %>%
+           left_join(cov.gdm.shrub, 
+                     by = c("cover_class", "class_name"))
+write.csv(cov.gdm, file = "gdm-landcov.csv", row.names=F)
+
+
+###############################################################################
+
+##############################################
+#### KJB - CODE YOU HAVEN'T SPLIT YET      ###
+##############################################
 
 # look at order
 dat.forb<-group_by(dat.GDM, cover_class)
@@ -314,38 +414,8 @@ dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev)
 #  theme(axis.text.x=element_text(size=12, angle=55, hjust=1, vjust = 1)) +
 #  scale_color_gradientn(colors=pal)
 
-#Covariates of interest to check correlations
-mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
-                sum_precip, slope, ndvi, GDM)
-head(mydata)
-cor(mydata) # correlation matrix
-# plot the data and display r values
-library(PerformanceAnalytics)
-chart.Correlation(mydata)
-# no correlation coefficients higher than 0.54
 
-# make GDM more normally distributed
-#par(mfrow=c(2,1)); hist(mydata$GDM); hist(mydata$logGDM) 
-mydata$logGDM <- log(mydata$GDM)
 
-# determine whether linear or quadratic relationship with ndvi is better supported
-# for the record, ran this with both ndvi_std and ndvi_avg_std, same results
-Cand.set <- list( )
-Cand.set[[1]] <- lm(log(GDM) ~ cover_class + cc + cti_std + elev_std + gsri_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_std, data=dat.GDM)
-Cand.set[[2]] <- lm(log(GDM) ~ cover_class + cc + cti_std + elev_std + gsri_std + hillshade_std + ndvi_dur_std + ndvi_ti_std + sum_precip_std + slope_std + I(ndvi_std^2), data=dat.GDM)
-names(Cand.set) <- c("with NDVI", "with NDVI^2")
-aictable <- aictab(Cand.set, second.ord=FALSE)
-aicresults <- print(aictable, digits = 2, LL = FALSE)
-# straight ndvi better supported
-# trying with all other covariates removed, prob should've done that to begin with...
-Cand.set <- list( )
-Cand.set[[1]] <- lm(log(GDM) ~ ndvi_avg_std, data=dat.GDM)
-Cand.set[[2]] <- lm(log(GDM) ~ I(ndvi_avg_std^2), data=dat.GDM)
-names(Cand.set) <- c("NDVI", "NDVI^2")
-aictable <- aictab(Cand.set, second.ord=FALSE)
-aicresults <- print(aictable, digits = 2, LL = FALSE)
-# straight ndvi still better. going with it.
 
 # backwards stepwise aic to determine top model
 #m.all <- lm(log(GDM) ~ cover_class + cti_std + elev_std + gsri_std + hillshade_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_avg_std, data=dat.GDM)
