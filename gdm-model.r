@@ -17,11 +17,11 @@ library(rgeos)
 library(ggplot2)
 library(AICcmodavg)
 library(car) # correlations with factor covariates
-library(dplyr) 
 library(pscl) # hurdle model
+library(dplyr) 
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
-wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\UMT\\Thesis\\Migration_Consequences\\Analyses\\Veg"
+wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Vegetation"
 
 if (file.exists(wd_workcomp)) {
   setwd(wd_workcomp)
@@ -41,14 +41,9 @@ rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into me
 ###############
 ## PLOT DATA ##
 
-# plot-level NDVI values
-rmt.data <- read.csv("ndvi-plot.csv") %>%
-  select(PlotVisit, NDVI)
-
 # per plot: year sampled, GDM, lat/long, NDVI
 plot.data <-read.csv("gdm-plot-lifeform.csv", header=T) %>% 
-    filter(!PlotVisit == "220.2015-08-03") %>% #remove GDM outlier (landcov also wrong)
-    left_join(rmt.data, by = "PlotVisit") #add ndvi
+    filter(!PlotVisit == "220.2015-08-03") #remove GDM outlier (landcov also wrong)
 
 # get points, write out to dataframe, to spatial data frame, to shapefile 
 xy <- data.frame("x"=plot.data$Longitude,"y"=plot.data$Latitude)
@@ -84,18 +79,8 @@ slope_orig <-raster("writtenrasters\\orig\\slope.tif")
 ndvi_dur_14_orig <- raster("writtenrasters\\orig\\ndvi_dur_2014.tif") 
 ndvi_dur_15_orig <- raster("writtenrasters\\orig\\ndvi_dur_2015.tif") 
 
-# add ndvi_avg (average ndvi value from july 15 - aug 31)
-ndvipath <- paste(getwd(), "/writtenrasters/orig/ndvi", sep="")
-tifs14 <- list.files(ndvipath, pattern = "20140728|20140813|20140829")
-tifs15 <- list.files(ndvipath, pattern = "20150728|20150813|20150829")
-ndvistack14 <- stack(paste(ndvipath, "/", tifs14, sep=""))
-ndvistack15 <- stack(paste(ndvipath, "/", tifs15, sep=""))
-ndvi_avg_14_orig <- projectRaster(mean(ndvistack14), crs = esp6_15_orig@crs)
-ndvi_avg_15_orig <- projectRaster(mean(ndvistack15), crs = esp6_15_orig@crs)
-rm(tifs14, tifs15, ndvistack14, ndvistack15) # cleanup
-
 # make raster extents and resolutions match 
-bbox <- extent(ndvi_avg_14_orig)
+bbox <- extent(ndvi_dur_14_orig) # NSERP study area extent
 esp6_15 <- crop(esp6_15_orig, bbox, snap = 'near') # use this as baseline
 esp6_14 <- crop(esp6_14_orig, bbox, snap = 'near')
 cc <- crop(cc_orig, bbox, snap = 'near')
@@ -104,26 +89,21 @@ elev <- crop(elev_orig, bbox, snap = 'near')
 gsri <- crop(gsri_orig, bbox, snap = 'near')
 hillshade <- crop(hillshade_orig, bbox, snap = 'near')
 ndvi_ti_14 <- crop(ndvi_ti_14_orig, bbox, snap = 'near')
- ndvi_ti_15 <- crop(ndvi_ti_15_orig, bbox, snap = 'near')
+ndvi_ti_15 <- crop(ndvi_ti_15_orig, bbox, snap = 'near')
 precip_2014 <- crop(precip_2014_orig, bbox, snap = 'near')
- precip_2015 <- crop(precip_2015_orig, bbox, snap = 'near')
+precip_2015 <- crop(precip_2015_orig, bbox, snap = 'near')
 slope <- crop(slope_orig, bbox, snap = 'near')
-ndvi_dur_14 <- crop(ndvi_dur_14_orig, bbox, snap = 'near')
- ndvi_dur_15 <- crop(ndvi_dur_15_orig, bbox, snap = 'near')
-ndvi_avg_14 <- resample(ndvi_avg_14_orig, esp6_15_orig, "bilinear")
- ndvi_avg_14 <- crop(ndvi_avg_14, bbox, snap = 'near')
-ndvi_avg_15 <- resample(ndvi_avg_15_orig, esp6_15_orig, "bilinear")
- ndvi_avg_15 <- crop(ndvi_avg_15, bbox, snap = 'near')
+ndvi_dur_14 <- ndvi_dur_14_orig
+ndvi_dur_15 <- crop(ndvi_dur_15_orig, bbox, snap = 'near')
 
 # stack and save
 s <- stack(esp6_14, esp6_15, cc, cti, elev, gsri, 
            hillshade, ndvi_ti_14, ndvi_ti_15, precip_2014, precip_2015, 
-           slope, ndvi_dur_14, ndvi_dur_15, ndvi_avg_14, ndvi_avg_15)
+           slope, ndvi_dur_14, ndvi_dur_15)
 names(s)
 names(s) <- c("esp6_14", "esp6_15", "cc", "cti", "elev", 
               "gsri", "hillshade", "ndvi_ti_14", "ndvi_ti_15", "precip_14", 
-              "precip_15", "slope", "ndvi_dur_14", "ndvi_dur_15", 
-              "ndvi_avg_14", "ndvi_avg_15")
+              "precip_15", "slope", "ndvi_dur_14", "ndvi_dur_15")
 writeRaster(s, file.path('writtenrasters', names(s)), bylayer=TRUE, format='GTiff')
 
 #################################################################################
@@ -152,15 +132,13 @@ names(s)
 # Extract values of rasters to sampling locations and create data.frame with GDM and attributes
 ext<-extract(s, plots) ##Extract from raster stack for each plot location
 plot.data <- data.frame(plot.data) ##Convert plot info attribute table to dataframe
-data <- cbind(plot.data, ext)	%>% ##Bind  plot info and extracted landcover data into df
-  rename(ndvi = NDVI) ##Follow naming convention
+data <- cbind(plot.data, ext)	##Bind  plot info and extracted landcover data into df
 data$Date<-as.Date(data$Date, "%Y-%m-%d") #Set dates and calculate Year
 data$Year<-as.numeric(format(data$Date, '%Y'))
 #Pick correct years of covariates
 data$cover_class <- ifelse(data$Year == 2014, data$esp6_14, data$esp6_15)
 data$ndvi_dur <- ifelse(data$Year == 2014, data$ndvi_dur_14, data$ndvi_dur_15)
 data$ndvi_ti <- ifelse(data$Year == 2014, data$ndvi_ti_14, data$ndvi_ti_15)
-data$ndvi_avg <- ifelse(data$Year == 2014, data$ndvi_avg_14, data$ndvi_avg_15)
 data$sum_precip <- ifelse(data$Year == 2014, data$precip_14, data$precip_15)
 #make NDVI durations classified as "NoData" into NAs
 data$ndvi_dur <- ifelse(data$ndvi_dur < 90 | data$ndvi_dur > 365, NA, data$ndvi_dur)
@@ -173,10 +151,8 @@ data$elev_std<-((data$elev-(mean(data$elev)))/(sd(data$elev)))
 data$gsri_std<-((data$gsri-(mean(data$gsri)))/(sd(data$gsri)))
 data$hillshade_std<-((data$hillshade-(mean(data$hillshade)))/(sd(data$hillshade)))
 data$ndvi_ti_std<-((data$ndvi_ti-(mean(data$ndvi_ti)))/(sd(data$ndvi_ti)))
-data$ndvi_avg_std<-((data$ndvi_avg-(mean(data$ndvi_avg)))/(sd(data$ndvi_avg)))
 data$sum_precip_std<-((data$sum_precip-(mean(data$sum_precip)))/(sd(data$sum_precip)))
 data$slope_std<-((data$slope-(mean(data$slope)))/(sd(data$slope)))
-data$ndvi_std<-((data$ndvi-(mean(data$ndvi)))/(sd(data$ndvi)))
 
 # join to land cover classifications to attach names
 clsref_esp <- data.frame(cbind(cover_class = c(1,2,3,4,5,6,7,8,9,10,11,12),
@@ -294,8 +270,8 @@ dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.forb)
 # Check correlations between covariates of interest
 
 mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cover_class, cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
-                sum_precip, slope, ndvi, GDMforb)
+  dplyr::select(cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                sum_precip, slope, GDMforb)
 head(mydata)
 cor(mydata) # correlation matrix
 # plot the data and display r values
