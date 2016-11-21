@@ -712,6 +712,24 @@ test$Genus2 <- ifelse(grepl(" leaf| stem", test$Genus2), "NiceWork", forage$Genu
 ## NUTRITION-RELATED CODE ####
 ##########################
 
+#################
+# figuring out how to deal with all these freaking 0s
+
+table(data$GDMforb > 0)
+  # more non-zeros than zeros (~2x), i THINK this  
+  # lends support to the hurdle model plan
+hist(data$GDMforb, breaks = 200)
+test <- filter(data, GDMforb>0)
+hist(log10(test$GDMforb))
+summary(test$GDMforb)
+
+
+# statsy info
+var(test$GDMforb); mean(test$GDMforb)
+# omg this is like so overdispersed
+  # so negative binomial?
+
+#################
 # add NDVI tiff to GDM model
 latlong <- CRS("+init=epsg:4326")
 stateplane <- CRS("+init=epsg:2818")
