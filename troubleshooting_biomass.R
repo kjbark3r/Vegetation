@@ -968,6 +968,19 @@ unique(testcov14@data@values)
 # bam
 
 #########################
+## GDM MODEL STUFF ####
+##########################
+
+# check correlations with landcover (factor)
+# just using global model bc can't run this with zeros in response
+testdat <- dat.GDM %>%
+  mutate(GDMsum = sum(GDMforb, GDMgrass, GDMshrub))
+m.all <- lm(log10(GDMsum) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=testdat)
+vif(m.all)
+# i think but am not sure that 9 isn't necessarily huge
+# going forward as if there are no problems here...
+
+#########################
 ## DELETED CODE ####
 ##########################
 

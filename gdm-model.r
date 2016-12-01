@@ -17,7 +17,7 @@ library(rgeos)
 library(ggplot2)
 library(AICcmodavg)
 library(car) # correlations with factor covariates
-library(pscl) # hurdle model
+library(pscl) # zero-inflated model
 library(dplyr) 
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
@@ -169,7 +169,16 @@ data <- merge(data, clsref_esp, by="cover_class")
 # datasub$ndvi_dur_std<-((datasub$ndvi_dur-(mean(datasub$ndvi_dur)))/(sd(datasub$ndvi_dur)))
 
 #data<-subset(data, !data$cover_class == 0) #Remove sample from "other" landcover 
+
+# add back in biomass data
+bmss <- read.csv("biomass-plot.csv") %>%
+  select(c(PlotVisit, Biomass, ForbBiomass, GrassBiomass, ShrubBiomass)) %>%
+  rename(Gforb = ForbBiomass, Ggrass = GrassBiomass, Gshrub = ShrubBiomass)
+data <- right_join(data, bmss, by = "PlotVisit")
+
+# and export
 write.csv(data, "data_GDM.csv", row.names = FALSE)
+
 
 ##############################################################################################
 #### Summarize GDM data                                                                   ####
@@ -227,7 +236,7 @@ ggsave("GDM boxplot per Cover Class_nocol.tiff", plot = GDM_class, width=7, heig
 
 
 ##############################################################################################
-#### Build summer nutrition models using backwards step-wise selection                    ####
+#### Build summer nutrition models for each vegetation type                    ####
 ##############################################################################################
 
 # Read in data - pick one of the 3 lines below
@@ -268,10 +277,9 @@ lev.forb <- as.vector(cov.gdm.forb$cover_class)
 dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.forb)
 
 # Check correlations between covariates of interest
-
 mydata <- dat.GDM %>% # or mydata <- datasub %>%
-  dplyr::select(cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
-                sum_precip, slope, GDMforb)
+   dplyr::select(cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                 sum_precip, slope, GDMforb, Gforb)
 head(mydata)
 cor(mydata) # correlation matrix
 # plot the data and display r values
@@ -279,11 +287,27 @@ library(PerformanceAnalytics)
 chart.Correlation(mydata)
 # no correlation coefficients higher than 0.54
 
-m.all.forb <- lm(log10(GDMforb) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM)
+##########################
+## trying zero-inflated ##
+##########################
+
+testdat <- dat.GDM %>% # or mydata <- datasub %>%
+   dplyr::select(cover_class, cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                 sum_precip, slope, GDMforb, Gforb) %>%
+   mutate(forbs = ifelse(Gforb > 0, 1, 0)) %>%
+   within(forbs <- as.factor(forbs))
+
+# this doesn't work, bc response has to be count data
+# need to look more into how to do this with continuous data
+# or just commit suicide and save myself the trouble
+m.test <- zeroinfl(log10(GDMforb) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope 
+                   | forbs, data=testdat, dist = "poisson", link = "log")
+
+
+
 vif(m.all.forb) # correlations with cover_class factor
 
-testmod <- lm(log10(GDMforb) ~ cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM)
-hurdle(glm(log10(GDMforb) ~ cc + cti + elev + gsri + ndvi_ti + sum_precip + slope, data=dat.GDM))
+
 #step <- stepAIC(m.all, direction="both")
 #step$anova  # display results  
 
