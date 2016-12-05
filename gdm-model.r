@@ -42,8 +42,7 @@ rasterOptions(maxmemory = 1e+09) # increases max number of cells to read into me
 ## PLOT DATA ##
 
 # per plot: year sampled, GDM, lat/long, NDVI
-plot.data <-read.csv("gdm-plot-lifeform.csv", header=T) %>% 
-    filter(!PlotVisit == "220.2015-08-03") #remove GDM outlier (landcov also wrong)
+plot.data <-read.csv("gdm-plot-lifeform.csv", header=T)
 
 # get points, write out to dataframe, to spatial data frame, to shapefile 
 xy <- data.frame("x"=plot.data$Longitude,"y"=plot.data$Latitude)
@@ -286,22 +285,6 @@ cor(mydata) # correlation matrix
 library(PerformanceAnalytics)
 chart.Correlation(mydata)
 # no correlation coefficients higher than 0.54
-
-##########################
-## trying zero-inflated ##
-##########################
-
-testdat <- dat.GDM %>% # or mydata <- datasub %>%
-   dplyr::select(cover_class, cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
-                 sum_precip, slope, GDMforb, Gforb) %>%
-   mutate(forbs = ifelse(Gforb > 0, 1, 0)) %>%
-   within(forbs <- as.factor(forbs))
-
-# this doesn't work, bc response has to be count data
-# need to look more into how to do this with continuous data
-# or just commit suicide and save myself the trouble
-m.test <- zeroinfl(log10(GDMforb) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope 
-                   | forbs, data=testdat, dist = "poisson", link = "log")
 
 
 
