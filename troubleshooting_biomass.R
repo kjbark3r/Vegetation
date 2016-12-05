@@ -980,6 +980,150 @@ vif(m.all)
 # i think but am not sure that 9 isn't necessarily huge
 # going forward as if there are no problems here...
 
+## trying zero-inflated ##
+
+testdat <- dat.GDM %>% # or mydata <- datasub %>%
+   dplyr::select(cover_class, cc, cti, elev, gsri, hillshade, ndvi_dur, ndvi_ti, 
+                 sum_precip, slope, GDMforb, Gforb) %>%
+   mutate(forbs = ifelse(Gforb > 0, 1, 0)) %>%
+   within(forbs <- as.factor(forbs))
+
+# this doesn't work, bc response has to be count data
+# need to look more into how to do this with continuous data
+# or just commit suicide and save myself the trouble
+m.test <- zeroinfl(log10(GDMforb) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope 
+                   | forbs, data=testdat, dist = "poisson", link = "log")
+
+
+## post josh-chat ##
+
+# run regular model without transforming response
+  # and check out residuals
+m.fb <- glm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_dur_std, data=dat.GDM)
+summary(m.fb)
+par(mfrow=c(2,2))
+plot(m.fb)
+
+# try it without the zeros
+dat.sub <- subset(dat.GDM, GDMforb > 0)
+m.sub <- glm(GDMforb ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope + ndvi_dur, data=dat.sub)
+par(mfrow=c(2,2))
+plot(m.sub)
+# interesting, not a big difference for residuals?
+
+par(mfrow=c(2,1))
+plot(resid(m.fb), main = "forb - alldata")
+plot(resid(m.sub), main = "forb - no 0s")
+# shit, yeah, that's pretty terrible
+
+# just dredge regular global model for funzies
+#need to re-add ndvi_dur first since it may actually be important
+# create subset of data without the "NA" NDVI durations
+nona <- dat.GDM[!is.na(dat.GDM$ndvi_dur),]
+nona$ndvi_dur_std<-((nona$ndvi_dur-(mean(nona$ndvi_dur)))/(sd(nona$ndvi_dur)))
+nona$GDM <- nona$GDMforb + nona$GDMgrass + nona$GDMshrub
+nona$GDMherb <- nona$GDMforb + nona$GDMgrass
+m.all <- lm(log10(GDM) ~ cover_class + cc + cti + elev + gsri + ndvi_ti + sum_precip + slope + ndvi_dur, data=nona)
+summary(m.all)
+
+library(MuMIn)
+options(na.action = "na.fail")
+fuckit <- dredge(m.all, beta = FALSE, evaluate = TRUE, rank = "AIC")
+summary(fuckit)
+View(fuckit)
+  # not sure which are "top models" ... is this one?
+summary(lm(log10(GDM) ~ ndvi_ti, data = nona))
+  # christ i hope not
+
+# run regular model without transforming response AND with ndvi_dur incl'd
+m.fb <- glm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + ndvi_ti_std + sum_precip_std + slope_std + ndvi_dur_std, data=nona)
+summary(m.fb)
+  # and check out residuals
+par(mfrow=c(2,2))
+plot(m.fb)
+  # and find top model from backwards stepwise
+step <- stepAIC(m.fb, direction="both")
+  # no ndvi_dur, so looking at model with full dataset
+options(na.action = na.omit)
+summary(glm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+    ndvi_ti_std, data=dat.GDM))
+ # omg why so many effing covariates?
+
+# try it without the zeros
+dat.sub <- subset(dat.GDM, GDMforb > 0)
+m.fb <- glm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+              ndvi_ti_std + sum_precip_std + slope_std + ndvi_dur_std, data=dat.sub)
+step <- stepAIC(m.fb, direction="both")
+summary(lm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+    ndvi_ti_std, data=dat.sub))
+# r2 = 0.265, best one yet...
+  # although i don't love the number of covariates in it...
+
+# i wonder how much worse the r2 gets when 0s are included?
+summary(lm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+    ndvi_ti_std, data=dat.GDM))
+# now r2 is 0.2226 - only 0.04 difference.
+
+# same as above for graminoids
+dat.sub <- subset(dat.GDM, GDMgrass > 0)
+dat.sub$ndvi_dur_std<-((dat.sub$ndvi_dur-(mean(dat.sub$ndvi_dur)))/(sd(dat.sub$ndvi_dur)))
+# factor levels
+cov.gdm.gr <- dat.GDM %>%
+  dplyr::select(c(cover_class, class_name, GDMgrass)) %>%
+  group_by(class_name, cover_class) %>%
+  summarise(MedGDMgrass = median(GDMgrass)) %>%
+  arrange(MedGDMgrass) # order low to high
+lev.gr <- as.vector(cov.gdm.gr$cover_class)
+dat.sub$cover_class <- factor(dat.sub$cover_class, levels = lev.gr)
+#ndvi_dur_std was effing everything up and i just got pissed off and removed it
+# need to actually fix the problem for the real thing
+m.gr <- glm(GDMgrass ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+              ndvi_ti_std + sum_precip_std + slope_std, data=dat.sub)
+step <- stepAIC(m.gr, direction="both")
+summary(lm(GDMgrass ~ cc_std + elev_std + ndvi_ti_std + slope_std, data=dat.sub))
+  # r2 = 0.1229, wah wah
+summary(lm(GDMgrass ~ cover_class + cc_std + elev_std + ndvi_ti_std + slope_std,
+           data=dat.sub))
+  # r2 = 0.1378, sliiiightly better...
+  # let's see how much worse we can make it by including 0s
+
+# set factor levels for grasses
+dat.GDM$cover_class <- factor(dat.GDM$cover_class, levels = lev.gr)
+
+# see whether top model is same or different with 0s included
+#   WHICH YOU DID NOT DO FOR FORBS, DUR
+m.gr <- glm(GDMgrass ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+              ndvi_ti_std + sum_precip_std + slope_std, data=dat.GDM)
+step <- stepAIC(m.gr, direction="both")
+# it is, cool. 
+summary(lm(GDMgrass ~ cover_class + cc_std + elev_std + ndvi_ti_std + slope_std,
+           data=dat.GDM))
+# ahahaha this made r2 better, now 0.16
+# wtf am i doing... obviously something wrong...
+
+# ok see whether top forb model is same with or without 0s
+dat.sub <- subset(dat.GDM, GDMforb > 0)
+m.fb <- glm(GDMforb ~ cover_class + cc_std + cti_std + elev_std + gsri_std + 
+              ndvi_ti_std + sum_precip_std + slope_std, data=dat.sub)
+step <- stepAIC(m.fb, direction="both")
+# holy balls, why is this different now?
+# let's start everything over... something's messed up
+
+
+#########################
+## GDM MODEL TAKE 2 ####
+## Splitting by lifeform #
+##########################
+
+# verifying scale() function does same thing as manual calculation
+test <- dat
+test$test <- ((test$cc-(mean(test$cc)))/(sd(test$cc))) 
+test <- right_join(test, dat, by = PlotVisit)
+str(dat)
+# nope, scale makes it have a bunch of attributes and effs up the structure
+
+##################################################################################
+
 #########################
 ## DELETED CODE ####
 ##########################
