@@ -118,14 +118,14 @@ dat <- read.csv("GDM-model-data.csv")
 #### Set cover class reference levels ###
 #########################################
 
-# Order from most to least total GDM avaiable
-  # so reference level is best place they could possibly be
+# Order from least to most total GDM avaiable
+  # so reference level is worst place they could possibly be
 gdm.covcls <- dat %>%
   dplyr::select(c(cover_class, class_name, GDMtotal)) %>%
   group_by(class_name, cover_class) %>%
   summarise(MedGDM = median(GDMtotal)) %>%
-  arrange(desc(MedGDM)) # order from high to low
-write.csv(gdm.covcls, file = "gdm-by-landcov.csv", row.names=F)
+  arrange(MedGDM))
+#write.csv(gdm.covcls, file = "gdm-by-landcov.csv", row.names=F)
 lev.covcls <- as.vector(gdm.covcls$cover_class)
 dat$cover_class <- factor(dat$cover_class, levels = lev.covcls)
 
@@ -133,12 +133,36 @@ dat$cover_class <- factor(dat$cover_class, levels = lev.covcls)
 ####    Forbs            ###
 ############################
 
-
-# check correlations
-
 dat.forb <- dat %>%
   select(cc, cti, elev, gsri, slope, ndvi_dur, ndvi_ti,
          sum_precip, GDMforb)
+no0 <- subset(dat.forb, GDMforb > 0)
+
+# look at distribution of response
+par(mfrow=c(2,1))
+hist(dat.forb$GDMforb, breaks=300)
+hist(no0$GDMforb, breaks=300)
+
+sub.dat.forb <- filter(dat.forb, GDMforb < 50)
+sub.no0 <- filter(no0, GDMforb < 50)
+
+hist(sub.dat.forb$GDMforb)
+hist(sub.no0$GDMforb)
+
+# dist has same basic shape with or without 0s
+1-nrow(no0)/nrow(dat.forb)
+#34% of data are 0s
+summary(dat.forb$GDMforb)
+var(dat.forb$GDMforb)
+summary(no0$GDMforb)
+var(no0$GDMforb)
+  # oh, duh, var'ce incs bc mean incs a ton
+?dnbinom
+
+
+# check correlations
+
+
 cor(dat.forb)
 chart.Correlation(dat.forb)
 
