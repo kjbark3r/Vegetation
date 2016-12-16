@@ -46,7 +46,7 @@ plot.data <- read.csv("gdm-plot-lifeform.csv", header=T) %>%
     GDMtotal = (GDMforb + GDMgrass + GDMshrub) # and total GDM
     )
 
-# plot shapefile (also from gdm-model.r)
+# plots shapefile (also from gdm-model.r)
 plots <- readOGR(".", layer ='GDM_plots')
 #all rasters for covariates
 raster_data <- list.files(
@@ -112,66 +112,67 @@ write.csv(dat, file="GDM-model-data.csv", row.names=F)
 #### MODEL grams of digestible matter per vegetation type ####
 ##############################################################
 
-dat <- read.csv("GDM-model-data.csv")
-
-#########################################
-#### Set cover class reference levels ###
-#########################################
-
-# Order from least to most total GDM avaiable
-  # so reference level is worst place they could possibly be
-gdm.covcls <- dat %>%
-  dplyr::select(c(cover_class, class_name, GDMtotal)) %>%
-  group_by(class_name, cover_class) %>%
-  summarise(MedGDM = median(GDMtotal)) %>%
-  arrange(MedGDM))
-#write.csv(gdm.covcls, file = "gdm-by-landcov.csv", row.names=F)
-lev.covcls <- as.vector(gdm.covcls$cover_class)
-dat$cover_class <- factor(dat$cover_class, levels = lev.covcls)
+dat <- read.csv("GDM-model-data.csv") # if not run in full above
 
 ############################
 ####    Forbs            ###
 ############################
 
-dat.forb <- dat %>%
-  select(cc, cti, elev, gsri, slope, ndvi_dur, ndvi_ti,
-         sum_precip, GDMforb)
-no0 <- subset(dat.forb, GDMforb > 0)
+dat.fb <- dat
+dat.fb.no0 <- subset(dat.fb, GDMforb > 0)
 
-# look at distribution of response
+# Factor levels for landcover type #
+## Reference level is worst place they could possibly be
+ref.fb <- dat %>%
+  dplyr::select(c(cover_class, class_name, GDMforb)) %>%
+  group_by(class_name, cover_class) %>%
+  summarise(MedGDM = median(GDMforb)) %>%
+  arrange(MedGDM) ## Order from least to most forb GDM 
+dat.fb$cover_class <- factor(dat.fb$cover_class, 
+                          levels = as.vector(ref.fb$cover_class))
+
+
+# look at distribution of response, w/ and w/o 0s
 par(mfrow=c(2,1))
-hist(dat.forb$GDMforb, breaks=300)
-hist(no0$GDMforb, breaks=300)
-
-sub.dat.forb <- filter(dat.forb, GDMforb < 50)
-sub.no0 <- filter(no0, GDMforb < 50)
-
-hist(sub.dat.forb$GDMforb)
-hist(sub.no0$GDMforb)
+hist(dat.fb$GDMforb, breaks=300)
+hist(dat.fb.no0$GDMforb, breaks=300)
 
 # dist has same basic shape with or without 0s
-1-nrow(no0)/nrow(dat.forb)
+1-nrow(dat.fb.no0)/nrow(dat.fb)
 #34% of data are 0s
-summary(dat.forb$GDMforb)
-var(dat.forb$GDMforb)
-summary(no0$GDMforb)
-var(no0$GDMforb)
-  # oh, duh, var'ce incs bc mean incs a ton
-?dnbinom
-
+summary(dat.fb$GDMforb)
+var(dat.fb$GDMforb)
 
 # check correlations
+cor(dat.fb)
+chart.Correlation(dat.fb)
 
-
-cor(dat.forb)
-chart.Correlation(dat.forb)
-
-mod.forb.global <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
+# define global model
+mod.global.fb <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_dur_std + 
                          ndvi_ti_std + sum_precip_std + cover_class, 
-                       data = dat)
+                      family = Gamma(link = log), data = dat.fb.no0)
+summary(mod.global.fb)
+plot(mod.global.fb)
+# cool, dunno if this means anything, but q-q looks wayyyy better now
 
-vif(mod.forb.global) # correlations with cover_class factor
+###### MODEL SELECTION ###
+
+# remove ndvi_dur NAs to determine whether important covariate
+## (if not, can rerun models without those plots removed
+dat.fb.no0.noNA <- subset(dat.fb.no0, !is.na(ndvi_dur))
+
+# define global model
+mod.global.fb <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_dur_std + 
+                         ndvi_ti_std + sum_precip_std + cover_class, 
+                      family = Gamma(link = log), data = dat.fb.no0.noNA)
+
+# backwards stepwise AIC
+step.fb <- stepAIC(mod.global.fb, direction = "both")
+# eff, all this did was remove ndvi_dur (convenient but not useful...)
+
+vif(mod.global.fb) # correlations with cover_class factor
 # ok lets be honest; i have no idea how to interpret that
 
 
@@ -184,7 +185,7 @@ dat.forb.sub <- filter(dat, !is.na(ndvi_dur_std))
 mod.forb.global <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_dur_std + 
                          ndvi_ti_std + sum_precip_std + cover_class, 
-                       data = dat.forb.sub)
+                       data = dat.fb)
 
 # stepwise aic
 step <- stepAIC(mod.forb.global, direction = "both")
