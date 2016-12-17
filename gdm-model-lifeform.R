@@ -171,6 +171,8 @@ mod.global.fb <- glm(GDMforb ~ cc_std + cti_std + elev_std +
 # backwards stepwise AIC
 step.fb <- stepAIC(mod.global.fb, direction = "both")
 # eff, all this did was remove ndvi_dur (convenient but not useful...)
+# try it with bic to more heavily penalize addl params?
+step.fb.bic <- step(mod.global.fb, direction = "both", k = log(652))
 
 vif(mod.global.fb) # correlations with cover_class factor
 # ok lets be honest; i have no idea how to interpret that
