@@ -18,9 +18,10 @@ library(ggplot2)
 library(PerformanceAnalytics) #correlation graphs
 library(AICcmodavg)
 library(MuMIn) #dredge
-library(car) # correlations with factor covariates
 library(pscl) # zero-inflated model
 library(dplyr) 
+library(randomForest)
+library(VSURF) #random forest vrbl slxn
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
 wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Vegetation"
@@ -118,7 +119,8 @@ dat <- read.csv("GDM-model-data.csv") # if not run in full above
 ####    Forbs            ###
 ############################
 
-dat.fb <- dat
+dat.fb <- dat %>%
+  mutate(gForb = as.factor(ifelse(GDMforb > 0, 1, 0))) # presence/absence
 dat.fb.no0 <- subset(dat.fb, GDMforb > 0)
 
 # Factor levels for landcover type #
@@ -132,10 +134,18 @@ dat.fb$cover_class <- factor(dat.fb$cover_class,
                           levels = as.vector(ref.fb$cover_class))
 
 
-# look at distribution of response, w/ and w/o 0s
+##                  ##
+## looking at stuff ##
+##                  ##
+
+# distribution of response, w/ and w/o 0s
 par(mfrow=c(2,1))
 hist(dat.fb$GDMforb, breaks=300)
-hist(dat.fb.no0$GDMforb, breaks=300)
+hist(dat.fb.no0$GDMforb, breaks=300) 
+
+# probability density of non-zero response (for funzies)
+par(mfrow=c(1,1))
+hist(log10(dat.fb.no0$GDMforb), freq=FALSE) 
 
 # dist has same basic shape with or without 0s
 1-nrow(dat.fb.no0)/nrow(dat.fb)
@@ -143,90 +153,165 @@ hist(dat.fb.no0$GDMforb, breaks=300)
 summary(dat.fb$GDMforb)
 var(dat.fb$GDMforb)
 
-# check correlations
-cor(dat.fb)
-chart.Correlation(dat.fb)
+# correlations
+dat.fb.cor <- dat.fb %>%
+  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
+         ndvi_dur_std, ndvi_ti_std, sum_precip_std, GDMforb)
+pairs.panels(dat.fb.cor) # bassing's prof's code to handle factors
+chart.Correlation(dat.fb.cor) # verifying prof's numbers
 
-# define global model
-mod.global.fb <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_dur_std + 
-                         ndvi_ti_std + sum_precip_std + cover_class, 
+
+##                                    ##
+## prelim attempts at model selection ##
+##                                    ##
+
+####                                 #
+# NON-ZEROS IN REPONSE               #
+# these will be conditional on Pr(1) #
+####                                 #
+
+# global model without 0s in response - gamma distributed, not transformed
+mod.global.fb.g <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
                       family = Gamma(link = log), data = dat.fb.no0)
-summary(mod.global.fb)
-plot(mod.global.fb)
-# cool, dunno if this means anything, but q-q looks wayyyy better now
+summary(mod.global.fb.g)
+plot(mod.global.fb.g)
 
-###### MODEL SELECTION ###
+# global model without 0s in response - transformed, normally distributed
+mod.global.fb.n <- glm(log10(GDMforb) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      data = dat.fb.no0)
+summary(mod.global.fb.n)
+plot(mod.global.fb.n)
 
-# remove ndvi_dur NAs to determine whether important covariate
-## (if not, can rerun models without those plots removed
-dat.fb.no0.noNA <- subset(dat.fb.no0, !is.na(ndvi_dur))
+# backwards stepwise AIC on each of the above
+step.fb <- stepAIC(mod.global.fb.g, direction = "both", steps = 1000000)
+# algorithm fails to converge (despite adding steps)
+step.fb <- stepAIC(mod.global.fb.n, direction = "both")
 
-# define global model
-mod.global.fb <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_dur_std + 
-                         ndvi_ti_std + sum_precip_std + cover_class, 
-                      family = Gamma(link = log), data = dat.fb.no0.noNA)
-
-# backwards stepwise AIC
-step.fb <- stepAIC(mod.global.fb, direction = "both")
-# eff, all this did was remove ndvi_dur (convenient but not useful...)
-# try it with bic to more heavily penalize addl params?
-step.fb.bic <- step(mod.global.fb, direction = "both", k = log(652))
-
-vif(mod.global.fb) # correlations with cover_class factor
-# ok lets be honest; i have no idea how to interpret that
-
-
-###############################
-# top models with zeros in response
-
-# with NA ndvi_dur's removed
-dat.forb.sub <- filter(dat, !is.na(ndvi_dur_std))
-
-mod.forb.global <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_dur_std + 
-                         ndvi_ti_std + sum_precip_std + cover_class, 
-                       data = dat.fb)
-
-# stepwise aic
-step <- stepAIC(mod.forb.global, direction = "both")
-
-# top model without ndvi_dur NAs removed (bc not a covariate)
-summary(glm(GDMforb ~ cc_std + cti_std + elev_std + gsri_std + ndvi_ti_std + 
-    cover_class, data = dat))
-
+# backwards stepwise bic to more heavily penalize addl params, on normal dist
+step.fb.bic <- step(mod.global.fb.n, direction = "both", k = log(652))
 
 # dredge
 options(na.action = "na.fail")
-dredgemod <- dredge(mod.forb.global, beta = "none", evaluate = TRUE, 
+dredgemod <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
                     rank = "AIC")
 plot(dredgemod) # i have no idea how to interpret that either
-(dredgeres <- subset(dredgemod, delta < 2))
-
+dredgeres <- subset(dredgemod, delta < 2)
 dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
 summary(dredgemod.avg)
-# hey cool, came up with same covariates as the stepwise aic
 
-###############################
-# top models without zeros in response
-  ## if same, sweet, run with one model
-  ## if different, consider zero-inflated
+# dredge with bic
+dredgebic <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
+                    rank = "BIC")
+dredgebicres <- subset(dredgebic, delta < 2)
+dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
+summary(dredgebic.avg)
 
-# new df
-dat.forb.no0 <- subset(dat, GDMforb > 0) %>%
-  filter(!is.na(ndvi_dur_std))
+# random forest
+dat.fb.forest <- dat.fb.no0 %>% 
+  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
+         ndvi_ti_std, sum_precip_std, GDMforb)
+forest <- randomForest(log10(GDMforb) ~ ., data = dat.fb.forest)
+print(forest)
+round(importance(forest), 2)
 
-mod.forb.global <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_dur_std + 
-                         ndvi_ti_std + sum_precip_std + cover_class, 
-                       data = dat.forb.no0)
+# vsurf random forest (for variable selection)
+forestv <- VSURF(log10(GDMforb) ~ ., data = dat.fb.forest)
+summary(forestv); names(forestv)
+forestv$varselect.interp
+forestv$varselect.pred
+forestv$terms
 
-# stepwise aic
-step <- stepAIC(mod.forb.global, direction = "both")
-# yes this is different; includes more covariates
-# fml
+# methods agree on elev, gsri, and ndvi_ti as impt covariates
+# some also add sum_precip; check whether it improves predictive power
+Cand.set <- list( )
+Cand.set[[1]] <- lm(log10(GDMforb) ~ cc_std + elev_std + gsri_std + 
+                   ndvi_ti_std, data = dat.fb.no0)
+Cand.set[[2]] <- lm(log10(GDMforb) ~ cc_std + elev_std + gsri_std + 
+                   ndvi_ti_std + sum_precip_std, data = dat.fb.no0)
+names(Cand.set) <- c("lognormal-noprecip", 
+                     "lognormal-precip")
+aictable <- aictab(Cand.set, second.ord=TRUE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+# a little. <2AIC points though. Average models, or...?
+summary(lm(log10(GDMforb) ~ cc_std + elev_std + gsri_std + 
+                   ndvi_ti_std + sum_precip_std, data = dat.fb.no0))
+# adj r-2 = 0.2423
 
+# and doing the same with the gamma models, for funzies
+Cand.set[[1]] <- glm(GDMforb ~ cc_std + elev_std + gsri_std + 
+                      ndvi_ti_std, family = Gamma(link = log), 
+                    data = dat.fb.no0)
+Cand.set[[2]] <- glm(GDMforb ~ cc_std + elev_std + gsri_std + 
+                      ndvi_ti_std+ sum_precip_std, 
+                     family = Gamma(link = log), data = dat.fb.no0)
+names(Cand.set) <- c("gamma-noprecip", 
+                     "gamma-precip")
+aictable <- aictab(Cand.set, second.ord=TRUE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+
+# playing with plots
+# trying to figure out whether i can select bt the above
+par(mfrow=c(2,2))
+plot(mod.top.fb.n)
+plot(mod.top.fb.g)
+# i think the lognormal reggression looks best
+
+####                              #
+# ZEROS IN RESPONSE               #
+####                              #
+ 
+# global model
+mod.global.fb.pr <- glm(gForb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      family = binomial,
+                        data = dat.fb)
+summary(mod.global.fb.pr)
+plot(mod.global.fb.pr)
+
+# backwards stepwise AIC
+step.fb <- stepAIC(mod.global.fb.pr, direction = "both")
+
+# backwards stepwise bic to more heavily penalize addl params, on normal dist
+step.fb.bic <- step(mod.global.fb.pr, direction = "both", k = log(652))
+# cc, elev, gsri, slope, maybe ndvi_ti
+
+# dredge
+options(na.action = "na.fail")
+dredgemod <- dredge(mod.global.fb.pr, beta = "none", evaluate = TRUE, 
+                    rank = "AIC")
+plot(dredgemod) # i have no idea how to interpret that either
+dredgeres <- subset(dredgemod, delta < 2)
+dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
+summary(dredgemod.avg)
+# same cov's as above (cc, elev, gsri, slope, maybe ndvi_ti)
+
+# dredge with bic
+dredgebic <- dredge(mod.global.fb.pr, beta = "none", evaluate = TRUE, 
+                    rank = "BIC")
+dredgebicres <- subset(dredgebic, delta < 2)
+dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
+summary(dredgebic.avg)
+
+# random forest
+dat.fb.forest <- dat.fb %>% 
+  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
+         ndvi_ti_std, sum_precip_std, gForb)
+forest <- randomForest(gForb ~ ., data = dat.fb.forest)
+print(forest)
+round(importance(forest), 2)
+# shit, this one also likes precip
+
+# vsurf random forest (for variable selection)
+forestv <- VSURF(gForb ~ ., data = dat.fb.forest)
+summary(forestv); names(forestv)
+forestv$varselect.interp
+forestv$varselect.pred
+forestv$terms
 #################### TO INCORPORATE ###########
 
 forshrubs <- filter(!PlotVisit == "220.2015-08-03") # GDMshrub outlier
