@@ -74,7 +74,7 @@ rm(wd_workcomp, wd_laptop, wd_jesse, wd_kelly)
 
 # SPECIES NAMES AND LIFE FORMS
 #spp <- read.csv("NSERP_SP_list.csv") # if reading from csv
-#spp <- select(spp, PlantCode, LifeForm, NameScientific) # if reading from csv
+#spp <- dplyr::select(spp, PlantCode, LifeForm, NameScientific) # if reading from csv
 spp <- sqlQuery(channel, paste("select PlantCode, LifeForm, NameScientific
                                from NSERP_SP_list"))
 spp <- rename(spp, Species = PlantCode)
@@ -157,7 +157,7 @@ write.csv(spp.forage, file="NSERP_ForagePlants_Summer.csv", row.names=FALSE)
 
 # herbaceous biomass per quadrat - by life form
 quadrat <- clip %>%
-  select(QuadratVisit, PlotVisit, LifeForm, DryWt) %>%
+  dplyr::select(QuadratVisit, PlotVisit, LifeForm, DryWt) %>%
   spread(LifeForm, DryWt) %>%
   rename(ForbWt = Forb, GrassWt = Grass) 
 quadrat$ForbWt[is.na(quadrat$ForbWt)] <- 0 #replace NA with 0 
@@ -165,13 +165,13 @@ quadrat$GrassWt[is.na(quadrat$GrassWt)] <- 0
 
 # herbaceous biomass per quadrat - by species
 quadrat.herb <- left_join(cover, classn, by = "QuadratVisit") %>%
-  select(-PlotVisit) #avoid duplicated column name after next join
+  dplyr::select(-PlotVisit) #avoid duplicated column name after next join
 quadrat.herb$RescaledCover <- ifelse(quadrat.herb$LifeForm == "forb", quadrat.herb$Total/quadrat.herb$ForbCov,
                                       ifelse(quadrat.herb$LifeForm == "graminoid", 
                                              quadrat.herb$Total/quadrat.herb$GrassCov, 
                                              ifelse(NA)))
 quadrat.herb <- left_join(quadrat.herb, quadrat, by = "QuadratVisit")
-quadrat.herb <- subset(quadrat.herb, select = c(PlotVisit, QuadratVisit, Species, Genus, 
+quadrat.herb <- subset(quadrat.herb, dplyr::select = c(PlotVisit, QuadratVisit, Species, Genus, 
                                               RescaledCover, LifeForm, ForbCov, GrassCov, 
                                               ForbWt, GrassWt))
 quadrat.herb$ClipGrams <- ifelse(quadrat.herb$LifeForm == "forb", quadrat.herb$RescaledCover*quadrat.herb$ForbWt,
@@ -184,14 +184,14 @@ plot.herb.species <- quadrat.herb %>%
   group_by(PlotVisit, Species) %>%
   summarise(Biomass = sum(ClipGrams)*(4/3)) %>% # sum/3 averages all 3 clip plots (to incl clip plots w/ 0 weights)
   left_join(spp, by = "Species") %>%            # *4 to scale up to g/m^2
-  select(-c(Genus, Genus2)) %>%
+  dplyr::select(-c(Genus, Genus2)) %>%
   ungroup()
 plot.herb.species$LifeForm <- ifelse(grepl(' GRASS| JUNCACEAE|CARE ', plot.herb.species$Species), "graminoid", 
                              ifelse(grepl('UNK ', plot.herb.species$Species), "forb", plot.herb.species$LifeForm))
 
 # herbaceous forage biomass per plot - by species
 forage.herb <- plot.herb.species %>%
-  select(-NameScientific) %>%
+  dplyr::select(-NameScientific) %>%
   semi_join(spp.forage, by = "Species") #only keep forage plants
 
 # herbaceous biomass per plot - by life form
@@ -207,7 +207,7 @@ lifeform.herb <- mutate(lifeform.herb, HerbaceousBiomass = ForbBiomass+GrassBiom
 
 # herbaceous forage biomass per plot - by life form
 lifeform.herb.forage <- quadrat.herb %>%
-  select(-c(Genus, LifeForm)) %>% #avoid duplicated columns after join
+  dplyr::select(-c(Genus, LifeForm)) %>% #avoid duplicated columns after join
   left_join(spp.forage, by = "Species") %>%
   filter(ForagePlant == "Yes") %>%
   group_by(QuadratVisit, LifeForm) %>%
@@ -279,7 +279,7 @@ quadrat.shrub$g.Stems <- ifelse(quadrat.shrub$fcn.Stems == "E", quadrat.shrub$nS
                                ifelse(quadrat.shrub$fcn.Stems == "P", quadrat.shrub$nStems*P(quadrat.shrub$AvgBasal, quadrat.shrub$a.Stems, quadrat.shrub$b.Stems),
                                       NA)))
 quadrat.shrub$g.Total <- quadrat.shrub$g.Leaves+quadrat.shrub$g.Stems
-quadrat.shrub <- select(quadrat.shrub, c(Date, PlotID, PlotM, Species, PlotVisit, 
+quadrat.shrub <- dplyr::select(quadrat.shrub, c(Date, PlotID, PlotM, Species, PlotVisit, 
                                             QuadratVisit, g.Leaves, g.Stems, g.Total))
 
 # shrub biomass per plot - by species
@@ -321,7 +321,7 @@ write.csv(biomass.lifeform, file = "biomass-plot.csv", row.names=F)
 
 # all biomass, by species
 biomass.species <- plot.herb.species %>%
-  select(PlotVisit, Species, Biomass) %>%
+  dplyr::select(PlotVisit, Species, Biomass) %>%
   bind_rows(plot.shrub.species) %>%
   mutate(PlotID = sub("\\..*", "", PlotVisit), Date = sub("(.*)[.](.*)", "\\2", PlotVisit)) 
 
@@ -350,9 +350,9 @@ phenology <- sqlQuery(channel, paste("select * from Phenology"))
 #phenology <- read.csv("Phenology.csv") # if reading from csv
 #phenology$Date <- as.Date(phenology$Date, "%m/%d/%Y") # if from csv
 phenology <- phenology %>% 
-  select(Date, `Plot ID`, Species, EM, FL, FR, MS, SE) %>% 
+  dplyr::select(Date, `Plot ID`, Species, EM, FL, FR, MS, SE) %>% 
   rename(PlotID = `Plot ID`)
-#  select(Date, Plot.ID, Species, EM, FL, FR, MS, SE) %>% # if from csv
+#  dplyr::select(Date, Plot.ID, Species, EM, FL, FR, MS, SE) %>% # if from csv
 #  rename(PlotID = Plot.ID) # if from csv
 phenology$Species <- trimws(phenology$Species) # remove whitespace causing join problems
 phenology <- mutate(phenology, PlotVisit = paste(PlotID, ".", Date, sep=""))
@@ -363,7 +363,7 @@ channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accd
                                  dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/ForagePlantDatabase.accdb") #workcomp
 #channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
 #                                 dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/ElkForageDiet/ForagePlantAnalysis/ForagePlantDatabase.accdb")
-DMD.data <- sqlQuery(channel.DMD, paste("select * from DMDdata"))
+DMD.data <- sqlQuery(channel.DMD, paste("select * from data_DMD where NOT (StudyArea='ELKHORNS')")) # sapphire data only
 #DMD.data <- read.csv("DMDdata.csv") # if reading from csv
 DMD.data$DMD <- DMD.data$DMD/100 # turn percent to proportion
 
@@ -442,7 +442,7 @@ gdm.plot.phenospp <- plot.phenospp.biom %>%
   mutate(AVE.dmd = mean(c(EM.dmd.p, FL.dmd.p, FR.dmd.p, MS.dmd.p, SE.dmd.p), na.rm = TRUE)) %>%  # take average of phenospecific dmds
   ungroup()
 
-gdm.plot.phenospp <- select(gdm.plot.phenospp, PlotVisit, Species, LifeForm, Biomass, TOTAL.gdm, AVE.dmd)
+gdm.plot.phenospp <- dplyr::select(gdm.plot.phenospp, PlotVisit, Species, LifeForm, Biomass, TOTAL.gdm, AVE.dmd)
 
 # grams of digestible forage biomass per lifeform
 gdm.plot.lifeform <- gdm.plot.phenospp %>%
@@ -465,7 +465,7 @@ plotinfo <- mutate(plotinfo, PlotVisit = paste(PlotID, ".", Date, sep="")) # cre
 
 # add to GDM per lifeform
 gdm.plot.lifeform <- left_join(gdm.plot.lifeform, plotinfo, by="PlotVisit") %>%
-  select(-BIOMASS) %>% # avoid duplicate rows
+  dplyr::select(-BIOMASS) %>% # avoid duplicate rows
   spread(LifeForm, GDM) %>% # make wideform (1 row per plot visit)
   rename(GDMforb = forb, GDMgrass = graminoid, GDMshrub = shrub)
 # make NAs be 0
@@ -476,7 +476,7 @@ write.csv(gdm.plot.lifeform, file = "gdm-plot-lifeform.csv", row.names=FALSE)
 
 # add to GDM per plot
 gdm.plot <- left_join(gdm.plot, plotinfo, by="PlotVisit")
-#write.csv(gdm.plot, file = "gdm-plot.csv", row.names=FALSE)
+write.csv(gdm.plot, file = "gdm-plot.csv", row.names=FALSE)
 
 # subset only jul/aug data; only use first visit of phenology plots
 ## summer = jul1 - aug31 (same as dates used to create summer KDEs to calc VI)
@@ -540,12 +540,12 @@ gdm.plot.lifeform.SUM <- gdm.plot.lifeform
 # join with forage biomass by species
 gdm.plot.phenospp <- plot.foragespp %>%
   left_join(DMD.spp, by=c("Species" = "PlantCode")) %>%             # join forage biomass per species to DMD per species
-  select(-c(EM.dmd, FL.dmd, FR.dmd, MS.dmd)) %>%                    # keeping only cured/senescent DMD
+  dplyr::select(-c(EM.dmd, FL.dmd, FR.dmd, MS.dmd)) %>%                    # keeping only cured/senescent DMD
   left_join(DMD.clss, by=c("LifeForm" = "Class")) %>%               # join forage biomass per species to DMD averaged to lifeform
-  select(-c(EM.cls.dmd, FL.cls.dmd, FR.cls.dmd, MS.cls.dmd)) %>%    # keeping only cured/senescent DMD
+  dplyr::select(-c(EM.cls.dmd, FL.cls.dmd, FR.cls.dmd, MS.cls.dmd)) %>%    # keeping only cured/senescent DMD
   mutate(WIN.dmd = ifelse(is.na(SE.dmd), SE.cls.dmd, SE.dmd)) %>%   # fill in missing DMD for cured/senescent phenostage with class average DMD values
   mutate(WIN.gdm = Biomass*WIN.dmd)                                 # calculate GDM per species-phenophase
-gdm.plot.phenospp <- select(gdm.plot.phenospp, PlotVisit, Species, LifeForm, Biomass, WIN.gdm)
+gdm.plot.phenospp <- dplyr::select(gdm.plot.phenospp, PlotVisit, Species, LifeForm, Biomass, WIN.gdm)
 
 # grams of digestible forage biomass per lifeform
 gdm.plot.lifeform <- gdm.plot.phenospp %>%
@@ -597,7 +597,7 @@ gdm.plot.lifeform.WIN <- gdm.plot.lifeform
 
 #### Join & Export SUMMER & WINTER GDM data####
 gdm.data <- bind_rows(gdm.plot.lifeform.SUM, gdm.plot.lifeform.WIN)
-gdm.data <- select(gdm.data, PlotID, Date, Longitude, Latitude, GDM, LifeForm, Area, Season) # reorganizing
+gdm.data <- dplyr::select(gdm.data, PlotID, Date, Longitude, Latitude, GDM, LifeForm, Area, Season) # reorganizing
 
 write.csv(gdm.data, file = "sapp_GDM_data.csv", row.names = FALSE)
 
