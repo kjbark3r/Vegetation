@@ -329,8 +329,6 @@ names(Cand.set) <- c("cc+elev+gsri",
 aictable <- aictab(Cand.set, second.ord=TRUE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
 
-summary(lm(log10(GDMforb) ~ cc_std + elev_std + gsri_std + 
-                   ndvi_ti_std + sum_precip_std, data = dat.fb.no0))
 
 ############################
 ####    Graminoids       ###

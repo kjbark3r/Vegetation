@@ -5,6 +5,88 @@
 #                     DEC 2016              #
 #############################################
 
+################################################
+## round values to nearest whole number, ####
+## then use zero-inflated on count data ###
+
+####              #
+# Forb  #
+####              #
+
+test.fb <- dat.fb %>%
+  mutate(CountForb = round(GDMforb))
+hist(test.fb$CountForb, breaks = 300)
+
+# global model 
+mod.global.fb <- zeroinfl(CountForb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class,
+                         data = test.fb)
+summary(mod.global.fb)
+plot(mod.global.fb)
+
+# backwards stepwise AIC on each of the above
+step.fb <- stepAIC(mod.global.fb, direction = "both")
+
+# backwards stepwise bic to more heavily penalize addl params, on normal dist
+step.fb.bic <- step(mod.global.fb, direction = "both", k = log(652))
+
+# dredge
+options(na.action = "na.fail")
+dredgemod <- dredge(mod.global.fb, beta = "none", evaluate = TRUE, 
+                    rank = "AIC")
+plot(dredgemod) # i have no idea how to interpret that either
+dredgeres <- subset(dredgemod, delta < 2)
+dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
+summary(dredgemod.avg)
+
+# dredge with bic
+dredgebic <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
+                    rank = "BIC")
+dredgebicres <- subset(dredgebic, delta < 2)
+dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
+summary(dredgebic.avg)
+
+# random forest
+dat.fb.forest <- dat.fb.no0 %>% 
+  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
+         ndvi_ti_std, sum_precip_std, GDMforb)
+forest <- randomForest(log10(GDMforb) ~ ., data = dat.fb.forest)
+print(forest)
+round(importance(forest), 2)
+
+# vsurf random forest (for variable selection)
+forestv <- VSURF(log10(GDMforb) ~ ., data = dat.fb.forest)
+summary(forestv); names(forestv)
+forestv$varselect.interp
+forestv$varselect.pred
+forestv$terms
+
+# compare top selected covariate options
+Cand.set <- list( )
+Cand.set[[1]] <- lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std, 
+                    data = dat.fb.no0)
+Cand.set[[2]] <- lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
+                   elev_std, data = dat.fb.no0)
+Cand.set[[3]] <- lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
+                   sum_precip_std, data = dat.fb.no0)
+Cand.set[[4]] <- lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
+                   elev_std + sum_precip_std, data = dat.fb.no0)
+Cand.set[[5]] <- lm(log10(GDMforb) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, data = dat.fb.no0)
+names(Cand.set) <- c("cc+gsri+ndvi", 
+                     "cc+gsri+ndvi+elev",
+                     "cc+gsri+ndvi+precip",
+                     "cc+gsri+ndvi+elev+precip",
+                     "global")
+aictable <- aictab(Cand.set, second.ord=TRUE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+# can't distinguish bt +elev and +elev+precip
+summary(lm(log10(GDMforb) ~ cc_std + elev_std + gsri_std + 
+                   ndvi_ti_std + sum_precip_std, data = dat.fb.no0))
+# adj r-2 = 0.2411
+
 
 
 
