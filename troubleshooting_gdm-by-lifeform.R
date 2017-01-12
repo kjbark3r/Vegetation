@@ -5,6 +5,103 @@
 #           DEC 2016  / JAN 2017            #
 #############################################
 
+
+###################################################
+## log-linear regression with small vals added ####
+
+# determining effect of adding small vals to deal w 0s #
+
+## FORB - smallest GDM val = 0.002; adding half this
+dat.fb$GDMforbPlus <- dat.fb$GDMforb+0.001
+# compare distn of orig vals to log-transformed
+par(mfrow=c(2,1))
+hist(dat.fb$GDMforbPlus, breaks=300)
+hist(log10(dat.fb$GDMforbPlus), breaks=300)
+## still not normally distributed due to tons of small numbers
+
+## GRASS - smallest GDM val = 0.009; adding .001 to start
+dat.gr$GDMgrassPlus <- dat.gr$GDMgrass+0.001
+# compare distn of orig vals to log-transformed
+par(mfrow=c(2,1))
+hist(dat.gr$GDMgrassPlus, breaks=300)
+hist(log10(dat.gr$GDMgrassPlus), breaks=300)
+# ditto above
+
+# trying different families for regression
+# using global model to start
+## negbin has overdispersion parameter but is discrete
+## gamma is continuous version; let's try that first
+
+# global model without 0s in response - transformed, normally distributed
+loglin <- lm(log10(GDMforbPlus) ~ cc_std + gsri_std + ndvi_ti_std +
+                   elev_std + sum_precip_std, 
+                      data = dat.fb)
+summary(loglin)
+# hey, r2's not bad for veg. i guess check for overdispersion to be sure?
+resid.fb <- resid(loglin, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb) - 5) #633=df
+dispersion.fb 
+# 2.37, not good. try removing outlier
+dat.fb.noout <- dat.fb[-36,]
+loglin <- lm(log10(GDMforbPlus) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      data = dat.fb.noout)
+resid.fb <- resid(loglin, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb) - 18) #633=df
+dispersion.fb 
+#2.34, not much better...
+#try negbin??
+
+# negbin reqs count data; rounding to nearest whole number
+dat.fb$CountForb = round(dat.fb$GDMforb)
+nb <- glm.nb(CountForb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      data = dat.fb)
+summary(nb)
+resid.fb <- resid(nb, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb) - 633) #633=df
+dispersion.fb 
+## omg so bad. try gamma?
+
+gam <- glm(GDMforbPlus ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+          family = "Gamma", data = dat.fb)
+summary(gam)
+resid.fb <- resid(gam, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb) - 18) #633=df
+dispersion.fb 
+# yeesh.
+
+# negbin w continuous
+nbc <- glm.nb(GDMforb ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      data = dat.fb)
+summary(nbc)
+resid.fb <- resid(nbc, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb) - 633) #633=df
+dispersion.fb
+# newp
+
+# ok so it turns out i'm an idiot and overdispersion isn;t
+## a thing in normal distributions (bc variance is est'd
+## independently of the mean anyway)
+# BUT, i'm still confused by the fact that the GDM vals
+## with sm val added aren't really normally dist'd
+
+
+
+# grass
+# global model without 0s in response - transformed, normally distributed
+loglin.g <- lm(log10(GDMgrassPlus) ~ cc_std + gsri_std + ndvi_ti_std +
+                   elev_std + sum_precip_std, 
+                      data = dat.gr)
+summary(loglin.g)
+# not terrible
+
 ################################################
 ## zero-inflated models on rounded GDM vals ####
 

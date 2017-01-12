@@ -121,7 +121,8 @@ dat <- read.csv("GDM-model-data.csv") # if not run in full above
 ############################
 
 dat.fb <- dat %>%
-  mutate(gForb = as.factor(ifelse(GDMforb > 0, 1, 0))) # presence/absence
+  mutate(gForb = as.factor(ifelse(GDMforb > 0, 1, 0))) %>% # presence/absence
+  mutate(GDMforbPlus = GDMforb + 0.001) # adding sm val to rm 0s (1/2 lowest val)
 dat.fb.no0 <- subset(dat.fb, GDMforb > 0)
 
 # Factor levels for landcover type #
@@ -137,6 +138,7 @@ dat.fb$cover_class <- factor(dat.fb$cover_class,
 
 dat.fb.no0$cover_class <- factor(dat.fb.no0$cover_class, 
                           levels = as.vector(ref.fb$cover_class))
+
 ##                  ##
 ## looking at stuff ##
 ##                  ##
@@ -388,6 +390,85 @@ cv.err.k$delta
 #[1] 0.1869715 0.1864561
 # so only wrong 19% of the time; i'll take it
 # sticking with global model then unfortunately
+
+####                  #
+# GDM values + 0.001  #
+####                  #
+
+# global model with sm vals added to remove 0s
+mod.global.fb.n <- lm(log10(GDMforbPlus) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, 
+                      data = dat.fb)
+summary(mod.global.fb.n)
+plot(mod.global.fb.n)
+
+# backwards stepwise AIC 
+step.fb <- stepAIC(mod.global.fb.n, direction = "both")
+
+# backwards stepwise bic to more heavily penalize addl params, on normal dist
+step.fb.bic <- step(mod.global.fb.n, direction = "both", k = log(652))
+
+# dredge
+options(na.action = "na.fail")
+dredgemod <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
+                    rank = "AIC")
+plot(dredgemod) # i have no idea how to interpret that either
+dredgeres <- subset(dredgemod, delta < 2)
+dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
+summary(dredgemod.avg)
+
+# dredge with bic
+dredgebic <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
+                    rank = "BIC")
+dredgebicres <- subset(dredgebic, delta < 2)
+dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
+summary(dredgebic.avg)
+
+# random forest
+dat.fb.forest <- dat.fb %>% 
+  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
+         ndvi_ti_std, sum_precip_std, GDMforb)
+forest <- randomForest(log10(GDMforb) ~ ., data = dat.fb.forest)
+print(forest)
+importance(forest)
+
+# vsurf random forest (for variable selection)
+forestv <- VSURF(log10(GDMforb) ~ ., data = dat.fb.forest)
+summary(forestv); names(forestv)
+forestv$varselect.interp
+forestv$varselect.pred
+forestv$terms
+
+# compare top selected covariate options
+Cand.set <- list( )
+Cand.set[[1]] <- lm(log10(GDMforbPlus) ~ cc_std + elev_std + gsri_std + ndvi_ti_std, 
+                    data = dat.fb)
+Cand.set[[2]] <- lm(log10(GDMforbPlus) ~ cc_std + elev_std + gsri_std + ndvi_ti_std +
+                      slope_std, data = dat.fb)
+Cand.set[[3]] <- lm(log10(GDMforbPlus) ~ cc_std + elev_std + gsri_std + ndvi_ti_std +
+                    cover_class, data = dat.fb)
+Cand.set[[4]] <- lm(log10(GDMforbPlus) ~ cc_std + elev_std + gsri_std + ndvi_ti_std + 
+                      sum_precip_std + cover_class, data = dat.fb)
+Cand.set[[5]] <- lm(log10(GDMforbPlus) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, data = dat.fb)
+names(Cand.set) <- c("cc+elev+gsri+ndvi", 
+                     "cc+elev+gsri+ndvi+slope",
+                     "cc+elev+gsri+ndvi+covclss",
+                     "cc+elev+gsri+ndvi+precip+covclss",
+                     "global")
+aictable <- aictab(Cand.set, second.ord=TRUE)
+aicresults <- print(aictable, digits = 2, LL = FALSE)
+# can't distinguish between global and next most parameterized
+
+# global
+summary(lm(log10(GDMforbPlus) ~ cc_std + cti_std + elev_std + 
+                         gsri_std + slope_std + ndvi_ti_std + 
+                         sum_precip_std + cover_class, data = dat.fb))
+#
+
+
 
 
 ############################

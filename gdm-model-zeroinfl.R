@@ -351,19 +351,24 @@ mod.fb <- zeroinfl(CountForb ~ cc_std + gsri_std + ndvi_ti_std + elev_std |
                                cc_std + cti_std + elev_std + gsri_std + slope_std +
                                ndvi_ti_std + sum_precip_std + cover_class,
                          dist = "negbin", link = "logit",
-                         data = dat.fb.noout)
+                         data = dat.fb)
 summary(mod.fb)
 
-# verify model handled overdispersion issue
+# verify model handled overdispersion
 resid.fb <- resid(mod.fb, type = "pearson")
 dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb.noout) - 20) #20=df
 dispersion.fb # close to 1 = good
 
+
+# things i've tried for predictive purposes that have failed
+## get error when cover class is included (system is computationally singular)
+  ## fixed this by reducing the number of cover classes (removed fire history)
+## also have issue when variables are unstandardized (NANs produced)
+  ## no idea how to fix this; could ignore it but model would be useless for others
+
+
 # assess model fit #
 
-# check overdispersion of non-zero-inflated model
-m.a <- summary(lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
-                   elev_std + sum_precip_std, data = dat.fb))
 
 
 ############################
