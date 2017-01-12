@@ -2,7 +2,7 @@
 #  ESTIMATING GRAMS OF DIGESTIBLE MATTER BY LIFE FORM    #
 #      ACROSS NORTH SAPPHIRES IN SUMMER 2014 & 2015      #
 #                   KRISTIN BARKER                       #
-#                     DEC 2016                           #
+#                DEC 2016 - JAN 2017                     #
 ##########################################################
 
 #################
@@ -37,9 +37,9 @@ if (file.exists(wd_workcomp)) {
 rm(wd_workcomp, wd_laptop)
 rasterOptions(maxmemory = 1e+09)
 
-################
-#### Data   ####
-################
+################################
+#### Data Setup (run once)  ####
+################################
 
 # GDM per plot per lifeform, plus plot info (from gdm-model.r)
 plot.data <- read.csv("gdm-plot-lifeform.csv", header=T) %>%
@@ -109,85 +109,72 @@ dat <- cbind(plot.data, ext) %>%	# add extracted values to plot data
 
 write.csv(dat, file="GDM-model-data.csv", row.names=F)
 
+######################################
+#### Data setup (after run once)  ####
+######################################
 
-##############################################################
-#### MODEL grams of digestible matter per vegetation type ####
-##############################################################
+dat <- read.csv("GDM-model-data.csv") # only if not run in full above
 
-dat <- read.csv("GDM-model-data.csv") # if not run in full above
+# reduce number of landcover types by removing burn age info
+  # because negbin model fails with too many covariates
+  # and fire is not the main focus of this study
+  # changes documented in new-landcover-types.xlsx
+dat$cover_class[dat$cover_class==10] <- 1  
+dat$cover_class[dat$cover_class==11] <- 1  
+dat$cover_class[dat$cover_class==8] <- 2  
+dat$cover_class[dat$cover_class==9] <- 2  
+dat$cover_class[dat$cover_class==12] <- 2  
+
+# reassign cover class names
+clsref <- data.frame(cover_class = c(1,2,3,4,5,6,7),
+                     class_name = c("Mesic Forest", #1
+                                    "Dry Forest", #2 
+                                    "Grass/Shrub/Open Woodland", #3
+                                    "Dry Ag", #4
+                                    "Valley Bottom Riparian", #5
+                                    "Montane Riparian", #6
+                                    "Irrigated Ag")) #7
+
+# replace cover class names in dataframe
+dat <- dat %>%
+  select(-class_name) %>%
+  right_join(clsref, by = "cover_class")
+
 
 ############################
-####    Forbs            ###
+####    Forb Model      ####
 ############################
+
+
+# Data Setup #
+
 
 dat.fb <- dat %>%
-  mutate(gForb = as.factor(ifelse(GDMforb > 0, 1, 0))) # presence/absence
-dat.fb.no0 <- subset(dat.fb, GDMforb > 0)
+  mutate(CountForb = round(GDMforb)) %>% # round GDM (zeroinfl reqs count data)
+  mutate(gForb = as.factor(ifelse(GDMforb > 0, 1, 0))) # presence/absence (for 0 model)
 
-# Factor levels for landcover type #
-## Reference level is worst place they could possibly be
+# Set factor levels for landcover type #
+## (reference level is worst place they could possibly be)
 ref.fb <- dat.fb %>%
   dplyr::select(c(cover_class, class_name, GDMforb)) %>%
   group_by(class_name, cover_class) %>%
   summarise(AvgGDM = mean(GDMforb)) %>%
   arrange(AvgGDM) %>% ## Order from least to most forb GDM 
   ungroup()
+ref.fb
 dat.fb$cover_class <- factor(dat.fb$cover_class, 
                           levels = as.vector(ref.fb$cover_class))
 
-dat.fb.no0$cover_class <- factor(dat.fb.no0$cover_class, 
-                          levels = as.vector(ref.fb$cover_class))
-##                  ##
-## looking at stuff ##
-##                  ##
+# remove outlier (id'd in troubleshooting R - huge residual)
+dat.fb.noout <- dat.fb[-36,]
 
-# distribution of response, w/ and w/o 0s
-par(mfrow=c(2,1))
-hist(dat.fb$GDMforb, breaks=300)
-hist(dat.fb.no0$GDMforb, breaks=300) 
+# create separate dataframe for Pr(0) model
+dat.fb.no0 <- subset(dat.fb.noout, GDMforb > 0)
 
-# probability density of non-zero response (for funzies)
-par(mfrow=c(1,1))
-hist(log10(dat.fb.no0$GDMforb), freq=FALSE) 
-
-# dist has same basic shape with or without 0s
-1-nrow(dat.fb.no0)/nrow(dat.fb)
-#34% of data are 0s
-summary(dat.fb$GDMforb)
-var(dat.fb$GDMforb)
-
-# correlations
-dat.fb.cor <- dat.fb %>%
-  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
-         ndvi_dur_std, ndvi_ti_std, sum_precip_std, GDMforb)
-source("../zMisc/pairs-panels.R")
-pairs.panels(dat.fb.cor) # bassing's prof's code to handle factors
-chart.Correlation(dat.fb.cor) # verifying prof's numbers
-
-# unstandardized correlations
-dat.fb.cor <- dat.fb %>%
-  select(cover_class, cc, cti, elev, gsri, slope,
-         ndvi_dur, ndvi_ti, sum_precip, GDMforb)
-source("../zMisc/pairs-panels.R")
-pairs.panels(dat.fb.cor) # bassing's prof's code to handle factors
-chart.Correlation(dat.fb.cor) # verifying prof's numbers
-# same results, that makes sense
-
-##                                    ##
-## prelim attempts at model selection ##
-##                                    ##
-
-####              #
-# GDM values > 0  #
-####              #
-
-# global model without 0s in response - gamma distributed, not transformed
-mod.global.fb.g <- glm(GDMforb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_ti_std + 
-                         sum_precip_std + cover_class, 
-                      family = Gamma(link = log), data = dat.fb.no0)
-summary(mod.global.fb.g)
-plot(mod.global.fb.g)
+######################
+# variable selection #
+# GDM values > 0     #
+######################
 
 # global model without 0s in response - transformed, normally distributed
 mod.global.fb.n <- lm(log10(GDMforb) ~ cc_std + cti_std + elev_std + 
@@ -197,20 +184,16 @@ mod.global.fb.n <- lm(log10(GDMforb) ~ cc_std + cti_std + elev_std +
 summary(mod.global.fb.n)
 plot(mod.global.fb.n)
 
-# backwards stepwise AIC on each of the above
-step.fb <- stepAIC(mod.global.fb.g, direction = "both", steps = 1000000)
-# algorithm fails to converge (despite adding steps)
-# so using normally distd model instead
+# backwards stepwise AIC
 step.fb <- stepAIC(mod.global.fb.n, direction = "both")
 
-# backwards stepwise bic to more heavily penalize addl params, on normal dist
+# backwards stepwise bic to more heavily penalize addl params
 step.fb.bic <- step(mod.global.fb.n, direction = "both", k = log(652))
 
 # dredge
 options(na.action = "na.fail")
 dredgemod <- dredge(mod.global.fb.n, beta = "none", evaluate = TRUE, 
                     rank = "AIC")
-plot(dredgemod) # i have no idea how to interpret that either
 dredgeres <- subset(dredgemod, delta < 2)
 dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
 summary(dredgemod.avg)
@@ -262,31 +245,18 @@ aicresults <- print(aictable, digits = 2, LL = FALSE)
 # +elev
 summary(lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
                    elev_std, data = dat.fb.no0))
-#adj r-squared = 0.2376; resid se = 0.7308
+#adj r-squared = 0.2403; resid se = 0.7295
 
 # +elev+precip
 summary(lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
                    elev_std + sum_precip_std, data = dat.fb.no0))
-# adj r-2 = 0.2411; resid se = 0.7291
+# adj r-2 = 0.2444; resid se = 0.7275
 
-## see troubleshooting code for model averaging options ##
+######################
+# variable selection #
+# GDM values = 0     #
+######################
 
-## checking error assumptions
-m1 <- lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
-                   elev_std, data = dat.fb.no0)
-par(mfrow=c(2,1))
-plot(fitted(m1), residuals(m1), 
-     xlab="Fitted", ylab = "Resid",
-     main = "Linearity Check")
-abline(h=0)
-plot(fitted(m1), abs(residuals(m1)),
-     xlab = "Fitted", ylab = "|Resid|",
-     main = "Constant Variance Check")
-
-####              #
-# GDM values = 0  #
-####              #
- 
 # global model
 mod.global.fb.pr <- glm(gForb ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_ti_std + 
@@ -294,7 +264,6 @@ mod.global.fb.pr <- glm(gForb ~ cc_std + cti_std + elev_std +
                       family = binomial(link = "logit"),
                         data = dat.fb)
 summary(mod.global.fb.pr)
-par(mfrow = c(2,2)); plot(mod.global.fb.pr)
 
 # backwards stepwise AIC
 step.fb <- stepAIC(mod.global.fb.pr, direction = "both")
@@ -371,82 +340,63 @@ names(Cand.set) <- c("gsri",
                      "global")
 aictable <- aictab(Cand.set, second.ord=TRUE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
-# global model way outperforms the others... hmm...
+# global model ftw
 
-glm.fit <- glm(gForb ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_ti_std + 
-                         sum_precip_std + cover_class, 
-                      family = binomial(link = "logit"),
-                        data = dat.fb)
-cv.err <- cv.glm(dat.fb, glm.fit)
-cv.err$delta
-#[1] 0.1858745 0.1858679 
-# i believe this tells the % of time predxns expected to be wrong
-# make sure similar results with k-fold (above is leave-one-out)
-cv.err.k <- cv.glm(dat.fb, glm.fit, K = 10)
-cv.err.k$delta
-#[1] 0.1869715 0.1864561
-# so only wrong 19% of the time; i'll take it
-# sticking with global model then unfortunately
+#######################
+# Zero-inflated model #
+#######################
+
+# define zero-inflated model 
+mod.fb <- zeroinfl(CountForb ~ cc_std + gsri_std + ndvi_ti_std + elev_std | 
+                               cc_std + cti_std + elev_std + gsri_std + slope_std +
+                               ndvi_ti_std + sum_precip_std + cover_class,
+                         dist = "negbin", link = "logit",
+                         data = dat.fb.noout)
+summary(mod.fb)
+
+# verify model handled overdispersion issue
+resid.fb <- resid(mod.fb, type = "pearson")
+dispersion.fb <- sum(resid.fb^2)/(nrow(dat.fb.noout) - 20) #20=df
+dispersion.fb # close to 1 = good
+
+# assess model fit #
+
+
+
 
 
 ############################
-####    Graminoids       ###
+####    Grass Model    ####
 ############################
 
+
+# Data Setup #
 
 dat.gr <- dat %>%
-  mutate(gGrass = as.factor(ifelse(GDMgrass > 0, 1, 0))) # presence/absence
-dat.gr.no0 <- subset(dat.gr, GDMgrass > 0)
+  mutate(CountGrass = round(GDMgrass)) %>% # round GDM (zeroinfl reqs count data)
+  mutate(gGrass = as.factor(ifelse(GDMgrass > 0, 1, 0))) # presence/absence (for 0 model)
 
-# Factor levels for landcover type #
-## Reference level is worst place they could possibly be
-ref.gr <- dat %>%
+# Set factor levels for landcover type #
+## (reference level is worst place they could possibly be)
+ref.gr <- dat.gr %>%
   dplyr::select(c(cover_class, class_name, GDMgrass)) %>%
   group_by(class_name, cover_class) %>%
   summarise(AvgGDM = mean(GDMgrass)) %>%
   arrange(AvgGDM) %>% ## Order from least to most grass GDM 
   ungroup()
+ref.gr
 dat.gr$cover_class <- factor(dat.gr$cover_class, 
                           levels = as.vector(ref.gr$cover_class))
 
+# create separate dataframe for Pr(0) model
+dat.gr.no0 <- subset(dat.gr, GDMgrass > 0)
 
-##                  ##
-## looking at stuff ##
-##                  ##
+######################
+# variable selection #
+# GDM values > 0     #
+######################
 
-# distribution of response, w/ and w/o 0s
-par(mfrow=c(2,1))
-hist(dat.gr$GDMgrass, breaks=300)
-hist(dat.gr.no0$GDMgrass, breaks=300) 
-
-# probability density of non-zero response 
-par(mfrow=c(1,1))
-hist(log10(dat.gr.no0$GDMgrass), freq=FALSE) 
-
-# dist has same basic shape with or without 0s
-1-nrow(dat.gr.no0)/nrow(dat.gr)
-# only 8% of data are 0s
-summary(dat.gr$GDMgrass)
-var(dat.gr$GDMgrass)
-
-# correlations
-dat.gr.cor <- dat.gr %>%
-  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
-         ndvi_dur_std, ndvi_ti_std, sum_precip_std, GDMgrass)
-pairs.panels(dat.gr.cor) # bassing's prof's code to handle factors
-chart.Correlation(dat.gr.cor) # verifying prof's numbers
-
-
-##                                    ##
-## prelim attempts at model selection ##
-##                                    ##
-
-####              #
-# GDM values > 0  #
-####              #
-
-# global model excluding 0s in response - transformed, normally distributed
+# global model without 0s in response - transformed, normally distributed
 mod.global.gr.n <- lm(log10(GDMgrass) ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_ti_std + 
                          sum_precip_std + cover_class, 
@@ -454,17 +404,16 @@ mod.global.gr.n <- lm(log10(GDMgrass) ~ cc_std + cti_std + elev_std +
 summary(mod.global.gr.n)
 plot(mod.global.gr.n)
 
-# backwards stepwise AIC on each of the above
+# backwards stepwise AIC
 step.gr <- stepAIC(mod.global.gr.n, direction = "both")
 
-# backwards stepwise bic to more heavily penalize addl params, on normal dist
+# backwards stepwise bic to more heavily penalize addl params
 step.gr.bic <- step(mod.global.gr.n, direction = "both", k = log(652))
 
 # dredge
 options(na.action = "na.fail")
 dredgemod <- dredge(mod.global.gr.n, beta = "none", evaluate = TRUE, 
                     rank = "AIC")
-plot(dredgemod) # i have no idea how to interpret that either
 dredgeres <- subset(dredgemod, delta < 2)
 dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
 summary(dredgemod.avg)
@@ -482,7 +431,7 @@ dat.gr.forest <- dat.gr.no0 %>%
          ndvi_ti_std, sum_precip_std, GDMgrass)
 forest <- randomForest(log10(GDMgrass) ~ ., data = dat.gr.forest)
 print(forest)
-round(importance(forest), 2)
+importance(forest)
 
 # vsurf random forest (for variable selection)
 forestv <- VSURF(log10(GDMgrass) ~ ., data = dat.gr.forest)
@@ -493,59 +442,60 @@ forestv$terms
 
 # compare top selected covariate options
 Cand.set <- list( )
-Cand.set[[1]] <- lm(log10(GDMgrass) ~ cc_std + elev_std + ndvi_ti_std, 
+Cand.set[[1]] <- lm(log10(GDMgrass) ~ elev_std, 
                     data = dat.gr.no0)
-Cand.set[[2]] <- lm(log10(GDMgrass) ~ cc_std + elev_std + cover_class,
+Cand.set[[2]] <- lm(log10(GDMgrass) ~ cc_std + elev_std, 
                     data = dat.gr.no0)
-Cand.set[[3]] <- lm(log10(GDMgrass) ~ cc_std + elev_std + ndvi_ti_std +
-                   cover_class, data = dat.gr.no0)
-Cand.set[[4]] <- lm(log10(GDMgrass) ~ cc_std + elev_std + ndvi_ti_std +
-                   cover_class + sum_precip_std, data = dat.gr.no0)
-Cand.set[[5]] <- lm(log10(GDMgrass) ~ cc_std + cti_std + elev_std + 
+Cand.set[[3]] <- lm(log10(GDMgrass) ~ elev_std + ndvi_ti_std, 
+                    data = dat.gr.no0)
+Cand.set[[4]] <- lm(log10(GDMgrass) ~ cc_std + ndvi_ti_std + elev_std,
+                    data = dat.gr.no0)
+Cand.set[[5]] <- lm(log10(GDMgrass) ~ cover_class + ndvi_ti_std + elev_std, 
+                    data = dat.gr.no0)
+Cand.set[[6]] <- lm(log10(GDMgrass) ~ cc_std + ndvi_ti_std + elev_std
+                    + cover_class, data = dat.gr.no0)
+Cand.set[[7]] <- lm(log10(GDMgrass) ~ cc_std + ndvi_ti_std + elev_std
+                    + sum_precip_std, data = dat.gr.no0)
+Cand.set[[8]] <- lm(log10(GDMgrass) ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_ti_std + 
-                         sum_precip_std + cover_class, 
-                      data = dat.gr.no0)
-names(Cand.set) <- c("cc+elev+ndvi", 
-                     "cc+elev+landcov",
-                     "cc+elev+ndvi+landcov",
-                     "cc+elev+ndvi+landcov+precip",
+                         sum_precip_std + cover_class, data = dat.gr.no0)
+names(Cand.set) <- c("elev", 
+                     "elev+cc",
+                     "elev+ndvi_ti",
+                     "elev+cc+ndvi_ti",
+                     "elev+ndvi_ti+cover_class",
+                     "elev+ndvi_ti+cover_class+cc",
+                     "elev+ndvi_ti+cover_class+precip",
                      "global")
 aictable <- aictab(Cand.set, second.ord=TRUE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
+# elev+ndvi_ti+cover_class+cc
 
-# top model
-summary(lm(log10(GDMgrass) ~ cc_std + elev_std + ndvi_ti_std +
-                   cover_class, data = dat.gr.no0))
-# adj r-squared 0.1618; resid se 0.5529
-gr.top <- glm(log10(GDMgrass) ~ cc_std + elev_std + ndvi_ti_std +
-                   cover_class, data = dat.gr.no0)
-cv.gr.top <- cv.glm(dat.gr.no0, gr.top)
-cv.gr.top$delta
+summary(lm(log10(GDMgrass) ~ cc_std + ndvi_ti_std + elev_std
+                    + cover_class, data = dat.gr.no0))
 
+######################
+# variable selection #
+# GDM values = 0     #
+######################
 
-
-####              #
-# GDM values = 0  #
-####              #
-
-# global model excluding 0s in response - transformed, normally distributed
+# global model
 mod.global.gr.pr <- glm(gGrass ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_ti_std + 
                          sum_precip_std + cover_class, 
-                      family = binomial,
+                      family = binomial(link = "logit"),
                         data = dat.gr)
 summary(mod.global.gr.pr)
-plot(mod.global.gr.n)
 
-# backwards stepwise AIC on each of the above
-step.gr <- stepAIC(mod.global.gr.n, direction = "both")
+# backwards stepwise AIC
+step.gr <- stepAIC(mod.global.gr.pr, direction = "both")
 
 # backwards stepwise bic to more heavily penalize addl params, on normal dist
-step.gr.bic <- step(mod.global.gr.n, direction = "both", k = log(652))
+step.gr.bic <- step(mod.global.gr.pr, direction = "both", k = log(652))
 
 # dredge
 options(na.action = "na.fail")
-dredgemod <- dredge(mod.global.gr.n, beta = "none", evaluate = TRUE, 
+dredgemod <- dredge(mod.global.gr.pr, beta = "none", evaluate = TRUE, 
                     rank = "AIC")
 plot(dredgemod) # i have no idea how to interpret that either
 dredgeres <- subset(dredgemod, delta < 2)
@@ -553,7 +503,7 @@ dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
 summary(dredgemod.avg)
 
 # dredge with bic
-dredgebic <- dredge(mod.global.gr.n, beta = "none", evaluate = TRUE, 
+dredgebic <- dredge(mod.global.gr.pr, beta = "none", evaluate = TRUE, 
                     rank = "BIC")
 dredgebicres <- subset(dredgebic, delta < 2)
 dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
@@ -570,163 +520,65 @@ round(importance(forest), 2)
 # vsurf random forest (for variable selection)
 forestv <- VSURF(gGrass ~ ., data = dat.gr.forest)
 summary(forestv); names(forestv)
+forestv$terms
 forestv$varselect.interp
 forestv$varselect.pred
-forestv$terms
 
 # compare top selected covariate options
 Cand.set <- list( )
-Cand.set[[1]] <- glm(gGrass ~ elev_std + cover_class, 
+Cand.set[[1]] <- glm(gGrass ~ cc_std, 
                       family = binomial(link = "logit"), data = dat.gr)
-Cand.set[[2]] <- glm(gGrass ~ elev_std + cover_class + cc_std, 
+Cand.set[[2]] <- glm(gGrass ~ sum_precip_std, 
                      family = binomial(link = "logit"), data = dat.gr)
-Cand.set[[3]] <- glm(gGrass ~ elev_std + cover_class + cc_std + ndvi_ti_std, 
+Cand.set[[3]] <- glm(gGrass ~ sum_precip_std + cc_std, 
                      family = binomial(link = "logit"), 
                      data = dat.gr)
-Cand.set[[4]] <- glm(gGrass ~ cc_std + cti_std + elev_std + 
+Cand.set[[4]] <- glm(gGrass ~ sum_precip_std + cc_std + elev_std, 
+                     family = binomial(link = "logit"), 
+                     data = dat.gr)
+Cand.set[[5]] <- glm(gGrass ~ sum_precip_std + cc_std + gsri_std, 
+                      family = binomial(link = "logit"),
+                        data = dat.gr)
+Cand.set[[6]] <- glm(gGrass ~ sum_precip_std + cc_std + gsri_std + elev_std, 
+                      family = binomial(link = "logit"),
+                        data = dat.gr)
+Cand.set[[7]] <- glm(gGrass ~ elev_std + sum_precip_std + cover_class, 
+                      family = binomial(link = "logit"),
+                        data = dat.gr)
+Cand.set[[8]] <- glm(gGrass ~ cc_std + cti_std + elev_std + 
                          gsri_std + slope_std + ndvi_ti_std + 
                          sum_precip_std + cover_class, 
-                      family = binomial,
+                      family = binomial(link = "logit"),
                         data = dat.gr)
-names(Cand.set) <- c("elev+covclass", 
-                     "elev+covclass+cc",
-                     "elev+covclass+cc+ndvi_ti",
+names(Cand.set) <- c("cc", 
+                     "precip",
+                     "precip+cc",
+                     "precip+cc+elev",
+                     "precip+cc+gsri",
+                     "precip+cc+grsi+elev",
+                     "elev+precip+cover_class",
                      "global")
 aictable <- aictab(Cand.set, second.ord=TRUE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
-#global just like with the forb 0 model
-glm.fit <- glm(gGrass ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_ti_std + 
-                         sum_precip_std + cover_class, 
-                      family = binomial,
-                        data = dat.gr)
-cv.err <- cv.glm(dat.gr, glm.fit)
-cv.err$delta
-# >[1] 0.06036599 0.06036012
+# global model ftw
 
-############################
-####    Shrubs           ###
-############################
+#######################
+# Zero-inflated model #
+#######################
 
+# define zero-inflated model 
+mod.gr <- zeroinfl(CountGrass ~ cc_std + ndvi_ti_std + elev_std + cover_class | 
+                               cc_std + cti_std + elev_std + gsri_std + slope_std +
+                               ndvi_ti_std + sum_precip_std + cover_class,
+                         dist = "negbin", link = "logit",
+                         data = dat.gr)
+summary(mod.gr)
 
-dat.sh <- dat %>%
-  filter(!PlotVisit == "220.2015-08-03") %>% # GDMshrub outlier
-  mutate(gShrub = as.factor(ifelse(GDMshrub > 0, 1, 0))) # presence/absence
-dat.sh.no0 <- subset(dat.sh, GDMshrub > 0)
+# verify model handled overdispersion issue
+resid.gr <- resid(mod.gr, type = "pearson")
+dispersion.gr <- sum(resid.gr^2)/(nrow(dat.gr) - 25) #25=df
+dispersion.gr # niiiiice
 
-# Factor levels for landcover type #
-## Reference level is worst place they could possibly be
-ref.sh <- dat %>%
-  dplyr::select(c(cover_class, class_name, GDMshrub)) %>%
-  group_by(class_name, cover_class) %>%
-  summarise(AvgGDM = mean(GDMshrub)) %>%
-  arrange(AvgGDM) %>% ## Order from least to most shrub GDM 
-  ungroup()
-dat.sh$cover_class <- factor(dat.sh$cover_class, 
-                          levels = as.vector(ref.sh$cover_class))
-
-
-##                  ##
-## looking at stuff ##
-##                  ##
-
-# distribution of response, w/ and w/o 0s
-par(mfrow=c(2,1))
-hist(dat.sh$GDMshrub, breaks=300)
-hist(dat.sh.no0$GDMshrub, breaks=300) 
-
-# probability density of non-zero response 
-par(mfrow=c(1,1))
-hist(log10(dat.sh.no0$GDMshrub), freq=FALSE) 
-
-# dist has same basic shape with or without 0s
-1-nrow(dat.sh.no0)/nrow(dat.sh)
-# only 8% of data are 0s
-summary(dat.sh$GDMshrub)
-var(dat.sh$GDMshrub)
-
-# correlations
-dat.sh.cor <- dat.sh %>%
-  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
-         ndvi_dur_std, ndvi_ti_std, sum_precip_std, GDMshrub)
-pairs.panels(dat.sh.cor) # bassing's prof's code to handle factors
-chart.Correlation(dat.sh.cor) # verifying prof's numbers
-
-
-##                                    ##
-## prelim attempts at model selection ##
-##                                    ##
-
-####              #
-# GDM values > 0  #
-####              #
-
-# global model excluding 0s in response - transformed, normally distributed
-mod.global.sh.n <- lm(log10(GDMshrub) ~ cc_std + cti_std + elev_std + 
-                         gsri_std + slope_std + ndvi_ti_std + 
-                         sum_precip_std + cover_class, 
-                      data = dat.sh.no0)
-summary(mod.global.sh.n)
-plot(mod.global.sh.n)
-
-######################################################
-##        YEESH... KRISTIN YOU STOPPED HERE         ##
-#   because the r-squared of the global model BLOWS  #
-# nooooooooooooooooooooooooooooooooooooooooooooooooo #
-######################################################
-
-# backwards stepwise AIC on each of the above
-step.sh <- stepAIC(mod.global.sh.n, direction = "both")
-
-# backwards stepwise bic to more heavily penalize addl params, on normal dist
-step.sh.bic <- step(mod.global.sh.n, direction = "both", k = log(652))
-
-# dredge
-options(na.action = "na.fail")
-dredgemod <- dredge(mod.global.sh.n, beta = "none", evaluate = TRUE, 
-                    rank = "AIC")
-plot(dredgemod) # i have no idea how to interpret that either
-dredgeres <- subset(dredgemod, delta < 2)
-dredgemod.avg <- model.avg(dredgeres, revised.var=TRUE)
-summary(dredgemod.avg)
-
-# dredge with bic
-dredgebic <- dredge(mod.global.sh.n, beta = "none", evaluate = TRUE, 
-                    rank = "BIC")
-dredgebicres <- subset(dredgebic, delta < 2)
-dredgebic.avg <- model.avg(dredgebicres, revised.var=TRUE)
-summary(dredgebic.avg)
-
-# random forest
-dat.sh.forest <- dat.sh.no0 %>% 
-  select(cover_class, cc_std, cti_std, elev_std, gsri_std, slope_std,
-         ndvi_ti_std, sum_precip_std, GDMshrub)
-forest <- randomForest(log10(GDMshrub) ~ ., data = dat.sh.forest)
-print(forest)
-round(importance(forest), 2)
-
-# vsurf random forest (for variable selection)
-forestv <- VSURF(log10(GDMshrub) ~ ., data = dat.sh.forest)
-summary(forestv); names(forestv)
-forestv$varselect.interp
-forestv$varselect.pred
-forestv$terms
-
-# compare top selected covariate options
-Cand.set <- list( )
-Cand.set[[1]] <- 
-Cand.set[[2]] <- 
-Cand.set[[3]] <- 
-Cand.set[[4]] <- 
-Cand.set[[5]] <- 
-names(Cand.set) <- c("cc+elev+ndvi", 
-                     "cc+elev+landcov",
-                     "cc+elev+ndvi+landcov",
-                     "cc+elev+ndvi+landcov+precip",
-                     "global")
-aictable <- aictab(Cand.set, second.ord=TRUE)
-aicresults <- print(aictable, digits = 2, LL = FALSE)
-
-
+# assess model fit #
 
 
