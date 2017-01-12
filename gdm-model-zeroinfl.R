@@ -361,8 +361,9 @@ dispersion.fb # close to 1 = good
 
 # assess model fit #
 
-
-
+# check overdispersion of non-zero-inflated model
+m.a <- summary(lm(log10(GDMforb) ~ cc_std + gsri_std + ndvi_ti_std +
+                   elev_std + sum_precip_std, data = dat.fb))
 
 
 ############################

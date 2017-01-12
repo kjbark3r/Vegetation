@@ -462,6 +462,13 @@ plot(fitted(g1), abs(residuals(g1)),
 # for the record, i checked out residuals on untransformed response
   # and they were out of this world terrible
 
+#######################
+## number of 0s in biomass ####
+
+a <- read.csv("biomass-plot.csv")
+a.f0 <- subset(a, ForageForbBiomass == 0)
+nrow(a.f0)/nrow(a)
+
 
 ################
 ## CUT CODE ####
