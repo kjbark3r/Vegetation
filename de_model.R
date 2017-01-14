@@ -45,8 +45,7 @@ plots <- readOGR(".", layer ='de-plot-summer')
 raster_data <- list.files(
   path=paste(wd, "writtenrasters", sep="/"), 
   pattern="tif$", 
-  full.names=TRUE
-  ) 
+  full.names=TRUE) 
 s <- stack(raster_data) 
 names(s)
 
@@ -129,7 +128,7 @@ pairs.panels(dat.cor) # bassing's prof's code to handle factors
 chart.Correlation(dat.cor) 
 # correlation coefficients > 0.6
   ## 0.91 spring precip & growing season precip
-  ## 0.80 ndvi_amp & ndvi_ti
+  ## 0.80 ndvi_ti & ndvi_amp
 
 
 ########################
@@ -205,8 +204,62 @@ de.model <- lm(DE ~ elev_std + landcov + radn_std + ndvi_amp_std +
            precip_std + slope_std, data = dat)
 summary(de.model)
 
+
+##############################
+#### PREDICTIVE DE RASTER ####
+##############################
+
+# use unstandardized covariates for prediction
+de.pred <- lm(DE ~ elev + landcov + radn + ndvi_amp + 
+              precip + slope, data = dat)
+
+# prep rasters
+# yes i realize it would be cooler if i'd done this programmatically
+rast.14 <- list.files(path=paste(wd, "writtenrasters/covs2014", sep="/"), 
+                      pattern="tif$", full.names=TRUE) #read in 2014 rasters
+stack.14 <- stack(rast.14)
+names(stack.14) # rename rasters to match covariate names
+names(stack.14) <- c("elev", "landcov", "ndvi_amp", "precip", "radn", "slope")
+names(stack.14) # sanity check
+rast.15 <- list.files(path=paste(wd, "writtenrasters/covs2015", sep="/"), 
+                      pattern="tif$", full.names=TRUE)  #read in 2015 rasters
+stack.15 <- stack(rast.15)
+names(stack.15) # rename these to match covariate names
+names(stack.15) <- c("elev", "landcov", "ndvi_amp", "precip", "radn", "slope")
+names(stack.15)
+
+# function to get both response and SE predictions
+predfun <- function(model, data) {
+  v <- predict(model, data, se.fit=TRUE) 
+  cbind(p=as.vector(v$fit), se=as.vector(v$se.fit))
+}
+
+# predict 2014 rasters of DE and StdError (indices 1 and 2, respectively)
+de2014 <- predict(stack.14, de.pred, fun=predfun, index=1:2, progress="text")
+names(de2014) <- c("DE2014","StdErr14") 
+plot(de2014) # plot both
+plot(de2014[["DE2014"]]) # plot one at a time
+plot(de2014[["StdErr14"]])
+
+# predict 2015 rasters of DE and StdError (indices 1 and 2, respectively)
+de2015 <- predict(stack.15, de.pred, fun=predfun, index=1:2, progress="text")
+names(de2015) <- c("DE2015","StdErr15") 
+plot(de2015) # plot both
+plot(de2015[["DE2015"]]) # plot one at a time
+plot(de2015[["StdErr15"]])
+
+# export DE rasters
+writeRaster(de2014, names(de2014), bylayer = TRUE, 
+            format = "GTiff")
+writeRaster(de2015, names(de2015), bylayer = TRUE, 
+            format = "GTiff")
+
+
+##########################
+### DELETED/MISC CODE ####
+##########################
+
 ########################
-## for the record... ###
 # i also tried reducing number of landcover types
 # by removing fire history info 
 # because fire is not the main focus of this study
@@ -256,83 +309,3 @@ names(Cand.set) <- c("incl fire hist",
 aictable <- aictab(Cand.set, second.ord=TRUE)
 aicresults <- print(aictable, digits = 2, LL = FALSE)
 # best supported model is the one that includes fire history info
-
-##############################
-#### PREDICTIVE DE RASTER ####
-##############################
-
-# use unstandardized covariates for prediction
-de.pred <- lm(DE ~ elev + landcov + radn + ndvi_amp + 
-              precip + slope, data = dat)
-
-# prep rasters
-# yes i realize it would be cooler if i'd done this programmatically
-rast.14 <- list.files(path=paste(wd, "writtenrasters/covs2014", sep="/"), 
-                      pattern="tif$", full.names=TRUE) #read in 2014 rasters
-stack.14 <- stack(rast.14)
-names(stack.14) # rename rasters to match covariate names
-names(stack.14)
-names(stack.14) <- c("elev", "landcov", "ndvi_amp", "radn", "slope", "precip")
-rast.15 <- list.files(path=paste(wd, "writtenrasters/covs2015", sep="/"), 
-                      pattern="tif$", full.names=TRUE)  #read in 2015 rasters
-stack.15 <- stack(rast.15)
-names(stack.15) # rename these to match covariate names
-names(stack.15) <- c("elev", "landcov", "ndvi_amp", "radn", "slope", "precip")
-names(stack.15)
-
-# function to get both response and SE predictions
-predfun <- function(model, data) {
-  v <- predict(model, data, se.fit=TRUE) 
-  cbind(p=as.vector(v$fit), se=as.vector(v$se.fit))
-}
-
-# predict 2014 rasters of DE and StdError (indices 1 and 2, respectively)
-de2014 <- raster::predict(stack.14, de.pred, progress="text")
-names(de2014) <- c("DE2014","StdErr14") 
-plot(de2014) # plot both
-plot(de2014[["DE2014"]]) # plot one at a time
-plot(de2014[["StdErr14"]])
-
-# predict 2015 rasters of DE and StdError (indices 1 and 2, respectively)
-de2015 <- predict(stack.15, de.pred, fun=predfun, index=1:2, progress="text")
-names(de2015) <- c("DE2015","StdErr15") 
-plot(de2015) # plot both
-plot(de2015[["DE2015"]]) # plot one at a time
-plot(de2015[["StdErr15"]])
-
-
-#####################################wtf
-
-# predict point values
-dat.pred <- dat
-dat.pred$DEpred <- predict.lm(de.pred, dat.pred, type = "response")
-dat.pred <- select(dat.pred, c(PlotVisit, DE, DEpred))
-
-# predict raster
-rast.pred <- raster::predict(stack.14, de.pred, type = "response", 
-                             progress = "text")
-plot(rast.pred)
-
-rast.pred <- raster::predict(stack.15, de.pred, type = "response", progress = "text")
-# ok something's up with my rasters i think
-
-rasterpath <- paste(getwd(), "/writtenrasters", sep="")
-names(stack.14)
-elev <- raster(paste(rasterpath, "elev.tif", sep="/"))
-elev
-landcov <- raster(paste(rasterpath, "landcov_14.tif", sep="/"))
-landcov
-ndvi_amp <- raster(paste(rasterpath, "ndvi_amp_14.tif", sep="/"))
-ndvi_amp
-summary(dat$ndvi_amp)
-radn <- raster(paste(rasterpath, "radn.tif", sep="/"))
-radn
-summary(dat$radn) 
-slope <- raster(paste(rasterpath, "slope.tif", sep="/"))
-slope
-summary(dat$slope)
-precip <- raster(paste(rasterpath, "precip_14.tif", sep="/"))
-precip
-summary(dat$precip)
-
-
