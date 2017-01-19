@@ -197,35 +197,6 @@ DE.cls <- DE.data %>%
          MS.cls.de=mature, 
          SE.cls.de=cured)
 
-# DE per species (AVE EM, FL, FR for phenologies 10000)
-DE.spp.10000 <- DE.data %>%
-  group_by(PlantCode, Stage) %>%
-  summarize(meanDE = mean(DE)) %>%
-  filter(Stage == "emergent" | Stage == "flowering" | Stage == "fruiting") %>%
-  ungroup() %>%
-  group_by(PlantCode) %>%
-  summarise(EMFLFR.de = mean(meanDE))
-
-# DE per genus (AVE EM, FL, FR for phenologies 10000)
-DE.gns.10000 <- DE.data %>%
-  mutate(NameGenus = paste(NameGenus, "sp", sep=" ")) %>%
-  group_by(NameGenus, Stage) %>%
-  summarize(meanDE = mean(DE)) %>%
-  filter(Stage == "emergent" | Stage == "flowering" | Stage == "fruiting") %>%
-  ungroup() %>%
-  group_by(NameGenus) %>%
-  summarise(EMFLFR.gns.de = mean(meanDE))
-
-# DE per class (AVE EM, FL, FR for phenologies 10000)
-DE.cls.10000 <- DE.data %>%
-  group_by(Class, Stage) %>%
-  summarize(meanDE = mean(DE)) %>%
-  filter(Stage == "emergent" | Stage == "flowering" | Stage == "fruiting") %>%
-  ungroup() %>%
-  group_by(Class) %>%
-  summarise(EMFLFR.cls.de = mean(meanDE))
-
-
 
 ################
 #### DE for SUMMER FORAGE SPECIES ####
@@ -269,9 +240,6 @@ de.phenospp.quadrat <- phenospp.quadrat %>%
   left_join(DE.spp, by=c("Species" = "PlantCode")) %>%         # join to DE per species
   left_join(DE.gns, by=c("Genus2" = "NameGenus")) %>%           # join to DE per Genus
   left_join(DE.cls, by=c("LifeForm" = "Class")) %>%           # join forage to DE per lifeform
-  left_join(DE.spp.10000, by=c("Species" = "PlantCode")) %>%         # join to DE per species (ave for EM, FL, FR; as per becca)
-  left_join(DE.gns.10000, by=c("Genus2" = "NameGenus")) %>%           # join to DE per Genus (ave for EM, FL, FR; as per becca)
-  left_join(DE.cls.10000, by=c("LifeForm" = "Class")) %>%           # join forage to DE per lifeform (ave for EM, FL, FR; as per becca)
   mutate(EM.de = ifelse(is.na(EM.de), EM.gns.de, EM.de),  # fill in missing DE with genus average values
          FL.de = ifelse(is.na(FL.de), FL.gns.de, FL.de),
          FR.de = ifelse(is.na(FR.de), FR.gns.de, FR.de),
@@ -282,9 +250,6 @@ de.phenospp.quadrat <- phenospp.quadrat %>%
          FR.de = ifelse(is.na(FR.de), FR.cls.de, FR.de),
          MS.de = ifelse(is.na(MS.de), MS.cls.de, MS.de),
          SE.de = ifelse(is.na(SE.de), SE.cls.de, SE.de)) %>%
-  mutate(EM.de = ifelse(index == 10000, EMFLFR.de, EM.de),          # for plots indicated as EM only, assign species average de of EM, FL, FR (as per Becca), otherwise, keep previously assigned
-         EM.de = ifelse(is.na(EM.de), EMFLFR.gns.de, EM.de),       # if previous was NA, then assign genus average de of EM, FL, FR
-         EM.de = ifelse(is.na(EM.de), EMFLFR.cls.de, EM.de)) %>%   # and if previous was still NA, then assign class average de of EM, FL, FR
   select(-c(EM.cls.de, FL.cls.de, FR.cls.de, MS.cls.de, SE.cls.de,
             EM.gns.de, FL.gns.de, FR.gns.de, MS.gns.de, SE.gns.de)) %>%
   mutate(EM.de = EM.cov*EM.de,   

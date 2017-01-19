@@ -567,6 +567,16 @@ a.f0 <- subset(a, ForageForbBiomass == 0)
 nrow(a.f0)/nrow(a)
 
 
+#######################
+## effect of averaging em/fl/fr DE vals for em ####
+
+#(re-ran foragequality_DE.R without doing the average to compare)
+em <- read.csv("EM-AS-EM-sapp_phenology_byforagessp_perquadrat.csv")
+emff <- read.csv("sapp_phenology_byforagessp_perquadrat.csv")
+summary(em$DE); summary(emff$DE)
+t.test(em$DE, emff$DE, alternative="greater")
+# significant difference. checking whether changes mignute stuff.
+
 ################
 ## CUT CODE ####
 ################

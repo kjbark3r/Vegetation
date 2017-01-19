@@ -121,7 +121,7 @@ hist(dat$DE, breaks = 100) #normal enough
 
 # check correlations and relationships
 dat.cor <- dat %>%
-  select(cc_std, elev_std, landcov, radn_std, ndvi_amp_std, ndvi_dur_std, 
+  dplyr::select(cc_std, elev_std, landcov, radn_std, ndvi_amp_std, ndvi_dur_std, 
          ndvi_ti_std, precip_std, spr_precip_std, slope_std, DE)
 source("../zMisc/pairs-panels.R")
 pairs.panels(dat.cor) # bassing's prof's code to handle factors
@@ -199,17 +199,19 @@ m.global <- lm(DE ~ cc_std + elev_std + I(elev_std^2) + landcov +
 # backwards stepwise AIC
 step.aic <- step(m.global, direction = "both", k = 2)
 
-# selected model
-de.model <- lm(DE ~ elev_std + landcov + radn_std + ndvi_amp_std + 
-           precip_std + slope_std, data = dat)
-summary(de.model)
+# selected models
+summary(lm(DE ~ elev_std + landcov + radn_std + ndvi_amp_std + 
+           precip_std + slope_std, data = dat))
+summary(lm(DE ~ elev_std + I(elev_std^2) + landcov + radn_std + ndvi_amp_std + 
+    precip_std + slope_std, data = dat))
 
 
 ##############################
 #### PREDICTIVE DE RASTER ####
 ##############################
 
-# use unstandardized covariates for prediction
+# top model with best predictive power
+# using unstandardized covariates for prediction
 de.pred <- lm(DE ~ elev + landcov + radn + ndvi_amp + 
               precip + slope, data = dat)
 
@@ -250,9 +252,9 @@ plot(de2015[["StdErr15"]])
 
 # export DE rasters
 writeRaster(de2014, names(de2014), bylayer = TRUE, 
-            format = "GTiff")
+            format = "GTiff", overwrite = TRUE)
 writeRaster(de2015, names(de2015), bylayer = TRUE, 
-            format = "GTiff")
+            format = "GTiff", overwrite = TRUE)
 
 
 ##########################
