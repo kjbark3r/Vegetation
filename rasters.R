@@ -58,7 +58,8 @@ spr_precip_15 <- raster(paste(rasterpath, "spr_precip_2015.tif", sep="/")) #(may
 slope <- raster(paste(rasterpath, "slope.tif", sep="/")) #slope
 
 # crop to study area; match extents and resolutions to enable stacking
-boundbox <- extent(cc) # use canopy cover raster as basis for all others
+boundbox <- c(233350, 284200, 233970, 302300) # xmin,xmax,ymin,ymax in stateplane
+cc <- crop(cc, boundbox)
 elev <- crop(elev, boundbox)
 elev <- resample(elev, cc, "ngb")
 landcov_14 <- crop(landcov_14, boundbox)

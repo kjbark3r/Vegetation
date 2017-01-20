@@ -43,7 +43,7 @@ plots <- readOGR(".", layer ='de-plot-summer')
 
 #all rasters for covariates
 raster_data <- list.files(
-  path=paste(wd, "writtenrasters", sep="/"), 
+  path=paste(wd, "writtenrasters/uncropped", sep="/"), 
   pattern="tif$", 
   full.names=TRUE) 
 s <- stack(raster_data) 
@@ -81,7 +81,7 @@ dat <- cbind(plot.data, ext) %>%	# add extracted values to plot data
     precip = ifelse(Year == 2014, precip_14, precip_15),
     spr_precip = ifelse(Year == 2014, spr_precip_14, spr_precip_15)
     ) %>%
-  right_join(clsref, by = "landcov") %>% #add cover class names
+  left_join(clsref, by = "landcov") %>% #add cover class names
   within(landcov <- as.factor(landcov)) %>%
   #classify "NoData" NDVI durations as NAs
   mutate(ndvi_dur = ifelse(ndvi_dur<90|ndvi_dur>365, NA, ndvi_dur)) %>%
@@ -125,7 +125,6 @@ dat.cor <- dat %>%
          ndvi_ti_std, precip_std, spr_precip_std, slope_std, DE)
 source("../zMisc/pairs-panels.R")
 pairs.panels(dat.cor) # bassing's prof's code to handle factors
-chart.Correlation(dat.cor) 
 # correlation coefficients > 0.6
   ## 0.91 spring precip & growing season precip
   ## 0.80 ndvi_ti & ndvi_amp

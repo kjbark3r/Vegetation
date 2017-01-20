@@ -577,6 +577,13 @@ summary(em$DE); summary(emff$DE)
 t.test(em$DE, emff$DE, alternative="greater")
 # significant difference. checking whether changes mignute stuff.
 
+
+#######################
+## checking how multiple phenophases handled in de code ####
+test <- phenospp.quadrat %>%
+  mutate(totcov = EM.cov+FL.cov+FR.cov+MS.cov+SE.cov)
+# all sum to 1, excellent
+
 ################
 ## CUT CODE ####
 ################
