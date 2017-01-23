@@ -115,6 +115,7 @@ ref.lev <- dat %>%
   ungroup() 
 ref.lev # so reference level is landcover type with lowest DE
 dat$landcov <- factor(dat$landcov, levels = as.vector(ref.lev$landcov))
+write.csv(ref.lev, file = "de-by-landcover.csv", row.names=F)
 
 # look at distribution of response
 hist(dat$DE, breaks = 100) #normal enough
