@@ -1199,3 +1199,13 @@ biomass.forage$NameScientific <- as.character(biomass.forage$NameScientific) #ad
 biomass.forage$Genus <- sapply(strsplit(biomass.forage$NameScientific, " "), "[", 1)
 biomass.forage <- semi_join(biomass.forage, forage, by = "Genus") #forage plants only
 biomass.forage <- summarise(group_by(biomass.forage, PlotVisit), grams = sum(ClipGrams)*1.33333)
+
+
+#########################################
+## looking at summer diet  ####
+## wondering about relative importance of shrubs #
+setwd("C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation")
+nom <- read.csv("NS_foragespecies_summer.csv")
+View(nom)
+# yeah, no, shrubs aren't that important
+

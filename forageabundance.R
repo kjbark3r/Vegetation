@@ -364,9 +364,10 @@ b.plot.summ <- b.plot.summ %>%
 b.plot.summ <- b.plot.summ[!duplicated(b.plot.summ$PlotYear),] 
 write.csv(b.plot.summ, file = "biomass-plot-summeronly.csv", row.names=FALSE)
 
-# export summer de data as shapefile
-#BUT FIRST, put R back in 64-bit or writeOGR won't work
-#so you have to re-read in the data
+# export abundance data as shapefile
+#BUT writeOGR requires 64-bit, of course
+#so change from 32 to 64, reopen rstudio, and re-read in the data
+#because R hates you
 b.plot.summ <- read.csv("biomass-plot-summeronly.csv")
 latlong = CRS("+init=epsg:4326") # define projection
 xy <- data.frame("x"=b.plot.summ$Longitude,"y"=b.plot.summ$Latitude)

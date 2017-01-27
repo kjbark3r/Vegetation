@@ -127,29 +127,30 @@ writeRaster(de2013, names(de2013), bylayer = TRUE,
 #### Compare ####
 #################
 
-# view with 2014 and 2015
+# read in data
 de13 <- raster("DE2013.tif")
 de14 <- raster("DE2014.tif")
 de15 <- raster("DE2015.tif")
+
+# view years side by side
 par(mfrow=c(1,3))
 plot(de13, main = "2013")
 plot(de14, main = "2014")
 plot(de15, main = "2015")
 #look super similar, good. 
 
+# t-tests
 t.test(de13, de14, alternative = "two.sided")
 t.test(de14, de15, alternative = "two.sided")
 t.test(de13, de15, alternative = "two.sided")
+#all significant
 #2013/2014 diff < 2014/2015 diff
 
-summary(de13); 
-
+# means and sds
 cellStats(de13, stat='mean') 
-cellStats(de13, stat='sd')
-
+  cellStats(de13, stat='sd')
 cellStats(de14, stat='mean') 
-cellStats(de14, stat='sd')
-
+  cellStats(de14, stat='sd')
 cellStats(de15, stat='mean') 
-cellStats(de15, stat='sd')
+  cellStats(de15, stat='sd')
 par(mfrow=c(1,2)); boxplot(de13); boxplot(de14)
