@@ -304,18 +304,22 @@ write.csv(de.plot, file = "de-plot-allvisits.csv", row.names = FALSE)
 
 
 # subset only jul/aug data; only use first visit of phenology plots
-## summer = jul1 - aug31 (same as dates used to create summer KDEs to calc VI)
+## summer = jul15 - aug31 (biomass sampling timeperiod)
 de.plot.summ <- de.plot
 de.plot.summ$Date <- as.Date(de.plot.summ$Date)
 de.plot.summ <- de.plot.summ %>%
-  subset(Date >= "2014-07-01" & Date <= "2014-08-31" | 
-         Date >= "2015-07-01" & Date <= "2015-08-31") %>%
+  subset(Date >= "2014-07-15" & Date <= "2014-08-31" | 
+         Date >= "2015-07-15" & Date <= "2015-08-31") %>%
   mutate(PlotYear = paste(PlotID, ".", format(Date, '%Y'), sep=""))
 de.plot.summ <- de.plot.summ[!duplicated(de.plot.summ$PlotYear),] 
 write.csv(de.plot.summ, file = "de-plot-summeronly.csv", row.names=FALSE)
 
 # export summer de data as shapefile
 latlong = CRS("+init=epsg:4326") # define projection
+# below line re-reads in above data in order to make shapefile
+# because writeOGR doesn't work in 32-bit and previous code
+# had to be run in 32-bit.
+#de.plot.summ <- read.csv("de-plot-summeronly.csv")
 xy <- data.frame("x"=de.plot.summ$Longitude,"y"=de.plot.summ$Latitude)
 ll <- SpatialPointsDataFrame(xy, de.plot.summ, proj4string = latlong)
 writeOGR(ll, dsn = ".", layer="de-plot-summer", driver="ESRI Shapefile",
