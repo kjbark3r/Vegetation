@@ -43,7 +43,7 @@ plots <- readOGR(".", layer ='de-plot-summer')
 
 #all rasters for covariates
 raster_data <- list.files(
-  path=paste(wd, "writtenrasters/uncropped", sep="/"), 
+  path=paste(wd, "writtenrasters/orig", sep="/"), 
   pattern="tif$", 
   full.names=TRUE) 
 s <- stack(raster_data) 

@@ -93,7 +93,7 @@ classn$LifeForm <- ifelse(grepl(' GRASS| JUNCACEAE|CARE ', classn$Species), "gra
 #### NORTH SAPPHIRE SUMMER FORAGE PLANTS ####
 ## retain species that make up 95% of diet
 forage <- read.csv("NS_foragespecies_summer.csv") %>%
-  filter(cumave < 95) %>%
+  filter(cumave < 96) %>%
   mutate(Genus2 = trimws(gsub(' leaf| stem', '', SpeciesName))) %>%
   rename("Species"=SpeciesName)
 forage <- forage[!duplicated(forage$Genus2),] # remove duplicates
@@ -197,6 +197,54 @@ DE.cls <- DE.data %>%
          MS.cls.de=mature, 
          SE.cls.de=cured)
 
+################
+#### Summer NSERP-specific summaries of the above
+
+# DE per species
+DE.spp.NS <- DE.data %>%
+  subset(StudyArea == "NS") %>%
+  group_by(PlantCode, Stage) %>%
+  summarize(meanDE = mean(DE)) %>%
+  spread(Stage, meanDE) %>%
+  rename(EM.de=emergent, 
+         FL.de=flowering, 
+         FR.de=fruiting, 
+         SE.de=cured)
+
+# DE per genus
+DE.gns.NS <- DE.data %>%
+  subset(StudyArea == "NS") %>%
+  mutate(NameGenus = paste(NameGenus, "sp", sep=" ")) %>%
+  group_by(NameGenus, Stage) %>%
+  summarize(meanDE = mean(DE)) %>%
+  spread(Stage, meanDE) %>%
+  rename(EM.gns.de=emergent, 
+         FL.gns.de=flowering, 
+         FR.gns.de=fruiting, 
+         SE.gns.de=cured)
+
+# DE per class
+DE.cls.NS <- DE.data %>%
+  subset(StudyArea == "NS") %>%
+  group_by(Class, Stage) %>%
+  summarize(meanDE = mean(DE)) %>%
+  spread(Stage, meanDE) %>%
+  rename(EM.cls.de=emergent, 
+         FL.cls.de=flowering, 
+         FR.cls.de=fruiting,
+         SE.cls.de=cured)
+# prep and export this one for manu/presn graphs
+DE.cls.exp <- DE.cls.NS %>%
+  filter(Class == "forb" |
+           Class == "graminoid" |
+           Class == "shrub") %>%
+  rename(DEemerg = EM.cls.de,
+         DEflwr = FL.cls.de,
+         DEfrt = FR.cls.de,
+         DEcure = SE.cls.de)
+write.csv(DE.cls.exp, file = "DE-bylifeform.csv", row.names=F)
+
+
 
 ################
 #### DE for SUMMER FORAGE SPECIES ####
@@ -264,9 +312,10 @@ write.csv(de.phenospp.quadrat, "sapp_phenology_byforagessp_perquadrat.csv")
 spp.summary.NS <- de.phenospp.quadrat %>%
   select(PlotVisit, QuadratVisit, Species, LifeForm, RescaledCover, DE) %>%
   ungroup() %>%
-  group_by(PlotVisit, Species) %>%
+  group_by(Species) %>%
   summarise(mean=mean(DE)) %>%
-  mutate(area="NS")
+  ungroup()
+write.csv(spp.summary.NS, file = "DE-byspecies.csv", row.names=F)
 
 # forage quality per quadrat, per m2
 de.quadrat <- de.phenospp.quadrat %>%
@@ -292,6 +341,8 @@ classn.add <- classn %>%
 classn.add <- classn.add[!classn.add$PlotVisit %in% de.plot$PlotVisit,] # these are plots with no forage species
 de.plot <- bind_rows(de.plot, classn.add)
 length(unique(de.plot$PlotVisit)) # 657 total plots
+write.csv(de.plot, file="DE-byplot.csv", row.names=F)
+
 
 # add Lat/Long from PlotInfo
 plotinfo <- sqlQuery(channel, paste("select PlotID, Date, Latitude, Longitude from PlotInfo"))
@@ -317,8 +368,8 @@ write.csv(de.plot.summ, file = "de-plot-summeronly.csv", row.names=FALSE)
 # export summer de data as shapefile
 latlong = CRS("+init=epsg:4326") # define projection
 # below line re-reads in above data in order to make shapefile
-# because writeOGR doesn't work in 32-bit and previous code
-# had to be run in 32-bit.
+    # because writeOGR doesn't work in 32-bit and previous code
+    # had to be run in 32-bit.
 #de.plot.summ <- read.csv("de-plot-summeronly.csv")
 xy <- data.frame("x"=de.plot.summ$Longitude,"y"=de.plot.summ$Latitude)
 ll <- SpatialPointsDataFrame(xy, de.plot.summ, proj4string = latlong)
