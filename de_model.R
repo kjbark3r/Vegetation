@@ -43,7 +43,7 @@ plots <- readOGR(".", layer ='de-plot-summer')
 
 #all rasters for covariates
 raster_data <- list.files(
-  path=paste(wd, "writtenrasters/orig", sep="/"), 
+  path=paste(wd, "writtenrasters/uncropped", sep="/"), 
   pattern="tif$", 
   full.names=TRUE) 
 s <- stack(raster_data) 
@@ -239,16 +239,16 @@ predfun <- function(model, data) {
 # predict 2014 rasters of DE and StdError (indices 1 and 2, respectively)
 de2014 <- predict(stack.14, de.pred, fun=predfun, index=1:2, progress="text")
 names(de2014) <- c("DE2014","StdErr14") 
-plot(de2014) # plot both
+#plot(de2014) # plot both
 plot(de2014[["DE2014"]]) # plot one at a time
-plot(de2014[["StdErr14"]])
+#plot(de2014[["StdErr14"]])
 
 # predict 2015 rasters of DE and StdError (indices 1 and 2, respectively)
 de2015 <- predict(stack.15, de.pred, fun=predfun, index=1:2, progress="text")
 names(de2015) <- c("DE2015","StdErr15") 
-plot(de2015) # plot both
+#plot(de2015) # plot both
 plot(de2015[["DE2015"]]) # plot one at a time
-plot(de2015[["StdErr15"]])
+#plot(de2015[["StdErr15"]])
 
 # export DE rasters
 writeRaster(de2014, names(de2014), bylayer = TRUE, 
