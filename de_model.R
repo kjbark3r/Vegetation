@@ -110,8 +110,8 @@ dat <- read.csv("DE-model-data.csv")
 ref.lev <- dat %>%
   dplyr::select(c(landcov, class_name, DE)) %>%
   group_by(class_name, landcov) %>%
-  summarise(AvgDE = mean(DE)) %>%
-  arrange(AvgDE) %>% ## Order from least to most forb GDM 
+  summarise(MedianDE = median(DE)) %>%
+  arrange(MedianDE) %>% ## Order from least to most forb GDM 
   ungroup() 
 ref.lev # so reference level is landcover type with lowest DE
 dat$landcov <- factor(dat$landcov, levels = as.vector(ref.lev$landcov))
@@ -260,6 +260,46 @@ writeRaster(de2015, names(de2015), bylayer = TRUE,
 ##########################
 ### DELETED/MISC CODE ####
 ##########################
+
+########################
+# creating barplot of nutrition per landcover
+library(ggplot2)
+
+plotdat <- ref.lev %>%
+  rename(Landcover = class_name) %>%
+  transform(Landcover = ifelse(Landcover == "Irrigated Ag",
+                             "Irrigated Agricultural Land", 
+                             ifelse(Landcover == "Rx Dry Forest Burn 0-5",
+                                    "Dry Forest - recent prescribed burn",
+                             ifelse(Landcover == "Dry Forest Burn 0-5",
+                                    "Dry Forest - recent wildfire",
+                             ifelse(Landcover == "Dry Ag",
+                                    "Non-irrigated Agricultural Land",
+                             ifelse(Landcover == "Mesic Forest Burn 0-5",
+                                    "Wet Forest - recent wildfire",
+                             ifelse(Landcover == "Mesic Forest Burn 6-15",
+                                    "Wet Forest - mid-successional",
+                             ifelse(Landcover == "Dry Forest Burn 6-15",
+                                   "Dry Forest - mid-successional",
+                             ifelse(Landcover == "Mesic Forest (Burn >15)",
+                                    "Wet forest - late successional",
+                             ifelse(Landcover == "Dry Forest (Burn >15)",
+                                    "Dry Forest - late successional",
+                                    paste(Landcover))))))))))) %>%
+  transform(Landcover = factor(Landcover,
+              levels = (Landcover[order(MedianDE)])))
+
+ggplot(data=plotdat, aes(x=Landcover, y=MedianDE)) +
+  geom_bar(stat="identity", colour="black", 
+           fill="darkgreen", width=.7) +
+  geom_hline(yintercept=c(2.9, 2.75, 2.4), 
+             colour = "coral4", size = 1) +
+  coord_flip() +
+  labs(x = "", y = expression(paste(
+            "Forage Quality (kcal / ", 
+             m^2, ")", sep="")))
+
+
 
 ########################
 # i also tried reducing number of landcover types

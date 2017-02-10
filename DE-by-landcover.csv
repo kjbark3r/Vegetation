@@ -1,13 +1,13 @@
-"class_name","landcov","AvgDE"
-"Mesic Forest (Burn >15)","1",2.33712738031268
-"Valley Bottom Riparian","5",2.65402712389676
-"Dry Forest Burn 6-15","9",2.74283870303755
-"Montane Riparian","6",2.77990176749252
-"Grass/Shrub/Open Woodland","3",2.79620411051611
-"Mesic Forest Burn 6-15","11",2.79914101397918
-"Mesic Forest Burn 0-5","10",2.83893358673765
-"Dry Forest (Burn >15)","2",2.84809781315935
-"Dry Ag","4",2.88006707389423
-"Dry Forest Burn 0-5","8",2.91957766665311
-"Rx Dry Forest Burn 0-5","12",2.96395561729047
-"Irrigated Ag","7",3.12448842603543
+"class_name","landcov","MedianDE"
+"Mesic Forest (Burn >15)",1,2.29607083697025
+"Dry Forest Burn 6-15",9,2.79277491413171
+"Mesic Forest Burn 6-15",11,2.84881189073611
+"Dry Ag",4,2.84976052270665
+"Mesic Forest Burn 0-5",10,2.85385335244531
+"Grass/Shrub/Open Woodland",3,2.8771973552108
+"Montane Riparian",6,2.90433374378068
+"Dry Forest (Burn >15)",2,2.976368153809
+"Rx Dry Forest Burn 0-5",12,2.98494149456587
+"Valley Bottom Riparian",5,2.99029651632377
+"Dry Forest Burn 0-5",8,2.99181390396846
+"Irrigated Ag",7,3.15440643151023
