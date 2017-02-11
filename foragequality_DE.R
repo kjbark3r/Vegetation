@@ -222,6 +222,7 @@ DE.gns.NS <- DE.data %>%
          FL.gns.de=flowering, 
          FR.gns.de=fruiting, 
          SE.gns.de=cured)
+write.csv(DE.gns.NS, file = "de-bygenus.csv")
 
 # DE per class
 DE.cls.NS <- DE.data %>%
