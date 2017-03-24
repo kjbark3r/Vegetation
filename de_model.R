@@ -205,6 +205,16 @@ summary(lm(DE ~ elev_std + landcov + radn_std + ndvi_amp_std +
 summary(lm(DE ~ elev_std + I(elev_std^2) + landcov + radn_std + ndvi_amp_std + 
     precip_std + slope_std, data = dat))
 
+# summary info for reporting
+topmod <- lm(DE ~ elev_std + landcov + radn_std + ndvi_amp_std + 
+           precip_std + slope_std, data = dat)
+coefs <- data.frame(summary(topmod)$coefficients[,1:2])
+coefs$Coeff <- rownames(coefs)
+lcs <- ref.lev %>%
+  mutate(Coeff = paste("landcov", landcov, sep="")) %>%
+  select(c(class_name, Coeff))
+coefs <- left_join(coefs, lcs, by = "Coeff") %>%
+  mutate(class_name = ifelse(is.na(class_name), Coeff, class_name))
 
 ##############################
 #### PREDICTIVE DE RASTER ####
