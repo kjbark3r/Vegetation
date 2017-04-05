@@ -213,8 +213,8 @@ coefs$Coeff <- rownames(coefs)
 lcs <- ref.lev %>%
   mutate(Coeff = paste("landcov", landcov, sep="")) %>%
   select(c(class_name, Coeff))
-coefs <- left_join(coefs, lcs, by = "Coeff") %>%
-  mutate(class_name = ifelse(is.na(class_name), Coeff, class_name))
+coefs <- left_join(coefs, lcs, by = "Coeff") 
+write.csv(coefs, file = "topmodelcoeffs.csv", row.names=F)
 
 ##############################
 #### PREDICTIVE DE RASTER ####
