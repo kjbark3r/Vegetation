@@ -22,13 +22,14 @@
 
 wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Vegetation"
 wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Vegetation"
+wd_worklaptop <- "C:\\Users\\kristin\\Documents\\Vegetation"
 if (file.exists(wd_workcomp)) {
   setwd(wd_workcomp)
 } else {
   if(file.exists(wd_laptop)) {
     setwd(wd_laptop)
   } else {
-        cat("Are you SURE you got that file path right?\n")
+        setwd(wd_worklaptop)
       }
     }
 
@@ -56,11 +57,18 @@ library(readr)
         channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
                                  dbq=C:/Users/kjbark3r/Documents/NSERP/Databases/ForagePlantDatabase.accdb")
      } else {
-        cat("Are you SURE you got that file path right?\n")
+        if(file.exists(wd_worklaptop)) {
+        channel <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+                                     dbq=C:/Users/kristin/Documents/DatabasesEtc/SapphireElkProject_VegetationDatabase.accdb")
+        channel.DMD <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+                                 dbq=C:/Users/kristin/Documents/DatabasesEtc/ForagePlantDatabase.accdb")
+		channel.sbroot <-  odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+                                 dbq=C:/Users/kristin/Documents/DatabasesEtc/SBrootVegData.accdb")
       }
-          }
-rm(wd_workcomp, wd_laptop)
-
+     }
+     }
+rm(wd_workcomp, wd_laptop, wd_worklaptop)
+		  
 #### ~~~~~ SAPPHIRE DATA ~~~~~~ ####
 
 # SPECIES NAMES AND LIFE FORMS
@@ -610,8 +618,8 @@ forage.quadrat <- forage.quadrat %>%
   ungroup() %>%
   mutate(RescaledCover = Total/Cover)
 
-length(unique(classn$PlotID)) # 560 total plots
-length(unique(forage.quadrat$PlotID)) # 233 total plots w/ summer forage; 227 plots w/ winter forage
+length(unique(classn$PlotID)) # 233 total plots
+length(unique(forage.quadrat$PlotID)) # 233 total plots w/ summer forage
 
 #### PHENOLOGY & DIGESTIBILITY ####
 
@@ -637,7 +645,7 @@ phenology.data$Species[phenology.data$Species=="Salix spp."] <- "Salix sp"
 
 phenology.data <- phenology.data %>%
   mutate(Species2 = Species) %>%
-  separate(Species2, c("NameGenus","NameSpecies"), "\\s+", extra="drop") %>% # ignore "too few values" warning
+  separate(Species2, c("NameGenus","NameSpecies"), "\\s+", extra="drop") %>% # ignore "too few values" warning # thx jesse :)
   mutate(NameGenus = paste(NameGenus, "sp", sep=" ")) %>%
   left_join(forage, by="Species") %>% # joining to forage simply to acquire class/lifeform
   left_join(forage, by=c("NameGenus"="Species")) %>%
