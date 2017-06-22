@@ -783,7 +783,7 @@ de.phenospp.quadrat <- phenospp.quadrat %>%
          MS.de = MS.cov*MS.de,
          SE.de = SE.cov*SE.de,
          DE = EM.de + FL.de + FR.de + MS.de + SE.de)    # calculate average forage quality per species per quadrat
-#write.csv(de.phenospp.quadrat, "broot_phenology_byforagespecies_perquadrat.csv")
+write.csv(de.phenospp.quadrat, "broot_phenology_byforagespecies_perquadrat.csv")
 
 # THIS SECTION FOR SUMMARIZING DE BY IMPORTANT FORAGE SPECIES (to be joined with NS data and summarized)
 spp.summary.SB <- de.phenospp.quadrat %>%
@@ -829,6 +829,7 @@ de.plot <- de.plot %>%
          Date = format(Date, "%m/%d/%Y"))
 
 de.plot.broot.SUM <- de.plot
+write.csv(de.plot, file = "broot_DE_data.csv", row.names = FALSE)
 
 
 
@@ -900,6 +901,9 @@ write.csv(de.data, file = "broot_DE_data.csv", row.names = FALSE)
 #### ~~~~~~~~~ Join & Export NSAPP & SBROOT -- SUMMER & WINTER DM data ~~~~~~~~~~~ ####
 sapp.de.data <- read.csv("sapp_DE_data.csv")
 broot.de.data <- read.csv("broot_DE_data.csv")
+
+broot.de.data <- broot.de.data %>%
+  select(colnames(sapp.de.data)) # make sure columns match before bindrows
 
 sapp.de.data$PlotID <- as.character(sapp.de.data$PlotID)
 
